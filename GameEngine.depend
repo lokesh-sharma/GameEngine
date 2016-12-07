@@ -1,0 +1,119 @@
+# depslib dependency file v1.0
+1481118913 source:/home/loki/gl/GameEngine/main.cpp
+	<iostream>
+	<SDL2/SDL.h>
+	"./include/display.h"
+	"./include/mesh.h"
+	"./include/shader.h"
+	"./include/texture.h"
+	"./include/transform.h"
+	"./include/camera.h"
+	"./include/InputHandler.h"
+
+1476877830 /home/loki/gl/GameEngine/include/display.h
+	<string>
+	<SDL2/SDL.h>
+	"camera.h"
+	"transform.h"
+
+1480138822 /home/loki/gl/GameEngine/include/camera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+
+1481118273 /home/loki/gl/GameEngine/include/transform.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	"camera.h"
+
+1481127142 /home/loki/gl/GameEngine/include/mesh.h
+	<GL/glew.h>
+	<glm/glm.hpp>
+	<string>
+	<vector>
+
+1418909075 /home/loki/gl/GameEngine/include/obj_loader.h
+	<glm/glm.hpp>
+	<vector>
+	<string>
+
+1481118282 /home/loki/gl/GameEngine/include/shader.h
+	<string>
+	<GL/glew.h>
+	"transform.h"
+
+1418909075 /home/loki/gl/GameEngine/include/texture.h
+	<string>
+	<GL/glew.h>
+
+1477129724 /home/loki/gl/GameEngine/include/InputHandler.h
+	<SDL2/SDL.h>
+	<vector>
+	"display.h"
+	<glm/glm.hpp>
+
+1481118337 source:/home/loki/gl/GameEngine/src/display.cpp
+	"../include/display.h"
+	<GL/glew.h>
+	<iostream>
+	"../include/InputHandler.h"
+	"../include/transform.h"
+
+1481118354 source:/home/loki/gl/GameEngine/src/InputHandler.cpp
+	"../include/InputHandler.h"
+	"../include/display.h"
+	<iostream>
+
+1481127014 source:/home/loki/gl/GameEngine/src/mesh.cpp
+	"../include/mesh.h"
+	<map>
+	<algorithm>
+	<fstream>
+	<iostream>
+	<stdlib.h>
+	"../include/obj_loader.h"
+	"../include/ObjLoader.h"
+
+1481118552 source:/home/loki/gl/GameEngine/src/obj_loader.cpp
+	"../include/obj_loader.h"
+	<fstream>
+	<iostream>
+	<algorithm>
+	<map>
+
+1481118569 source:/home/loki/gl/GameEngine/src/shader.cpp
+	"../include/shader.h"
+	<iostream>
+	<fstream>
+
+1481118643 source:/home/loki/gl/GameEngine/src/texture.cpp
+	"../include/texture.h"
+	"../include/stb_image.h"
+	<iostream>
+
+1480326553 /home/loki/gl/GameEngine/include/stb_image.h
+	"stb_image.h"
+	<stdio.h>
+	<stdarg.h>
+	<stddef.h>
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<stdio.h>
+	<assert.h>
+	<stdint.h>
+	<emmintrin.h>
+	<intrin.h>
+	<arm_neon.h>
+
+1480130299 /home/loki/gl/GameEngine/include/ObjLoader.h
+	<vector>
+	<glm/glm.hpp>
+
+1481127093 source:/home/loki/gl/GameEngine/src/ObjLoader.cpp
+	<stdlib.h>
+	<stdio.h>
+	<vector>
+	<cstring>
+	<iostream>
+	"../include/ObjLoader.h"
+

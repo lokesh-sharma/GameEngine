@@ -21,10 +21,24 @@ Shader::Shader(const std::string& fileName)
 	glValidateProgram(m_program);
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Invalid shader program");
 
-	m_uniforms[0] = glGetUniformLocation(m_program, "MVP");
-	m_uniforms[1] = glGetUniformLocation(m_program, "Normal");
-	m_uniforms[2] = glGetUniformLocation(m_program, "MaterialAmbientColor");
-	m_uniforms[3] = glGetUniformLocation(m_program , "eyePos");
+	m_uniforms["MVP"] = glGetUniformLocation(m_program, "MVP");
+	m_uniforms["Normal"] = glGetUniformLocation(m_program, "Normal");
+	m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
+	m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+	m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
+	m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
+
+    for(int i = 0 ; i< NUM_POINT_LIGHTS ; i++)
+    {
+        std::string light = "pointLights[" + std::to_string(i) + "]";
+        m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
+        m_uniforms[light + ".base.intensity"] = glGetUniformLocation(m_program ,(light+".base.intensity").c_str());
+        m_uniforms[light + ".position"] = glGetUniformLocation(m_program ,(light+".position").c_str());
+        m_uniforms[light + ".atten.constant"] = glGetUniformLocation(m_program ,(light+".atten.constant").c_str());
+        m_uniforms[light + ".atten.linear"] = glGetUniformLocation(m_program ,(light+".atten.linear").c_str());
+        m_uniforms[light + ".atten.exponent"] = glGetUniformLocation(m_program ,(light+".atten.exponent").c_str());
+        m_uniforms[light + ".range"] = glGetUniformLocation(m_program ,(light+".range").c_str());
+    }
 }
 
 Shader::~Shader()
@@ -48,9 +62,41 @@ void Shader::Update(const Transform& transform, const Camera& camera)
 	glm::mat4 MVP = transform.GetMVP(camera);
 	glm::mat4 Normal = transform.GetModel();
 
-	glUniformMatrix4fv(m_uniforms[0], 1, GL_FALSE, &MVP[0][0]);
-	glUniformMatrix4fv(m_uniforms[1], 1, GL_FALSE, &Normal[0][0]);
-	glUniform4f(m_uniforms[2], 0.1f, 0.1f, 0.1f , 1.0f);
+	setUniformMatrix4f("MVP" , &MVP[0][0]);
+	setUniformMatrix4f("Normal" , &Normal[0][0]);
+
+	setUniform1f("specularPower" , 5);
+	setUniform1f("specularIntensity" , 8);
+
+    PointLight p1[2] = { PointLight(glm::vec3(1.0f , 0.0f , 0.0f) , 5.0f ,
+	glm::vec3(0.0f , 6.0f , 2.0f)) ,  PointLight(glm::vec3(0.0f , 1.0f , 0.0f) , 5.0f ,
+	glm::vec3(0.0f , 6.0f , 2.0f))};
+
+
+    setUniformPointLights(p1 , 2);
+
+	setUniformVector4f("MaterialAmbientColor" , 0.1f , 0.1f , 0.1f , 1.0f);
+}
+void Shader::setUniformPointLights(PointLight* pArray , int n)
+{
+    for(int i = 0 ;i< n ; i++)
+    {
+        std::string light = "pointLights[" + std::to_string(i) + "]";
+        glm::vec3 color = pArray[i].getColor();
+        glm::vec3 pos = pArray[i].getPosition();
+        float intensity = pArray[i].getIntensity();
+        float range = pArray[i].getRange();
+        Attenuation att = pArray[i].getAttenuation();
+
+        setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);
+        setUniform1f(light+".base.intensity" , intensity);
+        setUniform1f(light+".range" , range);
+        setUniform1f(light+".atten.constant" , att.getConstant());
+        setUniform1f(light+".atten.linear" , att.getLinear());
+        setUniform1f(light+".atten.exponent" , att.getExponent());
+        setUniformVector3f(light + ".position" , pos.x , pos.y , pos.z);
+
+    }
 }
 
 std::string Shader::LoadShader(const std::string& fileName)

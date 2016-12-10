@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1481118913 source:/home/loki/gl/GameEngine/main.cpp
+1481348374 source:/home/loki/gl/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	"./include/display.h"
@@ -36,10 +36,12 @@
 	<vector>
 	<string>
 
-1481118282 /home/loki/gl/GameEngine/include/shader.h
+1481350496 /home/loki/gl/GameEngine/include/shader.h
 	<string>
+	<map>
 	<GL/glew.h>
 	"transform.h"
+	"../include/Light.h"
 
 1418909075 /home/loki/gl/GameEngine/include/texture.h
 	<string>
@@ -63,14 +65,11 @@
 	"../include/display.h"
 	<iostream>
 
-1481127014 source:/home/loki/gl/GameEngine/src/mesh.cpp
+1481127292 source:/home/loki/gl/GameEngine/src/mesh.cpp
 	"../include/mesh.h"
-	<map>
-	<algorithm>
 	<fstream>
 	<iostream>
 	<stdlib.h>
-	"../include/obj_loader.h"
 	"../include/ObjLoader.h"
 
 1481118552 source:/home/loki/gl/GameEngine/src/obj_loader.cpp
@@ -80,7 +79,7 @@
 	<algorithm>
 	<map>
 
-1481118569 source:/home/loki/gl/GameEngine/src/shader.cpp
+1481351000 source:/home/loki/gl/GameEngine/src/shader.cpp
 	"../include/shader.h"
 	<iostream>
 	<fstream>
@@ -116,4 +115,10 @@
 	<cstring>
 	<iostream>
 	"../include/ObjLoader.h"
+
+1481267751 source:/home/loki/gl/GameEngine/src/Light.cpp
+	"Light.h"
+
+1481352542 /home/loki/gl/GameEngine/include/Light.h
+	<glm/glm.hpp>
 

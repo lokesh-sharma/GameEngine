@@ -51,44 +51,28 @@ void Display::SwapBuffers()
 {
 	SDL_GL_SwapWindow(m_window);
 }
-void Display::update(Transform& t)
+void Display::update(Camera& c)
 {
     TheInputHandler::getInstance()->update(*this);
 
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_ESCAPE))
         clean();
 
-    if(TheInputHandler::getInstance()->getMouseWheelState(UP))
-    {
-        t.GetPos().z -= 1;
-    }
-    if(TheInputHandler::getInstance()->getMouseWheelState(DOWN))
-    {
-        t.GetPos().z += 1;
-    }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_RIGHT))
-    {
-        t.GetRot().y += 10;
-    }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_LEFT))
-    {
-        t.GetRot().y -= 10;
-    }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_D))
     {
-        t.GetPos().x += 1;
+        c.moveSideways(0.5);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_A))
     {
-        t.GetPos().x -= 1;
+        c.moveSideways(-0.5);
     }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_UP))
+    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_W))
     {
-        t.GetPos().y -= 0.5;
+        c.moveforwardBack(0.5);
     }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_DOWN))
+    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_S))
     {
-        t.GetPos().y += 0.5;
+        c.moveforwardBack(-0.5);
     }
 }
 

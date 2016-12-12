@@ -65,7 +65,7 @@ void Shader::Update(const Transform& transform, const Camera& camera)
 	setUniformMatrix4f("MVP" , &MVP[0][0]);
 	setUniformMatrix4f("Normal" , &Normal[0][0]);
 
-	setUniform1f("specularPower" , 21);
+	setUniform1f("specularPower" , 2);
 	setUniform1f("specularIntensity" , 10);
 
     PointLight p1[2] = { PointLight(glm::vec3(1.0f , 1.0f , 1.0f) , 5.0f ,

@@ -79,7 +79,7 @@ void main()
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
 	
 	int i;
-	for(i = 0 ;i< 1 ; i++){	
+	for(i = 0 ;i< 4 ; i++){	
 	
 	vec3 lightDirection = worldPos0 - pointLights[i].position;
 	float distanceToPoint = length(lightDirection);

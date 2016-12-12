@@ -77,7 +77,7 @@ void main()
 
 	vec4 tspec = vec4(0.0,0.0,0.0,1.0);
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
-	/*
+	
 	int i;
 	for(i = 0 ;i< 1 ; i++){	
 	
@@ -92,7 +92,7 @@ void main()
 		tdiff += dcolor/attenu;
 		}
 	
-	}*/
+	}
 	/*DirectionalLight d1;
 	d1.base = pointLights[0].base;
 	d1.direction = vec3(0.0 , 0.0 , -1.0f); 

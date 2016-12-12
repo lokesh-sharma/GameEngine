@@ -16,6 +16,7 @@ int main(int argc, char** argv)
 {
 	Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "OpenGL");
 	Mesh monkey("./res/Buddha.obj");
+	Mesh monkey2("./res/plane.obj");
 
 	Vertex vertices[3] = { Vertex(glm::vec3(0.0 , 1.0 , 0.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
 	                     , Vertex(glm::vec3(1.0 , 0.0 , 0.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
@@ -49,10 +50,10 @@ int main(int argc, char** argv)
 
 		shader.Bind();
         tex.Bind();
-
+        camera.update(TheInputHandler::getInstance()->getMousePos());
         monkey.Draw();
 		shader.Update(transform, camera);
-		display.update(transform);
+		display.update(camera);
 
 		display.SwapBuffers();
 

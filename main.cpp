@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 	Shader shader("./res/basicShader");
 	Texture tex("./res/sphere.png");
 	Transform transform;
-	Camera camera(glm::vec3(0.0f, 6.0f, -10.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);
+	Camera camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);
 
 	float counter = 0.0f;
     long framestart;
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 		glm::vec3 pos = camera.getPos();
 		glm::mat4 m = transform.GetModel();
 		glm::vec4 t = m * glm::vec4(pos , 1);
-		shader.setUniformVector3f("eyePos" , pos.x , pos.y , -pos.z);
+		shader.setUniformVector3f("eyePos" , pos.x , pos.y , pos.z);
 
 		shader.Bind();
         tex.Bind();

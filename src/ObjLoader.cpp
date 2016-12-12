@@ -24,8 +24,9 @@ ObjLoader::ObjLoader(const char* fileName,std::vector < glm::vec3 > & out_vertic
         {
             glm::vec3 vertex;
             fscanf(file , "%f %f %f\n" , &vertex.x , &vertex.y , &vertex.z);
-            vertex.x = -vertex.x;
-            vertex.z = - vertex.z;
+            //vertex.x = -vertex.x;
+            //vertex.z = - vertex.z;
+
             temp_vertices.push_back(vertex);
         }
         else if(strcmp(lineheader , "vt") == 0)

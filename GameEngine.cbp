@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -38,19 +40,19 @@
 			<Add library="GL" />
 		</Linker>
 		<Unit filename="include/InputHandler.h" />
+		<Unit filename="include/Light.h" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/display.h" />
 		<Unit filename="include/mesh.h" />
-		<Unit filename="include/obj_loader.h" />
 		<Unit filename="include/shader.h" />
 		<Unit filename="include/stb_image.h" />
 		<Unit filename="include/texture.h" />
 		<Unit filename="include/transform.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/InputHandler.cpp" />
+		<Unit filename="src/ObjLoader.cpp" />
 		<Unit filename="src/display.cpp" />
 		<Unit filename="src/mesh.cpp" />
-		<Unit filename="src/obj_loader.cpp" />
 		<Unit filename="src/shader.cpp" />
 		<Unit filename="src/texture.cpp" />
 		<Extensions>

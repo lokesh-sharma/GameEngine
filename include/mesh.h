@@ -38,13 +38,14 @@ class Mesh
 {
 public:
     Mesh(const std::string& fileName);
+    Mesh(Vertex* vertices, unsigned int numVertices);
 
 	void Draw();
 
 	virtual ~Mesh();
 protected:
 private:
-	static const unsigned int NUM_BUFFERS = 4;
+	static const unsigned int NUM_BUFFERS = 3;
 	void operator=(const Mesh& mesh) {}
 	Mesh(const Mesh& mesh) {}
 

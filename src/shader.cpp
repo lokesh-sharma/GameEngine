@@ -65,12 +65,12 @@ void Shader::Update(const Transform& transform, const Camera& camera)
 	setUniformMatrix4f("MVP" , &MVP[0][0]);
 	setUniformMatrix4f("Normal" , &Normal[0][0]);
 
-	setUniform1f("specularPower" , 5);
-	setUniform1f("specularIntensity" , 8);
+	setUniform1f("specularPower" , 2);
+	setUniform1f("specularIntensity" , 10);
 
-    PointLight p1[2] = { PointLight(glm::vec3(1.0f , 0.0f , 0.0f) , 5.0f ,
-	glm::vec3(0.0f , 6.0f , 2.0f)) ,  PointLight(glm::vec3(0.0f , 1.0f , 0.0f) , 5.0f ,
-	glm::vec3(0.0f , 6.0f , 2.0f))};
+    PointLight p1[2] = { PointLight(glm::vec3(1.0f , 1.0f , 1.0f) , 5.0f ,
+	glm::vec3(0.0f , 6.0f , 4.0f),0,0,1,20) ,  PointLight(glm::vec3(0.0f , 0.0f , 0.0f) , 5.0f ,
+	glm::vec3(2.0f , 6.0f , 2.0f))};
 
 
     setUniformPointLights(p1 , 2);
@@ -119,7 +119,6 @@ std::string Shader::LoadShader(const std::string& fileName)
     {
 		std::cerr << "Unable to load shader: " << fileName << std::endl;
     }
-
     return output;
 }
 

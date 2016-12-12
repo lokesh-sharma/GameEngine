@@ -77,23 +77,31 @@ void main()
 
 	vec4 tspec = vec4(0.0,0.0,0.0,1.0);
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
-
+	
 	int i;
-	for(i = 0 ;i< 4 ; i++){	
+	for(i = 0 ;i< 1 ; i++){	
 	
 	vec3 lightDirection = worldPos0 - pointLights[i].position;
 	float distanceToPoint = length(lightDirection);
 	lightDirection = normalize(lightDirection);
 	vec4 dcolor = calcLightDiffuse(pointLights[i].base , lightDirection , normal0);
 	float attenu = pointLights[i].atten.constant + pointLights[i].atten.linear*distanceToPoint
-		       + pointLights[i].atten.exponent*distanceToPoint*distanceToPoint + 0.001;
+		       + pointLights[i].atten.exponent*distanceToPoint*distanceToPoint + 0.01;
 	if(dcolor.w > 0 && pointLights[i].range > distanceToPoint){
 		tspec += calcLightSpec(pointLights[i].base , lightDirection , normal0)/attenu;
 		tdiff += dcolor/attenu;
 		}
 	
 	}
-	gl_FragColor = vec4(1.0 , 1.0 , 1.0 , 1.0)*(MaterialAmbientColor + tdiff) + tspec ;
+	/*DirectionalLight d1;
+	d1.base = pointLights[0].base;
+	d1.direction = vec3(0.0 , 0.0 , -1.0f); 
+	tdiff = calcLightDirectionalDiffuse(d1 , normal0);
+	if(tdiff.w > 0)
+	tspec = calcLightDirectionalSpec(d1 , normal0);*/
+	
+	gl_FragColor = vec4(1.0 , 0.0 , 0.0 , 1.0)*(MaterialAmbientColor + tdiff) + tspec;
+	
 	//texture2D(sampler, texCoord0.xy)
 		
 }

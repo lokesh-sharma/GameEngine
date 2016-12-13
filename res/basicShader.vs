@@ -1,8 +1,8 @@
 #version 420
 
-attribute vec3 position;
-attribute vec2 texCoord;
-attribute vec3 normal;
+in vec3 position;
+in vec2 texCoord;
+in vec3 normal;
 
 
 out vec2 texCoord0;

@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 		shader.Bind();
         tex.Bind();
         camera.update(TheInputHandler::getInstance()->getMousePos());
-        monkey.Draw();
+        monkey2.Draw();
 		shader.Update(transform, camera);
 		display.update(camera);
 

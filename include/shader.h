@@ -32,6 +32,7 @@ public:
         glUniform1f(m_uniforms[uName], x);
 	}
 	void setUniformPointLights(PointLight* pArray , int n);
+	void setUniformSpotLights(SpotLight* sArray , int n);
 
 	virtual ~Shader();
 protected:
@@ -45,6 +46,7 @@ private:
 	GLuint CreateShader(const std::string& text, unsigned int type);
 
     static const unsigned int NUM_POINT_LIGHTS = 4;
+    static const unsigned int NUM_SPOT_LIGHTS = 4;
 	GLuint m_program;
 	GLuint m_shaders[NUM_SHADERS];
 	std::map<std::string , GLuint> m_uniforms;

@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1481541081 source:/home/loki/gl/GameEngine/main.cpp
+1481551733 source:/home/loki/gl/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -39,7 +39,7 @@
 	<vector>
 	<string>
 
-1481358571 /home/loki/gl/GameEngine/include/shader.h
+1481548436 /home/loki/gl/GameEngine/include/shader.h
 	<string>
 	<map>
 	<GL/glew.h>
@@ -82,7 +82,7 @@
 	<algorithm>
 	<map>
 
-1481541022 source:/home/loki/gl/GameEngine/src/shader.cpp
+1481609801 source:/home/loki/gl/GameEngine/src/shader.cpp
 	"../include/shader.h"
 	<iostream>
 	<fstream>
@@ -122,6 +122,6 @@
 1481267751 source:/home/loki/gl/GameEngine/src/Light.cpp
 	"Light.h"
 
-1481358571 /home/loki/gl/GameEngine/include/Light.h
+1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 

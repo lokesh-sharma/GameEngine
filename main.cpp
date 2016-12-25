@@ -8,9 +8,11 @@
 #include "./include/transform.h"
 #include "./include/camera.h"
 #include"./include/InputHandler.h"
+#include"MeshRenderer.h"
+#include"GameObject.h"
 
-static const int DISPLAY_WIDTH = 800;
-static const int DISPLAY_HEIGHT = 600;
+const int DISPLAY_WIDTH = 800;
+const int DISPLAY_HEIGHT = 600;
 
 int main(int argc, char** argv)
 {
@@ -30,11 +32,13 @@ int main(int argc, char** argv)
     Mesh one(vertices , 3);
     Mesh two(vertices2,3);
 
-	Shader shader("./res/basicShader");
+	PhongShader shader("./res/basicShader");
 	Texture tex("./res/sphere.png");
 	Transform transform;
 	Camera camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);
-
+    MeshRenderer ren(&monkey2 , &tex);
+    GameObject g1;
+    g1.addComponent(&ren);
 	float counter = 0.0f;
     long framestart;
 	while(display.isRunning())
@@ -49,9 +53,12 @@ int main(int argc, char** argv)
 		shader.setUniformVector3f("eyePos" , pos.x , pos.y , pos.z);
 
 		shader.Bind();
-        tex.Bind();
+        //tex.Bind();
         camera.update(TheInputHandler::getInstance()->getMousePos());
-        monkey2.Draw();
+        //monkey2.Draw();
+        //ren.render();
+        g1.render();
+        g1.update();
 		shader.Update(transform, camera);
 		display.update(camera);
 

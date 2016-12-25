@@ -39,8 +39,19 @@
 			<Add library="GLEW" />
 			<Add library="GL" />
 		</Linker>
+		<Unit filename="include/Game.h" />
+		<Unit filename="include/GameComponent.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/GameObject.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/InputHandler.h" />
 		<Unit filename="include/Light.h" />
+		<Unit filename="include/MeshRenderer.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/TestGame.h" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/display.h" />
 		<Unit filename="include/mesh.h" />
@@ -49,8 +60,10 @@
 		<Unit filename="include/texture.h" />
 		<Unit filename="include/transform.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Game.cpp" />
 		<Unit filename="src/InputHandler.cpp" />
 		<Unit filename="src/ObjLoader.cpp" />
+		<Unit filename="src/TestGame.cpp" />
 		<Unit filename="src/display.cpp" />
 		<Unit filename="src/mesh.cpp" />
 		<Unit filename="src/shader.cpp" />

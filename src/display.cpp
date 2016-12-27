@@ -51,28 +51,12 @@ void Display::SwapBuffers()
 {
 	SDL_GL_SwapWindow(m_window);
 }
-void Display::update(Camera& c)
+void Display::update()
 {
     TheInputHandler::getInstance()->update(*this);
 
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_ESCAPE))
         clean();
 
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_D))
-    {
-        c.moveSideways(0.5);
-    }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_A))
-    {
-        c.moveSideways(-0.5);
-    }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_W))
-    {
-        c.moveforwardBack(0.5);
-    }
-    if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_S))
-    {
-        c.moveforwardBack(-0.5);
-    }
 }
 

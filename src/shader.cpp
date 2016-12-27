@@ -69,7 +69,7 @@ BasicShader::~BasicShader()
 	glDeleteProgram(m_program);
 }
 PhongShader::~PhongShader() {}
-void BasicShader::Bind()
+void BasicShader::Bind() const
 {
 	glUseProgram(m_program);
 }

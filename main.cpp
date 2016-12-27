@@ -9,7 +9,10 @@
 #include "./include/camera.h"
 #include"./include/InputHandler.h"
 #include"MeshRenderer.h"
+#include"RenderingEngine.h"
+#include"CoreEngine.h"
 #include"GameObject.h"
+#include"Game.h"
 
 const int DISPLAY_WIDTH = 800;
 const int DISPLAY_HEIGHT = 600;
@@ -20,49 +23,21 @@ int main(int argc, char** argv)
 	Mesh monkey("./res/Buddha.obj");
 	Mesh monkey2("./res/plane.obj");
 
-	Vertex vertices[3] = { Vertex(glm::vec3(0.0 , 1.0 , 0.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
-	                     , Vertex(glm::vec3(1.0 , 0.0 , 0.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
-	                      , Vertex(glm::vec3(-1.0 , 0.0 , 0.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
-                };
-    Vertex vertices2[3] = { Vertex(glm::vec3(0.0 , 1.0 , 1.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
-	                     , Vertex(glm::vec3(1.0 , 0.0 , 1.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
-	                      , Vertex(glm::vec3(-1.0 , 0.0 , 1.0) , glm::vec2(0,0) , glm::vec3(0,0,1))
-                };
 
-    Mesh one(vertices , 3);
-    Mesh two(vertices2,3);
+    GameObject* g1 = new GameObject;
+    g1->addComponent(new MeshRenderer(new Mesh("./res/plane.obj"),new Texture("./res/sphere.png")));
+    Game* game = new Game();
+    game->addToScene(g1);
 
-	PhongShader shader("./res/basicShader");
-	Texture tex("./res/sphere.png");
-	Transform transform;
-	Camera camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);
-    MeshRenderer ren(&monkey2 , &tex);
-    GameObject g1;
-    g1.addComponent(&ren);
+    CoreEngine core(&display , game , new RenderingEngine() );
+    core.start();
 	float counter = 0.0f;
     long framestart;
-	while(display.isRunning())
+	while(core.is_running())
 	{
         framestart = SDL_GetTicks();
-		//display.Clear(0.3f, 0.3f, 0.3f, 1.0f);
-		display.Clear(0.0f, 0.0f, 0.0f, 1.0f);
 
-		glm::vec3 pos = camera.getPos();
-		glm::mat4 m = transform.GetModel();
-		glm::vec4 t = m * glm::vec4(pos , 1);
-		shader.setUniformVector3f("eyePos" , pos.x , pos.y , pos.z);
-
-		shader.Bind();
-        //tex.Bind();
-        camera.update(TheInputHandler::getInstance()->getMousePos());
-        //monkey2.Draw();
-        //ren.render();
-        g1.render();
-        g1.update();
-		shader.Update(transform, camera);
-		display.update(camera);
-
-		display.SwapBuffers();
+        core.run();
 
 		TheInputHandler::getInstance()->resetStates();
 		long time = SDL_GetTicks() - framestart;

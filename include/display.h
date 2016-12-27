@@ -13,7 +13,7 @@ public:
 
 	void Clear(float r, float g, float b, float a);
 	void SwapBuffers();
-	void update(Camera& c);
+	void update();
     void clean();
     bool isRunning() { return m_running;}
 protected:

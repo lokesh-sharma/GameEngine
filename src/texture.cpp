@@ -5,7 +5,6 @@
 Texture::Texture(const std::string& fileName)
 {
 	int width, height, numComponents;
-    //unsigned char* data = stbi_load((fileName).c_str(), &width, &height, &numComponents, 4);
     unsigned char* data =stbi_load(fileName.c_str() , &width , &height , &numComponents , 4);
     stbi_set_flip_vertically_on_load(true);
 

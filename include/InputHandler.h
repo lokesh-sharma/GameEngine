@@ -2,8 +2,9 @@
 #define INPUTHANDLER_H
 #include<SDL2/SDL.h>
 #include<vector>
-#include"display.h"
 #include<glm/glm.hpp>
+
+class Display;
 
 enum mouse_buttons
 {

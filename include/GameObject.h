@@ -3,6 +3,7 @@
 
 #include<vector>
 #include"transform.h"
+#include"shader.h"
 #include"GameComponent.h"
 
 class GameObject
@@ -17,14 +18,14 @@ public:
         for(int i = 0 ; i< m_children.size() ;i++)
             m_children[i]->update();
         for(int i = 0 ; i< m_components.size() ;i++)
-            m_components[i]->update();
+            m_components[i]->update(trans);
     }
-    void render()
+    void render(const BasicShader& bs)
     {
         for(int i = 0 ; i< m_children.size() ;i++)
-            m_children[i]->render();
+            m_children[i]->render(bs);
          for(int i = 0 ; i< m_components.size() ;i++)
-            m_components[i]->render();
+            m_components[i]->render(trans,bs);
     }
     void addChild(GameObject* object)
     {

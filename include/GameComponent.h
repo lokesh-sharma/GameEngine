@@ -1,11 +1,13 @@
 #ifndef GAMECOMPONENT_H_INCLUDED
 #define GAMECOMPONENT_H_INCLUDED
 
+#include"transform.h"
+#include"shader.h"
 class GameComponent
 {
 public:
-    virtual void update()=0;
-    virtual void render()=0;
+    virtual void update(const Transform& t)=0;
+    virtual void render(const Transform& t,const BasicShader& bs)=0;
 };
 
 

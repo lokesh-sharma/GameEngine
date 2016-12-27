@@ -4,6 +4,7 @@
 #include"mesh.h"
 #include"texture.h"
 #include"GameComponent.h"
+#include"shader.h"
 
 class MeshRenderer: public GameComponent
 {
@@ -16,9 +17,12 @@ public:
         m_mesh = mesh;
         m_texture = texture;
     }
-    void update() {}
-    void render()
+    void update(const Transform& t)
     {
+    }
+    void render(const Transform& t,const BasicShader& bs)
+    {
+        bs.Bind();
         m_texture->Bind();
         m_mesh->Draw();
     }

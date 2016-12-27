@@ -12,7 +12,7 @@ class BasicShader
 {
 public:
     BasicShader(const std::string& fileName);
-	virtual void Bind();
+	void Bind() const ;
 	virtual void Update(const Transform& transform, const Camera& camera);
 
 	void setUniformMatrix4f(const std::string& uName , const GLfloat* mat)
@@ -52,7 +52,6 @@ public:
 	void Update(const Transform& transform, const Camera& camera);
 	void setUniformPointLights(PointLight* pArray , int n);
 	void setUniformSpotLights(SpotLight* sArray , int n);
-
 	virtual ~PhongShader();
 protected:
 private:

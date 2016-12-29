@@ -5,25 +5,27 @@
 #include"texture.h"
 #include"GameComponent.h"
 #include"shader.h"
+#include"Matrial.h"
 
 class MeshRenderer: public GameComponent
 {
 private:
     Mesh* m_mesh;
-    Texture* m_texture;
+    Material* m_material;
 public:
-    MeshRenderer(Mesh* mesh , Texture* texture)
+    MeshRenderer(Mesh* mesh , Material* material)
     {
         m_mesh = mesh;
-        m_texture = texture;
+        m_material = material;
     }
     void update(const Transform& t)
     {
     }
-    void render(const Transform& t,const BasicShader& bs)
+    void render(const Transform& t,BasicShader& bs,const Camera& c)
     {
         bs.Bind();
-        m_texture->Bind();
+        bs.Update(t ,c,*m_material);
+        m_material->getBaseTexture()->Bind();
         m_mesh->Draw();
     }
 };

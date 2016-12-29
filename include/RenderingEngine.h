@@ -10,9 +10,7 @@ public:
     RenderingEngine();
     void render(GameObject* object)
     {
-        Transform t;
-        object->render(*shader);
-        shader->Update(t , *camera);
+        object->render(*shader , *camera);
         camera->update(TheInputHandler::getInstance()->getMousePos());
     }
     virtual ~RenderingEngine();

@@ -6,16 +6,17 @@
 #include <GL/glew.h>
 #include "transform.h"
 #include"../include/Light.h"
+#include"Matrial.h"
 
 
-class BasicShader
+class Shader
 {
 public:
-    BasicShader(const std::string& fileName);
-	void Bind() const ;
-	virtual void Update(const Transform& transform, const Camera& camera);
+    Shader(const std::string & filename);
+    virtual void Update(const Transform& transform, const Camera& camera,const Material& m);
+    void Bind() const ;
 
-	void setUniformMatrix4f(const std::string& uName , const GLfloat* mat)
+    void setUniformMatrix4f(const std::string& uName , const GLfloat* mat)
 	{
         glUniformMatrix4fv(m_uniforms[uName], 1, GL_FALSE, mat);
 	}
@@ -31,11 +32,11 @@ public:
 	{
         glUniform1f(m_uniforms[uName], x);
 	}
-	virtual ~BasicShader();
+	virtual ~Shader();
 private:
     static const unsigned int NUM_SHADERS = 2;
-	void operator=(const BasicShader& shader) {}
-	BasicShader(const BasicShader& shader) {}
+	void operator=(const Shader& shader) {}
+	Shader(const Shader& shader) {}
 
 	std::string LoadShader(const std::string& fileName);
 	void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
@@ -45,11 +46,19 @@ protected:
 	std::map<std::string , GLuint> m_uniforms;
     GLuint m_program;
 };
+
+class BasicShader : public Shader
+{
+public:
+    BasicShader(const std::string& fileName) ;
+    virtual void Update(const Transform& transform, const Camera& camera , const Material& m);
+	virtual ~BasicShader();
+};
 class PhongShader : public BasicShader
 {
 public:
 	PhongShader(const std::string& fileName);
-	void Update(const Transform& transform, const Camera& camera);
+	void Update(const Transform& transform, const Camera& camera , const Material& m);
 	void setUniformPointLights(PointLight* pArray , int n);
 	void setUniformSpotLights(SpotLight* sArray , int n);
 	virtual ~PhongShader();

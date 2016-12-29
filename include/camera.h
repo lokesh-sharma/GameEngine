@@ -23,6 +23,7 @@ public:
 	}
 	glm::vec3& getForward() { return forward;}
 	glm::vec3& getPos() { return pos;}
+	glm::vec3 getPos() const { return pos;}
 	glm::vec3& getUp() { return up;}
 
 protected:

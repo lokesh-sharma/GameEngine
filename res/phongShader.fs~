@@ -124,7 +124,7 @@ void main()
 		}	
 	}
 	
-	color = vec4(1.0 , 0.0 , 0.0 , 1.0)*(MaterialAmbientColor + tdiff) + tspec;
+	color = vec4(1.0 , 0.0 , 0.0 , 1.0)*(MaterialAmbientColor + tdiff) ;//+ tspec;
 	
 	//texture2D(sampler, texCoord0.xy)
 		

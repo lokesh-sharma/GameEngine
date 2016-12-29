@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 
-BasicShader::BasicShader(const std::string& fileName)
+Shader::Shader(const std::string& fileName)
 {
 	m_program = glCreateProgram();
 	m_shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);
@@ -13,7 +13,6 @@ BasicShader::BasicShader(const std::string& fileName)
 
 	glBindAttribLocation(m_program, 0, "position");
 	glBindAttribLocation(m_program, 1, "texCoord");
-	glBindAttribLocation(m_program, 2, "normal");
 
 	glLinkProgram(m_program);
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Error linking shader program");
@@ -22,8 +21,12 @@ BasicShader::BasicShader(const std::string& fileName)
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Invalid shader program");
 
 	m_uniforms["MVP"] = glGetUniformLocation(m_program, "MVP");
-	m_uniforms["Normal"] = glGetUniformLocation(m_program, "Normal");
+}
+BasicShader::BasicShader(const std::string& fileName) : Shader(fileName)
+{
+	glBindAttribLocation(m_program, 2, "normal");
 
+	m_uniforms["Normal"] = glGetUniformLocation(m_program, "Normal");
 }
 PhongShader::PhongShader(const std::string& fileName) : BasicShader(fileName)
 {
@@ -58,7 +61,7 @@ PhongShader::PhongShader(const std::string& fileName) : BasicShader(fileName)
     }
 }
 
-BasicShader::~BasicShader()
+Shader::~Shader()
 {
 	for(unsigned int i = 0; i < NUM_SHADERS; i++)
     {
@@ -68,29 +71,37 @@ BasicShader::~BasicShader()
 
 	glDeleteProgram(m_program);
 }
-PhongShader::~PhongShader() {}
-void BasicShader::Bind() const
+BasicShader::~BasicShader() { }
+PhongShader::~PhongShader() { }
+void Shader::Bind() const
 {
 	glUseProgram(m_program);
 }
 
-void BasicShader::Update(const Transform& transform, const Camera& camera)
+void Shader::Update(const Transform& transform, const Camera& camera,const Material& material)
 {
 	glm::mat4 MVP = transform.GetMVP(camera);
 	glm::mat4 Normal = transform.GetModel();
 
 	setUniformMatrix4f("MVP" , &MVP[0][0]);
 	setUniformMatrix4f("Normal" , &Normal[0][0]);
-	setUniformVector4f("MaterialAmbientColor" , 0.1f , 0.1f , 0.1f , 1.0f);
 }
-void PhongShader::Update(const Transform& transform, const Camera& camera)
+void BasicShader::Update(const Transform& transform, const Camera& camera,const Material& material)
 {
-    BasicShader::Update(transform , camera);
-    setUniform1f("specularPower" , 1);
-	setUniform1f("specularIntensity" , 1.0f);
+	Shader::Update(transform , camera,material);
+	glm::vec4 mColor = material.getAmbientColor();
+	setUniformVector4f("MaterialAmbientColor" , mColor.x , mColor.y , mColor.z , mColor.w);
+}
+void PhongShader::Update(const Transform& transform, const Camera& camera,const Material& material)
+{
+    BasicShader::Update(transform , camera , material);
+    setUniform1f("specularPower" , material.getSpecularPower());
+	setUniform1f("specularIntensity" , material.getSpecularIntensity());
+	glm::vec3 p = camera.getPos();
+	setUniformVector3f("eyePos" , p.x , p.y , p.z);
 
-    PointLight p1[2] = { PointLight(glm::vec3(1.0f , 1.0f , 1.0f) , 0.0f ,
-	glm::vec3(0.0f , 1.f , 0.0f),0,0,1,200) ,  PointLight(glm::vec3(1.0f , 1.0f , 0.0f) , 0.0f ,
+    PointLight p1[2] = { PointLight(glm::vec3(1.0f , 1.0f , 1.0f) , 2.0f ,
+	glm::vec3(0.0f , 5.0f , 2.0f),0,0,1,200) ,  PointLight(glm::vec3(1.0f , 1.0f , 0.0f) , 0.0f ,
 	glm::vec3(2.0f , 6.0f , 2.0f))};
 	SpotLight p2[2] = { SpotLight(glm::vec3(1.0f , 0.0f , 0.0f),5.0f,glm::vec3(2.0f , 2.0f , 0.0f)
 	, glm::vec3(0.0f , -1.0f , 0.0f)) , SpotLight(glm::vec3(0.0f , 1.0f , 0.0f),5.0f,
@@ -98,7 +109,7 @@ void PhongShader::Update(const Transform& transform, const Camera& camera)
 
 
     setUniformPointLights(p1 , 2);
-    setUniformSpotLights(p2 , 2);
+   // setUniformSpotLights(p2 , 2);
 }
 void PhongShader::setUniformPointLights(PointLight* pArray , int n)
 {
@@ -147,7 +158,7 @@ void PhongShader::setUniformSpotLights(SpotLight* pArray , int n)
     }
 }
 
-std::string BasicShader::LoadShader(const std::string& fileName)
+std::string Shader::LoadShader(const std::string& fileName)
 {
     std::ifstream file;
     file.open((fileName).c_str());
@@ -170,7 +181,7 @@ std::string BasicShader::LoadShader(const std::string& fileName)
     return output;
 }
 
-void BasicShader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)
+void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)
 {
     GLint success = 0;
     GLchar error[1024] = { 0 };
@@ -191,7 +202,7 @@ void BasicShader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, c
     }
 }
 
-GLuint BasicShader::CreateShader(const std::string& text, unsigned int type)
+GLuint Shader::CreateShader(const std::string& text, unsigned int type)
 {
     GLuint shader = glCreateShader(type);
 

@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1482867814 source:/home/loki/GameEngine/main.cpp
+1483041694 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -141,6 +141,7 @@
 	"CoreEngine.h"
 	"GameObject.h"
 	"Game.h"
+	"Matrial.h"
 
 1482781805 /home/loki/GameEngine/include/display.h
 	<string>
@@ -148,7 +149,7 @@
 	"camera.h"
 	"transform.h"
 
-1482780673 /home/loki/GameEngine/include/camera.h
+1483039124 /home/loki/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
@@ -166,12 +167,13 @@
 	<string>
 	<vector>
 
-1482760453 /home/loki/GameEngine/include/shader.h
+1483039024 /home/loki/GameEngine/include/shader.h
 	<string>
 	<map>
 	<GL/glew.h>
 	"transform.h"
 	"../include/Light.h"
+	"Matrial.h"
 
 1482523656 /home/loki/GameEngine/include/Light.h
 	<glm/glm.hpp>
@@ -197,7 +199,7 @@
 	"../include/display.h"
 	<iostream>
 
-1482665635 source:/home/loki/GameEngine/src/mesh.cpp
+1483032877 source:/home/loki/GameEngine/src/mesh.cpp
 	"../include/mesh.h"
 	<fstream>
 	<iostream>
@@ -216,7 +218,7 @@
 	<iostream>
 	"../include/ObjLoader.h"
 
-1482760466 source:/home/loki/GameEngine/src/shader.cpp
+1483041935 source:/home/loki/GameEngine/src/shader.cpp
 	"../include/shader.h"
 	<iostream>
 	<fstream>
@@ -252,23 +254,25 @@
 
 1482585411 /home/loki/GameEngine/include/TestGame.h
 
-1482760183 /home/loki/GameEngine/include/MeshRenderer.h
+1483039559 /home/loki/GameEngine/include/MeshRenderer.h
 	"mesh.h"
 	"texture.h"
 	"GameComponent.h"
 	"shader.h"
+	"Matrial.h"
 
-1482760139 /home/loki/GameEngine/include/GameComponent.h
+1483041522 /home/loki/GameEngine/include/GameComponent.h
 	"transform.h"
+	"camera.h"
 	"shader.h"
 
-1482760145 /home/loki/GameEngine/include/GameObject.h
+1483041579 /home/loki/GameEngine/include/GameObject.h
 	<vector>
 	"transform.h"
 	"shader.h"
 	"GameComponent.h"
 
-1482867844 source:/home/loki/GameEngine/src/CoreEngine.cpp
+1483041632 source:/home/loki/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
 
 1482863923 /home/loki/GameEngine/include/CoreEngine.h
@@ -276,14 +280,20 @@
 	"RenderingEngine.h"
 	"display.h"
 
-1482844454 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1482934206 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 
-1482862999 /home/loki/GameEngine/include/RenderingEngine.h
+1483041394 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
 	"InputHandler.h"
 
 1482780822 source:/home/loki/GameEngine/src/Camera.cpp
 	"camera.h"
+
+1483041996 /home/loki/GameEngine/include/Matrial.h
+	<glm/glm.hpp>
+	<map>
+	<iostream>
+	"texture.h"
 

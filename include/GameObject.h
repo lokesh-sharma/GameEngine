@@ -20,12 +20,12 @@ public:
         for(int i = 0 ; i< m_components.size() ;i++)
             m_components[i]->update(trans);
     }
-    void render(const BasicShader& bs)
+    void render(BasicShader& bs, const Camera& camera)
     {
         for(int i = 0 ; i< m_children.size() ;i++)
-            m_children[i]->render(bs);
+            m_children[i]->render(bs,camera);
          for(int i = 0 ; i< m_components.size() ;i++)
-            m_components[i]->render(trans,bs);
+            m_components[i]->render(trans,bs,camera);
     }
     void addChild(GameObject* object)
     {

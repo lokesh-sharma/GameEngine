@@ -40,6 +40,9 @@
 			<Add library="GL" />
 		</Linker>
 		<Unit filename="include/CoreEngine.h" />
+		<Unit filename="include/ForwardAmbient.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/GameComponent.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -49,6 +52,9 @@
 		</Unit>
 		<Unit filename="include/InputHandler.h" />
 		<Unit filename="include/Light.h" />
+		<Unit filename="include/Matrial.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/MeshRenderer.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>

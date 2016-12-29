@@ -13,6 +13,7 @@
 #include"CoreEngine.h"
 #include"GameObject.h"
 #include"Game.h"
+#include"Matrial.h"
 
 const int DISPLAY_WIDTH = 800;
 const int DISPLAY_HEIGHT = 600;
@@ -25,10 +26,13 @@ int main(int argc, char** argv)
 
 
     GameObject* g1 = new GameObject;
-    g1->addComponent(new MeshRenderer(new Mesh("./res/plane.obj"),new Texture("./res/sphere.png")));
+    Material* m = new Material();
+    m->addTexture("diffuse" , "./res/sphere.png");
+    g1->addComponent(new MeshRenderer(new Mesh("./res/Buddha.obj"),m));
     Game* game = new Game();
     game->addToScene(g1);
 
+    Shader* s = new PhongShader("./res/phongShader");
     CoreEngine core(&display , game , new RenderingEngine() );
     core.start();
 	float counter = 0.0f;

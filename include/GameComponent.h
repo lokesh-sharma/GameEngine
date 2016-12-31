@@ -8,7 +8,7 @@ class GameComponent
 {
 public:
     virtual void update(const Transform& t)=0;
-    virtual void render(const Transform& t,BasicShader& bs,const Camera& c)=0;
+    virtual void render(const Transform& t,Shader& bs,const Camera& c)=0;
 };
 
 

@@ -13,7 +13,7 @@ public:
     {
         specPower = 13.0f;
         specIntensity=8.0f;
-        ambient = glm::vec4(0.1f , 0.1f , 0.1f , 1.0f);
+        ambient = glm::vec4(0.4f , 0.4f , 0.4f , 1.0f);
     }
     Texture* getTexture(const std::string& uName)
     {

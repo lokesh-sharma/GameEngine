@@ -9,5 +9,6 @@ uniform vec4 MaterialAmbientColor;
 
 void main()
 {
-	color = texture2D(sampler, texCoord0.xy)*MaterialAmbientColor;		
+	color = texture2D(sampler, texCoord0.xy)*(MaterialAmbientColor);
+	//;		
 }

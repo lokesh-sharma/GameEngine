@@ -15,7 +15,7 @@ public:
     }
     virtual ~RenderingEngine();
 private:
-    BasicShader* shader;
+    Shader* shader;
     Camera* camera;
     RenderingEngine(const RenderingEngine& other) {}
     RenderingEngine& operator=(const RenderingEngine& other) {}

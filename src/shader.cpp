@@ -27,10 +27,10 @@ BasicShader::BasicShader(const std::string& fileName) : Shader(fileName)
 	glBindAttribLocation(m_program, 2, "normal");
 
 	m_uniforms["Normal"] = glGetUniformLocation(m_program, "Normal");
+	m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
 }
 PhongShader::PhongShader(const std::string& fileName) : BasicShader(fileName)
 {
-    m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
     m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
 	m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
 	m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
@@ -81,16 +81,17 @@ void Shader::Bind() const
 void Shader::Update(const Transform& transform, const Camera& camera,const Material& material)
 {
 	glm::mat4 MVP = transform.GetMVP(camera);
-	glm::mat4 Normal = transform.GetModel();
-
 	setUniformMatrix4f("MVP" , &MVP[0][0]);
-	setUniformMatrix4f("Normal" , &Normal[0][0]);
 }
 void BasicShader::Update(const Transform& transform, const Camera& camera,const Material& material)
 {
+
 	Shader::Update(transform , camera,material);
+	glm::mat4 Normal = transform.GetModel();
+	   glm::vec4 color = material.getAmbientColor();
 	glm::vec4 mColor = material.getAmbientColor();
-	setUniformVector4f("MaterialAmbientColor" , mColor.x , mColor.y , mColor.z , mColor.w);
+	setUniformMatrix4f("Normal" , &Normal[0][0]);
+	setUniformVector4f("MaterialAmbientColor" , color.x , color.y ,color.z,color.w);
 }
 void PhongShader::Update(const Transform& transform, const Camera& camera,const Material& material)
 {

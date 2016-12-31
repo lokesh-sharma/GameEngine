@@ -7,14 +7,16 @@
 class ForwardAmbient : public Shader
 {
 public:
-    ForwardAmbient(const std::string fileName) : Shader(fileName) {}
-    void Update()
+    ForwardAmbient(const std::string fileName) : Shader(fileName)
     {
-        Shader::Update(const Transform& transform, const Camera& camera)
+        m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
     }
-    void setAmbient(glm::vec4 color)
+    void Update(const Transform& t , const Camera&c,const Material& m)
     {
+        Shader::Update(t,c,m);
+        glm::vec4 color = m.getAmbientColor();
         setUniformVector4f("MaterialAmbientColor" , color.x , color.y ,color.z,color.w);
+
     }
 };
 

@@ -43,7 +43,7 @@ private:
     float range;
 public:
     PointLight(const glm::vec3 color , float inten , glm::vec3 pos ,float c=0
-    , float l=0,float e=1 , float r=5):
+    , float l=0,float e=1 , float r=50):
     BaseLight(color , inten) , atten(c,l,e) , range(r) , position(pos){}
     Attenuation getAttenuation() const { return atten ;}
     glm::vec3 getPosition() const { return position ;}

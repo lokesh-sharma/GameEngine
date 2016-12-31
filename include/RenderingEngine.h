@@ -8,14 +8,12 @@ class RenderingEngine
 {
 public:
     RenderingEngine();
-    void render(GameObject* object)
-    {
-        object->render(*shader , *camera);
-        camera->update(TheInputHandler::getInstance()->getMousePos());
-    }
+    void render(GameObject* object);
     virtual ~RenderingEngine();
 private:
-    Shader* shader;
+    Shader* ambientShader;
+    Shader* directionalShader;
+    Shader* pointShader;
     Camera* camera;
     RenderingEngine(const RenderingEngine& other) {}
     RenderingEngine& operator=(const RenderingEngine& other) {}

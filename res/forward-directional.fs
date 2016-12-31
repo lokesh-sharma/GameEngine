@@ -17,7 +17,6 @@ struct DirectionalLight
 };
 
 uniform sampler2D sampler;
-uniform vec4 MaterialAmbientColor;
 uniform vec3 eyePos;
 uniform float specularPower;
 uniform float specularIntensity;
@@ -66,7 +65,7 @@ void main()
 	tdiff += calcLightDiffuse(directionalLight.base , directionalLight.direction , normal0);
 	tspec += calcLightSpec(directionalLight.base , directionalLight.direction , normal0);
 	
-	color =texture2D(sampler, texCoord0.xy)*(MaterialAmbientColor + tdiff) + tspec;
+	color = texture2D(sampler, texCoord0.xy)*(tdiff) + tspec;
 	
 	//texture2D(sampler, texCoord0.xy)
 		

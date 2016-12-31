@@ -16,12 +16,25 @@ struct DirectionalLight
 	vec3 direction;
 };
 
+struct Attenuation
+{
+	float constant;
+	float linear;
+	float exponent;
+};
+struct PointLight
+{
+	BaseLight base;
+	vec3 position;
+	Attenuation atten;
+	float range;
+};
+
 uniform sampler2D sampler;
-uniform vec4 MaterialAmbientColor;
 uniform vec3 eyePos;
 uniform float specularPower;
 uniform float specularIntensity;
-uniform DirectionalLight directionalLight;
+uniform PointLight pointLight;
 
 
 vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)
@@ -57,13 +70,30 @@ vec4 calcLightDirectionalSpec(DirectionalLight dirlight , vec3 normal)
 {
 	return calcLightSpec(dirlight.base , dirlight.direction , normal);
 }
+
 void main()
 {
 
 	vec4 tspec = vec4(0.0,0.0,0.0,1.0);
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
 	
-	tdiff += calcLightDiffuse(directionalLight.base , directionalLight.direction , normal0);
+	//Pointlights
+	int i;
+	for(i = 0 ;i< 4 ; i++)
+	{	
+	
+	vec3 lightDirection = worldPos0 - pointLights[i].position;
+	float distanceToPoint = length(lightDirection);
+	lightDirection = normalize(lightDirection);
+	vec4 dcolor = calcLightDiffuse(pointLights[i].base , lightDirection , normal0);
+	float attenu = pointLights[i].atten.constant + pointLights[i].atten.linear*distanceToPoint
+		       + pointLights[i].atten.exponent*distanceToPoint*distanceToPoint + 0.01;
+	if(dcolor.w > 0 && pointLights[i].range > distanceToPoint){
+		tspec += calcLightSpec(pointLights[i].base , lightDirection , normal0)/attenu;
+		tdiff += dcolor/attenu;
+		}
+	
+	}
 	
 	color = texture2D(sampler, texCoord0.xy)*(MaterialAmbientColor + tdiff) + tspec;
 	

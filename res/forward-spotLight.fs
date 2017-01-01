@@ -10,31 +10,27 @@ struct BaseLight
 	vec3 color;
 	float intensity;
 };
-struct DirectionalLight
-{
-	BaseLight base;
-	vec3 direction;
-};
-
 struct Attenuation
 {
 	float constant;
 	float linear;
 	float exponent;
 };
-struct PointLight
+struct SpotLight
 {
 	BaseLight base;
 	vec3 position;
+	vec3 direction;
 	Attenuation atten;
 	float range;
+	float cut_off;
 };
 
 uniform sampler2D sampler;
 uniform vec3 eyePos;
 uniform float specularPower;
 uniform float specularIntensity;
-uniform PointLight pointLight;
+uniform SpotLight spotLight;
 
 
 vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)
@@ -62,32 +58,25 @@ vec4 calcLightSpec(BaseLight base , vec3 direction , vec3 normal)
 	}
 	return specularColor;
 }
-vec4 calcLightDirectionalDiffuse(DirectionalLight dirlight , vec3 normal)
-{
-	return calcLightDiffuse(dirlight.base , dirlight.direction , normal);
-}
-vec4 calcLightDirectionalSpec(DirectionalLight dirlight , vec3 normal)
-{
-	return calcLightSpec(dirlight.base , dirlight.direction , normal);
-}
-
 void main()
 {
 
 	vec4 tspec = vec4(0.0,0.0,0.0,1.0);
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
-		
 	
-	vec3 lightDirection = worldPos0 - pointLight.position;
-	float distanceToPoint = length(lightDirection);
-	lightDirection = normalize(lightDirection);
-	vec4 dcolor = calcLightDiffuse(pointLight.base , lightDirection , normal0);
-	float attenu = pointLight.atten.constant + pointLight.atten.linear*distanceToPoint
-		       + pointLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;
-	if(dcolor.w > 0 && pointLight.range > distanceToPoint){
-		tspec += calcLightSpec(pointLight.base , lightDirection , normal0)/attenu;
-		tdiff += dcolor/attenu;
-		}
+	vec3 distanceVector = worldPos0 - spotLight.position;
+	float distanceToPoint = length(distanceVector);
+	distanceVector = normalize(distanceVector);
+	vec4 dcolor = calcLightDiffuse(spotLight.base , distanceVector , normal0);
+	float attenu = spotLight.atten.constant + spotLight.atten.linear*distanceToPoint
+		       + spotLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;
+	float res = dot(distanceVector , normalize(spotLight.direction));
+	
+	if(dcolor.w > 0 && spotLight.range > distanceToPoint && res >spotLight.cut_off){
+		float falloff = (res - spotLight.cut_off);
+		tspec += calcLightSpec(spotLight.base , distanceVector , normal0)*falloff/attenu;
+		tdiff += dcolor*falloff/attenu;
+		}	
 	
 	color = texture2D(sampler, texCoord0.xy)*(tdiff) + tspec;
 	

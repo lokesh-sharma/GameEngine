@@ -43,6 +43,12 @@
 		<Unit filename="include/ForwardAmbient.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/ForwardDirectional.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/ForwardPoint.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/GameComponent.h">
 			<Option target="&lt;{~None~}&gt;" />

@@ -11,8 +11,8 @@ class Material
 public:
     Material()
     {
-        specPower = 5.0f;
-        specIntensity=6.0f;
+        specPower = 11.0f;
+        specIntensity=9.0f;
         ambient = glm::vec4(0.4f , 0.4f , 0.4f , 1.0f);
     }
     Texture* getTexture(const std::string& uName)

@@ -14,6 +14,7 @@ private:
     Shader* ambientShader;
     Shader* directionalShader;
     Shader* pointShader;
+    Shader* spotShader;
     Camera* camera;
     RenderingEngine(const RenderingEngine& other) {}
     RenderingEngine& operator=(const RenderingEngine& other) {}

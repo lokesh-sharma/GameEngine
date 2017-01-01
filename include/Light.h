@@ -56,7 +56,7 @@ private:
     glm::vec3 direction;
 public:
     SpotLight(const glm::vec3 color , float inten , glm::vec3 pos ,glm::vec3 dir,
-    float c=0, float l=0,float e=1 , float r=5 , float cut = 0.354) :
+    float c=0, float l=0,float e=1 , float r=50 , float cut = 0.354) :
     PointLight(color , inten,pos,c ,l , e , r) , cut_off(cut) , direction(dir){}
     float getCutOff() const { return cut_off;}
     glm::vec3 getDirection() const { return direction ;}

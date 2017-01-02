@@ -27,8 +27,8 @@ int main(int argc, char** argv)
 
     GameObject* g1 = new GameObject;
     Material* m = new Material();
-    m->addTexture("diffuse" , "./res/brick03.jpg");
-    g1->addComponent(new MeshRenderer(new Mesh("./res/plane.obj"),m));
+    m->addTexture("diffuse" , "./res/TextureAtlas.png");
+    g1->addComponent(new MeshRenderer(new Mesh("./res/dima.obj"),m));
     Game* game = new Game();
     game->addToScene(g1);
 

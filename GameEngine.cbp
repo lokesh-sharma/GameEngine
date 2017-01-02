@@ -49,6 +49,9 @@
 		<Unit filename="include/ForwardPoint.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/ForwardSpot.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/GameComponent.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -82,6 +85,7 @@
 		<Unit filename="src/mesh.cpp" />
 		<Unit filename="src/shader.cpp" />
 		<Unit filename="src/texture.cpp" />
+		<Unit filename="src/transform.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

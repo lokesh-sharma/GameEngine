@@ -78,24 +78,24 @@ void Shader::Bind() const
 	glUseProgram(m_program);
 }
 
-void Shader::Update(const Transform& transform, const Camera& camera,const Material& material)
+void Shader::Update(const Camera& camera,const Material& material)
 {
-	glm::mat4 MVP = transform.GetMVP(camera);
+	glm::mat4 MVP = camera.getMVP();
 	setUniformMatrix4f("MVP" , &MVP[0][0]);
 }
-void BasicShader::Update(const Transform& transform, const Camera& camera,const Material& material)
+void BasicShader::Update(const Camera& camera,const Material& material)
 {
 
-	Shader::Update(transform , camera,material);
-	glm::mat4 Normal = transform.GetModel();
+	Shader::Update(camera,material);
+	glm::mat4 Normal = camera.getModel();
 	   glm::vec4 color = material.getAmbientColor();
 	glm::vec4 mColor = material.getAmbientColor();
 	setUniformMatrix4f("Normal" , &Normal[0][0]);
 	setUniformVector4f("MaterialAmbientColor" , color.x , color.y ,color.z,color.w);
 }
-void PhongShader::Update(const Transform& transform, const Camera& camera,const Material& material)
+void PhongShader::Update( const Camera& camera,const Material& material)
 {
-    BasicShader::Update(transform , camera , material);
+    BasicShader::Update(camera , material);
     setUniform1f("specularPower" , material.getSpecularPower());
 	setUniform1f("specularIntensity" , material.getSpecularIntensity());
 	glm::vec3 p = camera.getPos();

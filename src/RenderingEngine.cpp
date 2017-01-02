@@ -24,7 +24,7 @@ void RenderingEngine::render(GameObject* object)
     glBlendFunc(GL_ONE , GL_ONE);
     glDepthMask(false);
     glDepthFunc(GL_EQUAL);
-    object->render(*spotShader , *camera);
+    //object->render(*spotShader , *camera);
     glDepthFunc(GL_LESS);
     glDepthMask(true);
     glDisable(GL_BLEND);

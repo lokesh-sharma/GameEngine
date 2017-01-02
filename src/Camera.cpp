@@ -30,8 +30,8 @@ void Camera::update(const glm::vec2 mousePos)
     glm::vec2 delta = mousePos - oldMousePos;
     float x = delta.x;
     float y = delta.y;
-    x = x*0.2;
-    y = y*0.2;
+    x = x*0.4;
+    y = y*0.4;
     forward = glm::mat3(glm::rotate( -x , up))*forward;
     glm::vec3 right = glm::cross(forward , up);
     forward = glm::mat3(glm::rotate(-y , right ))*forward;

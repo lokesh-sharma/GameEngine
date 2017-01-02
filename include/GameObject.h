@@ -25,7 +25,7 @@ public:
         for(int i = 0 ; i< m_children.size() ;i++)
             m_children[i]->render(bs,camera);
          for(int i = 0 ; i< m_components.size() ;i++)
-            m_components[i]->render(trans,bs,camera);
+            m_components[i]->render(bs,camera);
     }
     void addChild(GameObject* object)
     {

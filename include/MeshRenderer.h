@@ -21,10 +21,10 @@ public:
     void update(const Transform& t)
     {
     }
-    void render(const Transform& t,Shader& bs,const Camera& c)
+    void render(Shader& bs,const Camera& c)
     {
         bs.Bind();
-        bs.Update(t ,c,*m_material);
+        bs.Update(c,*m_material);
         m_material->getBaseTexture()->Bind();
         m_mesh->Draw();
     }

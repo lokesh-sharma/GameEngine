@@ -3,7 +3,8 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
-#include "camera.h"
+#include<glm/gtx/quaternion.hpp>
+#include<glm/gtc/quaternion.hpp>
 
 struct Transform
 {
@@ -25,14 +26,6 @@ public:
 		glm::mat4 rotMat = rotX * rotY * rotZ;
 
 		return  posMat * rotMat *scaleMat;
-	}
-
-	inline glm::mat4 GetMVP(const Camera& camera) const
-	{
-		glm::mat4 VP = camera.GetViewProjection();
-		glm::mat4 M = GetModel();
-
-		return VP*M;//camera.GetViewProjection() * GetModel();
 	}
 
 	inline glm::vec3& GetPos() { return pos; }

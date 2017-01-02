@@ -3,12 +3,13 @@
 
 #include"transform.h"
 #include"camera.h"
-#include"shader.h"
+
+class Shader;
 class GameComponent
 {
 public:
-    virtual void update(const Transform& t)=0;
-    virtual void render(const Transform& t,Shader& bs,const Camera& c)=0;
+    virtual void update(const Transform& t) {};
+    virtual void render(Shader& bs,const Camera& c) {};
 };
 
 

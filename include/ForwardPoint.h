@@ -24,9 +24,9 @@ public:
         m_uniforms[light + ".atten.exponent"] = glGetUniformLocation(m_program ,(light+".atten.exponent").c_str());
         m_uniforms[light + ".range"] = glGetUniformLocation(m_program ,(light+".range").c_str());
     }
-    void Update(const Transform& t , const Camera&c,const Material& material)
+    void Update(const Camera&c,const Material& material)
     {
-        Shader::Update(t,c,material);
+        Shader::Update(c,material);
         std::string light = "pointLight";
         glm::vec3 color = pointLight.getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);

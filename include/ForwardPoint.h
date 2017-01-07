@@ -3,14 +3,12 @@
 
 #include"Light.h"
 #include"shader.h"
+#include"RenderingEngine.h"
 
 class ForwardPoint : public Shader
 {
-private:
-    PointLight pointLight;
 public:
-    ForwardPoint(const std::string fileName): Shader(fileName) ,
-    pointLight(glm::vec3(1.0f,1.0f,1.0f),10.0f,glm::vec3(0.0f,3.0f,0.0f))
+    ForwardPoint(const std::string fileName): Shader(fileName)
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
@@ -24,24 +22,25 @@ public:
         m_uniforms[light + ".atten.exponent"] = glGetUniformLocation(m_program ,(light+".atten.exponent").c_str());
         m_uniforms[light + ".range"] = glGetUniformLocation(m_program ,(light+".range").c_str());
     }
-    void Update(const Camera&c,const Material& material)
+    void Update(const Camera&c,const Material& material, RenderingEngine* renderer)
     {
-        Shader::Update(c,material);
+        Shader::Update(c,material,renderer);
+        PointLight* pointLight = renderer->getActivePointLight();
         std::string light = "pointLight";
-        glm::vec3 color = pointLight.getColor();
+        glm::vec3 color = pointLight->getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);
-        setUniform1f(light+".base.intensity" , pointLight.getIntensity());
+        setUniform1f(light+".base.intensity" , pointLight->getIntensity());
         setUniform1f("specularPower" , material.getSpecularPower());
         setUniform1f("specularIntensity" , material.getSpecularIntensity());
         glm::vec3 p = c.getPos();
         setUniformVector3f("eyePos" , p.x , p.y , p.z);
 
-        setUniform1f(light+".range" , pointLight.getRange());
-        Attenuation atten = pointLight.getAttenuation();
+        setUniform1f(light+".range" , pointLight->getRange());
+        Attenuation atten = pointLight->getAttenuation();
         setUniform1f(light+".atten.constant" , atten.getConstant());
         setUniform1f(light+".atten.linear" , atten.getLinear());
         setUniform1f(light+".atten.exponent" , atten.getExponent());
-        glm::vec3 pos  = pointLight.getPosition();
+        glm::vec3 pos  = pointLight->getPosition();
         setUniformVector3f(light + ".position" , pos.x , pos.y , pos.z);
     }
 };

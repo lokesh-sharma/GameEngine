@@ -6,6 +6,8 @@ CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingE
     this->m_game = game;
     this->renderingEngine = renderingEngine;
     this->m_display = display;
+    //game->getRootObject()->setEngine(this);
+    renderingEngine->init(m_display);
 }
 void CoreEngine::run()
 {

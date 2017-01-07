@@ -2,26 +2,39 @@
 #define LIGHT_H
 #include<glm/glm.hpp>
 #include"GameComponent.h"
+#include"transform.h"
+#include"CoreEngine.h"
+class Shader;
 
-class BaseLight
+class BaseLight:public GameComponent
 {
 private:
     glm::vec3 color;
     float intensity;
+protected:
+    Shader* m_shader;
 public:
-    BaseLight(const glm::vec3 color , float inten): color(color) , intensity(inten) {}
+    BaseLight(const glm::vec3 color , float inten): GameComponent() ,color(color)
+    , intensity(inten) ,m_shader(nullptr){}
     glm::vec3 getColor() const { return color;}
+
     float getIntensity() const { return intensity;}
+    virtual Shader* getShader() { return m_shader;}
+    virtual void addToEngine(CoreEngine*core)
+    {
+        //core->getRenderingEngine()->addLight(this);
+    }
 };
 
 class DirectionalLight : public BaseLight
 {
-private:
-    glm::vec3 direction;
 public:
-    DirectionalLight(const glm::vec3 color , float inten , glm::vec3 dir) :
-    BaseLight(color , inten ) , direction(dir) {}
-    glm::vec3 getDirection() const { return direction ;}
+    DirectionalLight(const glm::vec3 color , float inten);
+    glm::vec3 getDirection() const ;
+    virtual void addToEngine(CoreEngine*core)
+    {
+        core->getRenderingEngine()->addDirectionalLight(this);
+    }
 };
 
 class Attenuation
@@ -44,11 +57,14 @@ private:
     float range;
 public:
     PointLight(const glm::vec3 color , float inten , glm::vec3 pos ,float c=0
-    , float l=0,float e=1 , float r=50):
-    BaseLight(color , inten) , atten(c,l,e) , range(r) , position(pos){}
+    , float l=0,float e=1 , float r=50);
     Attenuation getAttenuation() const { return atten ;}
     glm::vec3 getPosition() const { return position ;}
     float getRange() const { return range ;}
+    virtual void addToEngine(CoreEngine*core)
+    {
+        core->getRenderingEngine()->addPointLight(this);
+    }
 };
 class SpotLight : public PointLight
 {
@@ -57,10 +73,9 @@ private:
     glm::vec3 direction;
 public:
     SpotLight(const glm::vec3 color , float inten , glm::vec3 pos ,glm::vec3 dir,
-    float c=0, float l=0,float e=1 , float r=50 , float cut = 0.354) :
-    PointLight(color , inten,pos,c ,l , e , r) , cut_off(cut) , direction(dir){}
+    float c=0, float l=0,float e=1 , float r=50 , float cut = 0.354);
     float getCutOff() const { return cut_off;}
-    glm::vec3 getDirection() const { return direction ;}
+    glm::vec3 getDirection() ;
 };
 
 #endif // LIGHT_H

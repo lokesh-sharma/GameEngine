@@ -11,9 +11,9 @@ public:
     {
         m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
     }
-    void Update(const Camera&c,const Material& m)
+    void Update(const Camera&c,const Material& m , RenderingEngine* renderer)
     {
-        Shader::Update(c,m);
+        Shader::Update(c,m ,renderer );
         glm::vec4 color = m.getAmbientColor();
         setUniformVector4f("MaterialAmbientColor" , color.x , color.y ,color.z,color.w);
 

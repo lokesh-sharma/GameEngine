@@ -13,8 +13,10 @@ public:
     CoreEngine( Display* display , Game* game , RenderingEngine* renderingEngine);
     void start(){ m_running = true;}
     void stop() { m_running = false;}
+    Display* getDisplay() { return m_display;}
     void run();
     bool is_running() { return m_running;}
+    RenderingEngine* getRenderingEngine() { return renderingEngine;}
     virtual ~CoreEngine();
 private:
     bool m_running;

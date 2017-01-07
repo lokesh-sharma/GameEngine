@@ -85,3 +85,7 @@ void InputHandler::onMouseMove(SDL_Event& event)
     m_mousePos.x = event.motion.x;
     m_mousePos.y = event.motion.y;
 }
+void InputHandler::setMousePos(int x , int y)
+{
+    SDL_WarpMouseInWindow(display->getWindow() , x , y);
+}

@@ -25,6 +25,7 @@ private:
     std::vector<bool>m_mouseButtonStates;
     std::vector<bool>m_mouseWheelStates;
     glm::vec2 m_mousePos;
+    Display* display;
     InputHandler() : m_keystate(NULL) ,m_mousePos( glm::vec2(0,0))
     {
         for(int i = 0 ; i<3 ; i++)
@@ -63,11 +64,15 @@ public:
         m_mouseButtonStates[MIDDLE] = 0;
         m_mouseButtonStates[RIGHT] = 0;
     }
+    void setDisplay(Display*d) { display = d;}
+    void setMousePos(int x , int y);
+    void disableCursor() {SDL_ShowCursor(SDL_DISABLE);}
     bool getMouseWheelState(int motion)
     {
         return m_mouseWheelStates[motion];
     }
     glm::vec2 getMousePos() { return m_mousePos;}
+    Display*getDisplay() { return display ;}
 
 };
 typedef InputHandler TheInputHandler;

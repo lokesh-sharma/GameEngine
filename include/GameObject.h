@@ -3,38 +3,31 @@
 
 #include<vector>
 #include"transform.h"
-#include"shader.h"
-#include"GameComponent.h"
+class Camera;
+class Shader;
+class GameComponent;
+class CoreEngine;
+class RenderingEngine;
 
 class GameObject
 {
 private:
     std::vector<GameObject*> m_children;
     std::vector<GameComponent*> m_components;
-    Transform trans;
+    Transform m_transform;
+    CoreEngine* coreEngine;
 public:
-    void update()
-    {
-        for(int i = 0 ; i< m_children.size() ;i++)
-            m_children[i]->update();
-        for(int i = 0 ; i< m_components.size() ;i++)
-            m_components[i]->update(trans);
-    }
-    void render(Shader& bs, const Camera& camera)
-    {
-        for(int i = 0 ; i< m_children.size() ;i++)
-            m_children[i]->render(bs,camera);
-         for(int i = 0 ; i< m_components.size() ;i++)
-            m_components[i]->render(bs,camera);
-    }
-    void addChild(GameObject* object)
-    {
-        m_children.push_back(object);
-    }
-    void addComponent(GameComponent* component)
-    {
-        m_components.push_back(component);
-    }
+    GameObject() : m_transform(Transform()){}
+    void update();
+
+    void render(Shader& bs, const Camera& camera , RenderingEngine* renderingEngine);
+
+    void addChild(GameObject* object);
+
+    void addComponent(GameComponent* component);
+    void setEngine(CoreEngine* core);
+    //Transform* getTransform() const  { return &m_transform;}
+    Transform* getTransform()  { return &m_transform;}
 };
 
 #endif // GAMEOBJECT_H_INCLUDED

@@ -6,11 +6,8 @@
 
 class ForwardDirectional: public Shader
 {
-private:
-    DirectionalLight dirlight;
 public:
-    ForwardDirectional(const std::string fileName): Shader(fileName) ,
-    dirlight(glm::vec3(1.0f,1.0f,1.0f) , 0.1f , glm::vec3(0.0f , -1.0f , 0.0f))
+    ForwardDirectional(const std::string fileName): Shader(fileName)
     {
 	m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
 	m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
@@ -21,14 +18,15 @@ public:
     m_uniforms[light + ".direction"] = glGetUniformLocation(m_program ,(light+".direction").c_str());
 
     }
-    void Update(const Camera&c,const Material& material)
+    void Update(const Camera&c,const Material& material , RenderingEngine* renderingEngine)
     {
-        Shader::Update(c,material);
+        Shader::Update(c,material,renderingEngine);
         std::string light = "directionalLight";
-        glm::vec3 color = dirlight.getColor();
+        DirectionalLight* dirlight = renderingEngine->getActiveDirectionalLight();
+        glm::vec3 color = dirlight->getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);
-        setUniform1f(light+".base.intensity" , dirlight.getIntensity());
-        glm::vec3 dir = dirlight.getDirection();
+        setUniform1f(light+".base.intensity" , dirlight->getIntensity());
+        glm::vec3 dir = dirlight->getDirection();
         setUniformVector3f(light+".direction" ,dir.x , dir.y , dir.z);
         setUniform1f("specularPower" , material.getSpecularPower());
         setUniform1f("specularIntensity" , material.getSpecularIntensity());

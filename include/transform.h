@@ -5,11 +5,12 @@
 #include <glm/gtx/transform.hpp>
 #include<glm/gtx/quaternion.hpp>
 #include<glm/gtc/quaternion.hpp>
+#include<iostream>
 
-struct Transform
+class Transform
 {
 public:
-	Transform(const glm::vec3& pos = glm::vec3(), const glm::vec3& rot = glm::vec3(0,0,0), const glm::vec3& scale = glm::vec3(1.0f, 1.0f, 1.0f))
+	Transform(const glm::vec3& pos = glm::vec3(), const glm::quat& rot = glm::quat(1,0,0,0), const glm::vec3& scale = glm::vec3(1.0f, 1.0f, 1.0f))
 	{
 		this->pos = pos;
 		this->rot = rot;
@@ -20,25 +21,25 @@ public:
 	{
 		glm::mat4 posMat = glm::translate(pos);
 		glm::mat4 scaleMat = glm::scale(scale);
-		glm::mat4 rotX = glm::rotate(rot.x, glm::vec3(1.0, 0.0, 0.0));
-		glm::mat4 rotY = glm::rotate(rot.y, glm::vec3(0.0, 1.0, 0.0));
-		glm::mat4 rotZ = glm::rotate(rot.z, glm::vec3(0.0, 0.0, 1.0));
-		glm::mat4 rotMat = rotX * rotY * rotZ;
-
+		glm::mat4 rotMat = glm::toMat4(rot);
 		return  posMat * rotMat *scaleMat;
 	}
 
+	glm::vec3 getForward() { return rot*glm::vec3(0,0,-1);}
+	glm::vec3 getUp() { return rot*glm::vec3(0,1,0);}
+	glm::vec3 getRight() { return rot*glm::vec3(1,0,0);}
+
 	inline glm::vec3& GetPos() { return pos; }
-	inline glm::vec3& GetRot() { return rot; }
+	inline glm::quat& GetRot() { return rot; }
 	inline glm::vec3& GetScale() { return scale; }
 
-	inline void SetPos(glm::vec3& pos) { this->pos = pos; }
-	inline void SetRot(glm::vec3& rot) { this->rot = rot; }
-	inline void SetScale(glm::vec3& scale) { this->scale = scale; }
+	inline void SetPos(glm::vec3 pos) { this->pos = pos; }
+	inline void SetRot(glm::quat rot) { this->rot = rot; }
+	inline void SetScale(glm::vec3 scale) { this->scale = scale; }
 protected:
 private:
 	glm::vec3 pos;
-	glm::vec3 rot;
+	glm::quat rot;
 	glm::vec3 scale;
 };
 

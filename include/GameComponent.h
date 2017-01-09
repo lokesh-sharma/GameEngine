@@ -2,9 +2,9 @@
 #define GAMECOMPONENT_H_INCLUDED
 
 #include"transform.h"
-#include"camera.h"
 #include"GameObject.h"
 
+class Camera;
 class Shader;
 class RenderingEngine;
 class CoreEngine;
@@ -14,7 +14,7 @@ protected:
     GameObject* m_parent;
 public:
     GameComponent() : m_parent(nullptr) {}
-    virtual void update(const Transform& t) {};
+    virtual void update() {};
     virtual void render(Shader& bs,const Camera& c , RenderingEngine* renderingEngine) {};
     virtual void setParent(GameObject* gObject)
     {

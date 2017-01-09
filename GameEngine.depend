@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1483782309 source:/home/loki/GameEngine/main.cpp
+1483967663 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -150,15 +150,16 @@
 	"camera.h"
 	"transform.h"
 
-1483513097 /home/loki/GameEngine/include/camera.h
+1483968803 /home/loki/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
 	"InputHandler.h"
 	"transform.h"
+	"GameComponent.h"
 	<iostream>
 
-1483547958 /home/loki/GameEngine/include/transform.h
+1483935532 /home/loki/GameEngine/include/transform.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/gtx/quaternion.hpp>
@@ -268,12 +269,11 @@
 	"shader.h"
 	"Matrial.h"
 
-1483762577 /home/loki/GameEngine/include/GameComponent.h
+1483936943 /home/loki/GameEngine/include/GameComponent.h
 	"transform.h"
-	"camera.h"
 	"GameObject.h"
 
-1483684771 /home/loki/GameEngine/include/GameObject.h
+1483934125 /home/loki/GameEngine/include/GameObject.h
 	<vector>
 	"transform.h"
 
@@ -285,7 +285,7 @@
 	"RenderingEngine.h"
 	"display.h"
 
-1483782102 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1483939945 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -294,15 +294,16 @@
 	"display.h"
 	"CoreEngine.h"
 
-1483780268 /home/loki/GameEngine/include/RenderingEngine.h
+1483934688 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
 	"InputHandler.h"
 	<vector>
 
-1483589686 source:/home/loki/GameEngine/src/Camera.cpp
+1483967308 source:/home/loki/GameEngine/src/Camera.cpp
 	"camera.h"
 	"display.h"
+	"CoreEngine.h"
 
 1483381532 /home/loki/GameEngine/include/Matrial.h
 	<glm/glm.hpp>
@@ -327,11 +328,11 @@
 	"Light.h"
 	"shader.h"
 
-1483287656 source:/home/loki/GameEngine/src/transform.cpp
+1483966072 source:/home/loki/GameEngine/src/transform.cpp
 	"transform.h"
 	"camera.h"
 
-1483780602 source:/home/loki/GameEngine/src/GameObject.cpp
+1483936977 source:/home/loki/GameEngine/src/GameObject.cpp
 	"GameObject.h"
 	"GameComponent.h"
 	"camera.h"

@@ -17,6 +17,7 @@ public:
     void setDisplay(Display* d) { display = d;}
     void addDirectionalLight(DirectionalLight* light);
     void addPointLight(PointLight* light);
+    void addCamera(Camera* c) { camera = c;}
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
     virtual ~RenderingEngine();

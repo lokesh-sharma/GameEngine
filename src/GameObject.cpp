@@ -8,7 +8,7 @@ void GameObject::update()
     for(int i = 0 ; i< m_children.size() ;i++)
         m_children[i]->update();
     for(int i = 0 ; i< m_components.size() ;i++)
-        m_components[i]->update(m_transform);
+        m_components[i]->update();
 }
 void GameObject::render(Shader& bs, const Camera& camera , RenderingEngine* renderingEngine)
 {

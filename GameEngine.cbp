@@ -78,10 +78,12 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/CoreEngine.cpp" />
+		<Unit filename="src/GameObject.cpp" />
 		<Unit filename="src/InputHandler.cpp" />
 		<Unit filename="src/ObjLoader.cpp" />
 		<Unit filename="src/RenderingEngine.cpp" />
 		<Unit filename="src/display.cpp" />
+		<Unit filename="src/light.cpp" />
 		<Unit filename="src/mesh.cpp" />
 		<Unit filename="src/shader.cpp" />
 		<Unit filename="src/texture.cpp" />

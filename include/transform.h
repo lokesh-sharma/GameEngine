@@ -25,17 +25,20 @@ public:
 		return  posMat * rotMat *scaleMat;
 	}
 
-	glm::vec3 getForward() { return rot*glm::vec3(0,0,-1);}
-	glm::vec3 getUp() { return rot*glm::vec3(0,1,0);}
-	glm::vec3 getRight() { return rot*glm::vec3(1,0,0);}
+	glm::vec3 getForward() { return glm::normalize(rot*glm::vec3(0,0,-1));}
+	glm::vec3 getUp() { return glm::normalize(rot*glm::vec3(0,1,0));}
+	glm::vec3 getRight() { return glm::normalize(rot*glm::vec3(1,0,0));}
 
-	inline glm::vec3& GetPos() { return pos; }
-	inline glm::quat& GetRot() { return rot; }
-	inline glm::vec3& GetScale() { return scale; }
+	inline glm::vec3 GetPos() { return pos; }
+	inline glm::quat GetRot() { return rot; }
+	inline glm::vec3 GetScale() { return scale; }
 
 	inline void SetPos(glm::vec3 pos) { this->pos = pos; }
 	inline void SetRot(glm::quat rot) { this->rot = rot; }
 	inline void SetScale(glm::vec3 scale) { this->scale = scale; }
+
+	void rotate(const glm::quat rotation);
+	void rotate(const glm::vec3 axis , float angle);
 protected:
 private:
 	glm::vec3 pos;

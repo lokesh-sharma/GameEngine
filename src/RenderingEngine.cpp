@@ -22,11 +22,10 @@ RenderingEngine::~RenderingEngine()
 void RenderingEngine::init(Display* d)
 {
     display = d;
-    camera = new Camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
-    , (float)display->getWidth()/(float)display->getHeight(), 0.1f, 100.0f);
 }
 void RenderingEngine::render(GameObject* object)
 {
+        object->update();
     object->render(*ambientShader , *camera , this);
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE , GL_ONE);
@@ -46,7 +45,6 @@ void RenderingEngine::render(GameObject* object)
     glDepthFunc(GL_LESS);
     glDepthMask(true);
     glDisable(GL_BLEND);
-    camera->update(TheInputHandler::getInstance()->getMousePos());
 }
  void RenderingEngine::addDirectionalLight(DirectionalLight* light)
  {

@@ -18,9 +18,9 @@ public:
     m_uniforms[light + ".direction"] = glGetUniformLocation(m_program ,(light+".direction").c_str());
 
     }
-    void Update(const Camera&c,const Material& material , RenderingEngine* renderingEngine)
+    void Update(const Transform& transform,const Camera&c,const Material& material , RenderingEngine* renderingEngine)
     {
-        Shader::Update(c,material,renderingEngine);
+        Shader::Update(transform , c,material,renderingEngine);
         std::string light = "directionalLight";
         DirectionalLight* dirlight = renderingEngine->getActiveDirectionalLight();
         glm::vec3 color = dirlight->getColor();

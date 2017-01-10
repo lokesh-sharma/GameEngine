@@ -5,9 +5,9 @@ in vec2 texCoord;
 
 
 out vec2 texCoord0;
-out vec3 normal0;
 
 uniform mat4 MVP;
+uniform mat4 Model;
 
 void main()
 {

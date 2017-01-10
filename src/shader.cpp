@@ -21,6 +21,7 @@ Shader::Shader(const std::string& fileName)
 	CheckShaderError(m_program, GL_LINK_STATUS, true, "Invalid shader program");
 
 	m_uniforms["MVP"] = glGetUniformLocation(m_program, "MVP");
+	m_uniforms["Model"] = glGetUniformLocation(m_program, "Model");
 }
 BasicShader::BasicShader(const std::string& fileName) : Shader(fileName)
 {
@@ -78,24 +79,27 @@ void Shader::Bind() const
 	glUseProgram(m_program);
 }
 
-void Shader::Update(const Camera& camera,const Material& material, RenderingEngine* renderer)
+void Shader::Update(const Transform& transform,const Camera& camera,const Material& material, RenderingEngine* renderer)
 {
 	glm::mat4 MVP = camera.getMVP();
+	glm::mat4 model = transform.GetModel();
+	MVP = MVP*model;
 	setUniformMatrix4f("MVP" , &MVP[0][0]);
+	setUniformMatrix4f("Model" , &model[0][0]);
 }
-void BasicShader::Update(const Camera& camera,const Material& material, RenderingEngine* renderer)
+void BasicShader::Update(const Transform& transform,const Camera& camera,const Material& material, RenderingEngine* renderer)
 {
 
-	Shader::Update(camera,material , renderer);
+	Shader::Update(transform , camera,material , renderer);
 	glm::mat4 Normal = camera.getModel();
 	   glm::vec4 color = material.getAmbientColor();
 	glm::vec4 mColor = material.getAmbientColor();
 	setUniformMatrix4f("Normal" , &Normal[0][0]);
 	setUniformVector4f("MaterialAmbientColor" , color.x , color.y ,color.z,color.w);
 }
-void PhongShader::Update( const Camera& camera,const Material& material, RenderingEngine* renderer)
+void PhongShader::Update(const Transform& transform, const Camera& camera,const Material& material, RenderingEngine* renderer)
 {
-    BasicShader::Update(camera , material , renderer);
+    BasicShader::Update(transform , camera , material , renderer);
     setUniform1f("specularPower" , material.getSpecularPower());
 	setUniform1f("specularIntensity" , material.getSpecularIntensity());
 	glm::vec3 p = camera.getPos();

@@ -27,9 +27,9 @@ public:
         m_uniforms[light + ".cut_off"] = glGetUniformLocation(m_program ,(light+".cut_off").c_str());
         m_uniforms[light + ".direction"] = glGetUniformLocation(m_program ,(light+".direction").c_str());
     }
-    void Update( const Camera&c,const Material& material,RenderingEngine* renderer)
+    void Update(const Transform& transform, const Camera&c,const Material& material,RenderingEngine* renderer)
     {
-        Shader::Update(c,material , renderer);
+        Shader::Update(transform , c,material , renderer);
         std::string light = "spotLight";
         glm::vec3 color = spotLight.getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);

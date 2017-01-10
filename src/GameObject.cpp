@@ -16,10 +16,12 @@ void GameObject::render(Shader& bs, const Camera& camera , RenderingEngine* rend
         m_children[i]->render(bs,camera , renderingEngine);
         for(int i = 0 ; i< m_components.size() ;i++)
         m_components[i]->render(bs,camera , renderingEngine);
+    m_transform.update();
 }
 void GameObject::addChild(GameObject* object)
 {
     m_children.push_back(object);
+    object->getTransform()->setParent(&m_transform);
 }
 void GameObject::setEngine(CoreEngine* core)
 {

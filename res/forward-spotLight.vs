@@ -10,11 +10,12 @@ out vec3 normal0;
 out vec3 worldPos0;
 
 uniform mat4 MVP;
+uniform mat4 Model;
 
 void main()
 {
 	gl_Position = MVP*vec4(position, 1.0);
 	texCoord0 = texCoord;
 	normal0 = normal;
-	worldPos0 =position;
+	worldPos0 =vec3(Model*vec4(position,1.0));
 }

@@ -22,9 +22,9 @@ public:
         m_uniforms[light + ".atten.exponent"] = glGetUniformLocation(m_program ,(light+".atten.exponent").c_str());
         m_uniforms[light + ".range"] = glGetUniformLocation(m_program ,(light+".range").c_str());
     }
-    void Update(const Camera&c,const Material& material, RenderingEngine* renderer)
+    void Update(const Transform& transform,const Camera&c,const Material& material, RenderingEngine* renderer)
     {
-        Shader::Update(c,material,renderer);
+        Shader::Update(transform,c,material,renderer);
         PointLight* pointLight = renderer->getActivePointLight();
         std::string light = "pointLight";
         glm::vec3 color = pointLight->getColor();

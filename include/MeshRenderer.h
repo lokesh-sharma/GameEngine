@@ -24,7 +24,7 @@ public:
     void render(Shader& bs,const Camera& c ,RenderingEngine* renderingEngine)
     {
         bs.Bind();
-        bs.Update(c,*m_material, renderingEngine);
+        bs.Update(*getTransform(),c,*m_material, renderingEngine);
         m_material->getBaseTexture()->Bind();
         m_mesh->Draw();
     }

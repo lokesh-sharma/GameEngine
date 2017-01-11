@@ -25,7 +25,6 @@ void RenderingEngine::init(Display* d)
 }
 void RenderingEngine::render(GameObject* object)
 {
-    object->update();
     object->render(*ambientShader , *camera , this);
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE , GL_ONE);
@@ -45,6 +44,7 @@ void RenderingEngine::render(GameObject* object)
     glDepthFunc(GL_LESS);
     glDepthMask(true);
     glDisable(GL_BLEND);
+    object->update();
 }
  void RenderingEngine::addDirectionalLight(DirectionalLight* light)
  {

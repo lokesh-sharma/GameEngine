@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1484052957 source:/home/loki/GameEngine/main.cpp
+1484143581 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -285,7 +285,7 @@
 	"RenderingEngine.h"
 	"display.h"
 
-1484041547 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1484071775 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -332,7 +332,7 @@
 	"transform.h"
 	"camera.h"
 
-1484052701 source:/home/loki/GameEngine/src/GameObject.cpp
+1484071853 source:/home/loki/GameEngine/src/GameObject.cpp
 	"GameObject.h"
 	"GameComponent.h"
 	"camera.h"

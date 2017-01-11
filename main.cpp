@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     game->addToScene(g1);
     game->addToScene(g2);
     game->addToScene(g3);
-    g2->addComponent(&g);
+    //g2->addComponent(&g);
     game->setEngine(&core);
     g1->addComponent(new PointLight(glm::vec3(1,1,1) , 6.0f , glm::vec3(0,5,2)));
       g3->addComponent(new Camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f

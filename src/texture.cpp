@@ -13,6 +13,7 @@ Texture::Texture(const std::string& fileName)
 
     glGenTextures(1, &m_texture);
     glGenerateMipmap(GL_TEXTURE_2D);
+    glTexParameterf(GL_TEXTURE_2D , GL_TEXTURE_MAX_ANISOTROPY_EXT , 8.0f);
     glBindTexture(GL_TEXTURE_2D, m_texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

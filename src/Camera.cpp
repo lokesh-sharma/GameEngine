@@ -33,19 +33,19 @@ void Camera::update()
 
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_D))
     {
-            move(getTransform()->getRight() , 0.5);
+            move(getTransform()->getRight() , 0.1);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_A))
     {
-             move(getTransform()->getRight() , -0.5);
+             move(getTransform()->getRight() , -0.1);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_W))
     {
-             move(getTransform()->getForward() , 0.5);
+             move(getTransform()->getForward() , 0.1);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_S))
     {
-             move(getTransform()->getForward() , -0.5);
+             move(getTransform()->getForward() , -0.1);
     }
     initialPos = getTransform()->GetPos();
 

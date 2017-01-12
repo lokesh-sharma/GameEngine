@@ -31,8 +31,9 @@ int main(int argc, char** argv)
     GameObject* g3 = new GameObject;
     Material* m = new Material();
     Material* m1 = new Material();
+     m1->addTexture("diffuse" , "./res/sphere.png");
     m->addTexture("diffuse" , "./res/TextureAtlas.png");
-    m1->addTexture("diffuse" , "./res/brick03.jpg");
+
     MeshRenderer f(new Mesh("./res/dima.obj"),m);
     MeshRenderer g(new Mesh("./res/Buddha.obj"),m1);
 
@@ -50,18 +51,20 @@ int main(int argc, char** argv)
     game->addToScene(g1);
     game->addToScene(g2);
     game->addToScene(g3);
+
     //g2->addComponent(&g);
     game->setEngine(&core);
     g1->addComponent(new PointLight(glm::vec3(1,1,1) , 6.0f , glm::vec3(0,5,2)));
-      g3->addComponent(new Camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
+      g2->addComponent(new Camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f));
+
     core.start();
 	float counter = 0.0f;
     long framestart;
 	while(core.is_running())
 	{
         framestart = SDL_GetTicks();
-
+        g2->getTransform()->rotate(glm::vec3(0,1,0) , 0.1);
         core.run();
 
 		TheInputHandler::getInstance()->resetStates();

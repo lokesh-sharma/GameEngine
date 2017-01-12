@@ -23,7 +23,7 @@ public:
 private:
     glm::mat4 projection;
     glm::vec2 screenMiddle;
-    glm::vec3 initialPos;
+    mutable Transform m_transform;
     void move(const glm::vec3 direction , float distance);
 };
 

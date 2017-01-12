@@ -9,11 +9,11 @@ GameComponent()
     int width = TheInputHandler::getInstance()->getDisplay()->getWidth();
     int height = TheInputHandler::getInstance()->getDisplay()->getHeight();
     screenMiddle = glm::vec2(width/2 , height/2);
-    initialPos = pos;
+    m_transform.SetPos(pos);
+    m_transform.setParent(getTransform());
 }
 void Camera::update()
 {
-    getTransform()->SetPos(initialPos);
     glm::vec2 mousePos = TheInputHandler::getInstance()->getMousePos();
     glm::vec2 delta = mousePos - screenMiddle;
     float x = -delta.x;
@@ -21,11 +21,11 @@ void Camera::update()
 
     if(x)
     {
-        getTransform()->rotate(glm::vec3(0,1,0) , x*0.1);
+        m_transform.rotate(glm::vec3(0,1,0) , x*0.1);
     }
     if(y)
     {
-        getTransform()->rotate(getTransform()->getRight() , y*0.1);
+         m_transform.rotate(m_transform.getRight() , y*0.1);
     }
     if(x || y)
         TheInputHandler::getInstance()->setMousePos(screenMiddle.x , screenMiddle.y);
@@ -33,26 +33,25 @@ void Camera::update()
 
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_D))
     {
-            move(getTransform()->getRight() , 0.1);
+            move( m_transform.getRight() , 0.1);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_A))
     {
-             move(getTransform()->getRight() , -0.1);
+             move( m_transform.getRight() , -0.1);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_W))
     {
-             move(getTransform()->getForward() , 0.1);
+             move( m_transform.getForward() , 0.1);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_S))
     {
-             move(getTransform()->getForward() , -0.1);
+             move( m_transform.getForward() , -0.1);
     }
-    initialPos = getTransform()->GetPos();
 
 }
 void Camera::move(const glm::vec3 direction , float distance)
 {
-    getTransform()->SetPos(getTransform()->GetPos() + direction*distance);
+     m_transform.SetPos( m_transform.GetPos() + direction*distance);
 
 }
 void Camera::addToEngine(CoreEngine* core)
@@ -61,6 +60,13 @@ void Camera::addToEngine(CoreEngine* core)
 }
 glm::mat4 Camera::getMVP() const
 {
-    return projection*glm::lookAt(getTransform()->GetPos() ,getTransform()->GetPos() + getTransform()->getForward()
-     , getTransform()->getUp());
+    glm::mat4 posmat = glm::translate(-m_transform.GetPos());
+    glm::mat4 rotmat = glm::toMat4(glm::conjugate(m_transform.GetRot()));
+    glm::mat4 transformedposmat = glm::translate(-getTransform()->GetPos());
+    glm::mat4 transformedrotmat = glm::toMat4(glm::conjugate(getTransform()->GetRot()));
+
+    return projection *rotmat*posmat*transformedrotmat*transformedposmat;
+
+    return projection*glm::lookAt( m_transform.GetPos() , m_transform.GetPos() +  m_transform.getForward()
+     ,  m_transform.getUp())*getTransform()->GetModel();
 }

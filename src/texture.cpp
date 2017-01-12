@@ -5,18 +5,19 @@
 Texture::Texture(const std::string& fileName)
 {
 	int width, height, numComponents;
+	stbi_set_flip_vertically_on_load(true);
     unsigned char* data =stbi_load(fileName.c_str() , &width , &height , &numComponents , 4);
-    stbi_set_flip_vertically_on_load(true);
 
     if(data == NULL)
 		std::cerr << "Unable to load texture: " << fileName << std::endl;
 
     glGenTextures(1, &m_texture);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    glTexParameterf(GL_TEXTURE_2D , GL_TEXTURE_MAX_ANISOTROPY_EXT , 8.0f);
+    //glGenerateMipmap(GL_TEXTURE_2D);
+    //glTexParameterf(GL_TEXTURE_2D , GL_TEXTURE_MAX_ANISOTROPY_EXT , 8.0f);
     glBindTexture(GL_TEXTURE_2D, m_texture);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

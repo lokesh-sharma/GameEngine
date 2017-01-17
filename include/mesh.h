@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
+#include<map>
 
 struct Vertex
 {
@@ -34,26 +35,42 @@ enum MeshBufferPositions
 	INDEX_VB
 };
 
-class Mesh
+class MeshData
 {
 public:
-    Mesh(const std::string& fileName);
-    Mesh(Vertex* vertices, unsigned int numVertices);
+    MeshData(const std::string& fileName);
 
 	void Draw();
+	void increment() { counter++ ;}
+	void decrement() { if(counter>0)counter-- ;}
+	int getCount() { return counter ;}
 
-	virtual ~Mesh();
+	virtual ~MeshData();
 protected:
 private:
 	static const unsigned int NUM_BUFFERS = 3;
-	void operator=(const Mesh& mesh) {}
-	Mesh(const Mesh& mesh) {}
+	unsigned int counter;
+	void operator=(const MeshData& mesh) {}
+	MeshData(const MeshData& mesh) {}
 
     void LoadMesh(const std::string& filename);
 	GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffers[NUM_BUFFERS];
-	unsigned int m_numIndices;
 	unsigned int m_drawCount;
+};
+class Mesh
+{
+public:
+    Mesh(const std::string& fileName);
+    void Draw();
+    void remove();
+private:
+    static std::map<std::string , MeshData*> meshResource;
+    MeshData* m_meshData;
+    std::string m_fileName;
+    void operator=(const Mesh& mesh) {}
+	Mesh(const Mesh& mesh) {}
+
 };
 
 #endif

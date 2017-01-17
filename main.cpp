@@ -35,8 +35,8 @@ int main(int argc, char** argv)
     m->addTexture("diffuse" , "./res/TextureAtlas.png");
 
     MeshRenderer f(new Mesh("./res/dima.obj"),m);
-    MeshRenderer g(new Mesh("./res/Buddha.obj"),m1);
-
+    Mesh* mq = new Mesh("./res/dima.obj");
+    mq->remove();
     Game* game = new Game();
     TheInputHandler::getInstance()->disableCursor();
 

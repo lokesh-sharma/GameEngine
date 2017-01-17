@@ -19,7 +19,7 @@ public:
     {
         return texture_map[uName];
     }
-    Texture* getBaseTexture()
+    Texture* getDiffuseTexture()
     {
         return texture_map["diffuse"];
     }

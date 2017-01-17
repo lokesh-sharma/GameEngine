@@ -17,8 +17,8 @@ public:
     Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar);
     void update();
 	glm::mat4 getMVP() const ;
-	glm::mat4 getModel() const { return getTransform()->GetModel();}
-	glm::vec3 getPos() const { return getTransform()->GetPos();}
+	glm::mat4 getModel() const { return getTransform()->GetModel()*m_transform.GetModel();}
+	glm::vec3 getPos() const;
 	void addToEngine(CoreEngine* core);
 private:
     glm::mat4 projection;

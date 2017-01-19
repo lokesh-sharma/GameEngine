@@ -31,16 +31,12 @@ int main(int argc, char** argv)
     GameObject* g3 = new GameObject;
     Material* m = new Material();
     Material* m1 = new Material();
-     m1->addTexture("diffuse" , "./res/sphere.png");
     m->addTexture("diffuse" , "./res/TextureAtlas.png");
 
     MeshRenderer f(new Mesh("./res/dima.obj"),m);
-    Mesh* mq = new Mesh("./res/dima.obj");
-    mq->remove();
     Game* game = new Game();
     TheInputHandler::getInstance()->disableCursor();
 
-    Shader* s = new PhongShader("./res/phongShader");
     TheInputHandler::getInstance()->setDisplay(&display);
 
     CoreEngine core(&display , game , new RenderingEngine() );
@@ -54,23 +50,25 @@ int main(int argc, char** argv)
 
     //g2->addComponent(&g);
     game->setEngine(&core);
-    g1->addComponent(new PointLight(glm::vec3(1,1,1) , 6.0f , glm::vec3(0,5,2)));
+    g3->addComponent(new PointLight(glm::vec3(1,1,1) , 6.0f ));
       g2->addComponent(new Camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f));
 
     core.start();
 	float counter = 0.0f;
     long framestart;
+    g3->getTransform()->SetPos(glm::vec3(0,4,0));
 	while(core.is_running())
 	{
         framestart = SDL_GetTicks();
         g2->getTransform()->rotate(glm::vec3(0,1,0) , 0.1);
+        g3->getTransform()->SetPos(glm::vec3(glm::sin(counter)*3 , 4 , 0));
         core.run();
 
 		TheInputHandler::getInstance()->resetStates();
 		long time = SDL_GetTicks() - framestart;
 		std::cout<<1000.0/time<<std::endl;
-		counter += 1;
+		counter += 0.1;
 	}
 
 	return 0;

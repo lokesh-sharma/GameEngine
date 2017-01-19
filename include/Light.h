@@ -52,14 +52,13 @@ public:
 class PointLight : public BaseLight
 {
 private:
-    glm::vec3 position;
     Attenuation atten;
     float range;
 public:
-    PointLight(const glm::vec3 color , float inten , glm::vec3 pos ,float c=0
+    PointLight(const glm::vec3 color , float inten ,float c=0
     , float l=0,float e=1 , float r=50);
     Attenuation getAttenuation() const { return atten ;}
-    glm::vec3 getPosition() const { return position ;}
+    glm::vec3 getPosition() const { return getTransform()->GetPos() ;}
     float getRange() const { return range ;}
     virtual void addToEngine(CoreEngine*core)
     {
@@ -70,9 +69,8 @@ class SpotLight : public PointLight
 {
 private:
     float cut_off;
-    glm::vec3 direction;
 public:
-    SpotLight(const glm::vec3 color , float inten , glm::vec3 pos ,glm::vec3 dir,
+    SpotLight(const glm::vec3 color , float inten ,
     float c=0, float l=0,float e=1 , float r=50 , float cut = 0.354);
     float getCutOff() const { return cut_off;}
     glm::vec3 getDirection() ;

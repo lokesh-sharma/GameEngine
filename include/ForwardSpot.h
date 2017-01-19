@@ -11,7 +11,7 @@ private:
    SpotLight spotLight;
 public:
     ForwardSpot(const std::string fileName): Shader(fileName) ,
-    spotLight(glm::vec3(1.0f,1.0f,1.0f),10.0f,glm::vec3(0.0f,3.0f,0.0f) , glm::vec3(0.0f,-1.0f,0.0f))
+    spotLight(glm::vec3(1.0f,1.0f,1.0f),10.0f)
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");

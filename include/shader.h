@@ -47,25 +47,4 @@ protected:
     GLuint m_program;
 };
 
-class BasicShader : public Shader
-{
-public:
-    BasicShader(const std::string& fileName) ;
-    virtual void Update(const Transform& transform, const Camera& camera , const Material& m , RenderingEngine* renderer);
-	virtual ~BasicShader();
-};
-class PhongShader : public BasicShader
-{
-public:
-	PhongShader(const std::string& fileName);
-	void Update(const Transform& transform, const Camera& camera , const Material& m, RenderingEngine* renderer);
-	void setUniformPointLights(PointLight* pArray , int n);
-	void setUniformSpotLights(SpotLight* sArray , int n);
-	virtual ~PhongShader();
-protected:
-private:
-    static const unsigned int NUM_POINT_LIGHTS = 4;
-    static const unsigned int NUM_SPOT_LIGHTS = 4;
-};
-
 #endif

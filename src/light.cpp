@@ -5,7 +5,7 @@
 
 glm::vec3 DirectionalLight::getDirection() const
 {
-    return -GameComponent::getTransform()->getUp();
+    return GameComponent::getTransform()->getForward();
 }
 
 glm::vec3 SpotLight::getDirection()
@@ -17,15 +17,15 @@ DirectionalLight:: DirectionalLight(const glm::vec3 color , float inten ) :
 {
     m_shader = new ForwardDirectional("./res/forward-directional");
 }
-PointLight::PointLight(const glm::vec3 color , float inten , glm::vec3 pos ,float c
+PointLight::PointLight(const glm::vec3 color , float inten , float c
     , float l,float e, float r):
-    BaseLight(color , inten) , atten(c,l,e) , range(r) , position(pos)
+    BaseLight(color , inten) , atten(c,l,e) , range(r)
 {
         m_shader = new ForwardPoint("./res/forward-pointLight");
 }
-SpotLight::SpotLight(const glm::vec3 color , float inten , glm::vec3 pos ,glm::vec3 dir,
+SpotLight::SpotLight(const glm::vec3 color , float inten,
     float c, float l,float e , float r , float cut) :
-    PointLight(color , inten,pos,c ,l , e , r) , cut_off(cut) , direction(dir)
+    PointLight(color , inten,c ,l , e , r) , cut_off(cut)
 {
         m_shader = new ForwardSpot("./res/forward-spotLight");
 }

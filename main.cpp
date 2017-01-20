@@ -15,6 +15,9 @@
 #include"Game.h"
 #include"Matrial.h"
 #include"transform.h"
+#include"BoundingSphere.h"
+#include"AABB.h"
+#include"Plane.h"
 
 const int DISPLAY_WIDTH = 1152;
 const int DISPLAY_HEIGHT = 800;
@@ -50,7 +53,8 @@ int main(int argc, char** argv)
 
     //g2->addComponent(&g);
     game->setEngine(&core);
-    g3->addComponent(new PointLight(glm::vec3(1,1,1) , 6.0f ));
+    //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
+    g3->addComponent(new SpotLight(glm::vec3(1,1,1) , 3.0f ));
       g2->addComponent(new Camera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f));
 
@@ -62,7 +66,6 @@ int main(int argc, char** argv)
 	{
         framestart = SDL_GetTicks();
         g2->getTransform()->rotate(glm::vec3(0,1,0) , 0.1);
-        g3->getTransform()->SetPos(glm::vec3(glm::sin(counter)*3 , 4 , 0));
         core.run();
 
 		TheInputHandler::getInstance()->resetStates();

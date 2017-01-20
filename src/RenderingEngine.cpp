@@ -41,6 +41,11 @@ void RenderingEngine::render(GameObject* object)
         active_dir_light = dir_lights[i];
         object->render(*(dir_lights[i]->getShader()) , *camera , this);
     }
+    for(int i = 0 ; i<spot_lights.size() ; i++)
+    {
+        active_spot_light = spot_lights[i];
+        object->render(*(spot_lights[i]->getShader()) , *camera , this);
+    }
     glDepthFunc(GL_LESS);
     glDepthMask(true);
     glDisable(GL_BLEND);
@@ -53,4 +58,8 @@ void RenderingEngine::render(GameObject* object)
   void RenderingEngine::addPointLight(PointLight* light)
  {
     point_lights.push_back(light);
+ }
+ void RenderingEngine::addSpotLight(SpotLight* light)
+ {
+    spot_lights.push_back(light);
  }

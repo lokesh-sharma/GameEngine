@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1484826011 source:/home/loki/GameEngine/main.cpp
+1484911039 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -143,6 +143,8 @@
 	"Game.h"
 	"Matrial.h"
 	"transform.h"
+	"BoundingSphere.h"
+	"AABB.h"
 
 1483448784 /home/loki/GameEngine/include/display.h
 	<string>
@@ -181,7 +183,7 @@
 	"../include/Light.h"
 	"Matrial.h"
 
-1484752078 /home/loki/GameEngine/include/Light.h
+1484852771 /home/loki/GameEngine/include/Light.h
 	<glm/glm.hpp>
 	"GameComponent.h"
 	"transform.h"
@@ -227,7 +229,7 @@
 	<iostream>
 	"../include/ObjLoader.h"
 
-1484751948 source:/home/loki/GameEngine/src/shader.cpp
+1484826334 source:/home/loki/GameEngine/src/shader.cpp
 	"../include/shader.h"
 	<iostream>
 	<fstream>
@@ -286,7 +288,7 @@
 	"RenderingEngine.h"
 	"display.h"
 
-1484071775 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1484853045 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -295,7 +297,7 @@
 	"display.h"
 	"CoreEngine.h"
 
-1483934688 /home/loki/GameEngine/include/RenderingEngine.h
+1484852889 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
 	"InputHandler.h"
@@ -325,7 +327,7 @@
 	"shader.h"
 	"RenderingEngine.h"
 
-1484752146 /home/loki/GameEngine/include/ForwardSpot.h
+1484853509 /home/loki/GameEngine/include/ForwardSpot.h
 	"Light.h"
 	"shader.h"
 
@@ -339,9 +341,33 @@
 	"camera.h"
 	"shader.h"
 
-1484752178 source:/home/loki/GameEngine/src/light.cpp
+1484853554 source:/home/loki/GameEngine/src/light.cpp
 	"Light.h"
 	"ForwardDirectional.h"
 	"ForwardPoint.h"
 	"ForwardSpot.h"
+
+1484908251 source:/home/loki/GameEngine/src/BoundingSphere.cpp
+	"BoundingSphere.h"
+
+1484907913 /home/loki/GameEngine/include/BoundingSphere.h
+	<glm/glm.hpp>
+	"IntersectData.h"
+
+1484907667 /home/loki/GameEngine/include/IntersectData.h
+
+1484911071 source:/home/loki/GameEngine/src/AABB.cpp
+	"AABB.h"
+
+1484910936 /home/loki/GameEngine/include/AABB.h
+	"IntersectData.h"
+	<glm/glm.hpp>
+
+1484927653 source:/home/loki/GameEngine/src/Plane.cpp
+	"Plane.h"
+
+1484927105 /home/loki/GameEngine/include/Plane.h
+	"IntersectData.h"
+	"BoundingSphere.h"
+	<glm/glm.hpp>
 

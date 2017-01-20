@@ -39,6 +39,8 @@
 			<Add library="GLEW" />
 			<Add library="GL" />
 		</Linker>
+		<Unit filename="include/AABB.h" />
+		<Unit filename="include/BoundingSphere.h" />
 		<Unit filename="include/CoreEngine.h" />
 		<Unit filename="include/ForwardAmbient.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -60,6 +62,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/InputHandler.h" />
+		<Unit filename="include/IntersectData.h" />
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/Matrial.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -67,6 +70,7 @@
 		<Unit filename="include/MeshRenderer.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/Plane.h" />
 		<Unit filename="include/RenderingEngine.h" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/display.h" />
@@ -76,11 +80,14 @@
 		<Unit filename="include/texture.h" />
 		<Unit filename="include/transform.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/AABB.cpp" />
+		<Unit filename="src/BoundingSphere.cpp" />
 		<Unit filename="src/Camera.cpp" />
 		<Unit filename="src/CoreEngine.cpp" />
 		<Unit filename="src/GameObject.cpp" />
 		<Unit filename="src/InputHandler.cpp" />
 		<Unit filename="src/ObjLoader.cpp" />
+		<Unit filename="src/Plane.cpp" />
 		<Unit filename="src/RenderingEngine.cpp" />
 		<Unit filename="src/display.cpp" />
 		<Unit filename="src/light.cpp" />

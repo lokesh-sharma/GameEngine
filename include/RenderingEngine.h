@@ -8,6 +8,7 @@
 class Display;
 class DirectionalLight;
 class PointLight;
+class SpotLight;
 class RenderingEngine
 {
 public:
@@ -17,15 +18,19 @@ public:
     void setDisplay(Display* d) { display = d;}
     void addDirectionalLight(DirectionalLight* light);
     void addPointLight(PointLight* light);
+    void addSpotLight(SpotLight* light);
     void addCamera(Camera* c) { camera = c;}
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
+    SpotLight* getActiveSpotLight() { return active_spot_light;}
     virtual ~RenderingEngine();
 private:
     std::vector<DirectionalLight*>dir_lights;
     std::vector<PointLight*>point_lights;
+    std::vector<SpotLight*>spot_lights;
     PointLight* active_point_light;
     DirectionalLight* active_dir_light;
+    SpotLight* active_spot_light;
     Shader* ambientShader;
     Camera* camera;
     Display* display;

@@ -18,7 +18,7 @@ void CoreEngine::run()
     m_display->Clear(0.0f, 0.0f, 0.0f, 1.0f);
     m_display->update();
     renderingEngine->render(m_game->getRootObject());
-    m_game->update();
+    m_game->update(4.0f);
     m_display->SwapBuffers();
 }
 CoreEngine::~CoreEngine()

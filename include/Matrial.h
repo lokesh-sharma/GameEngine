@@ -11,7 +11,7 @@ class Material
 public:
     Material()
     {
-        specPower = 11.0f;
+        specPower = 3.0f;
         specIntensity=9.0f;
         ambient = glm::vec4(0.9f , 0.9f , 0.9f , 1.0f);
     }

@@ -89,7 +89,7 @@ void main()
 		tdiff += dcolor/attenu;
 		}
 	
-	color = tspec;//texture2D(sampler, texCoord0.xy)*(tdiff) + tspec;
+	color = texture2D(sampler, texCoord0.xy)*(tdiff) + tspec;
 	
 	//texture2D(sampler, texCoord0.xy)
 		

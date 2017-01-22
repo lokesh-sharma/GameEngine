@@ -9,7 +9,7 @@
 class Display
 {
 public:
-	Display(int width, int height, const std::string& title);
+	Display(const std::string& title);
 
 	int getWidth()const { return m_width;}
 	int getHeight()const { return m_height;}

@@ -15,7 +15,7 @@ class Camera : public GameComponent
 {
 public:
     Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar);
-    void update();
+    void update(float delta);
 	glm::mat4 getMVP() const ;
 	glm::mat4 getModel() const { return getTransform()->GetModel()*m_transform.GetModel();}
 	glm::vec3 getPos() const;

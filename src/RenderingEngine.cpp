@@ -49,7 +49,7 @@ void RenderingEngine::render(GameObject* object)
     glDepthFunc(GL_LESS);
     glDepthMask(true);
     glDisable(GL_BLEND);
-    object->update();
+    object->update(400.0f);
 }
  void RenderingEngine::addDirectionalLight(DirectionalLight* light)
  {

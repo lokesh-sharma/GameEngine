@@ -4,9 +4,11 @@
 #include"../include/InputHandler.h"
 #include"../include/transform.h"
 
-Display::Display(int width, int height, const std::string& title)
+Display::Display( const std::string& title)
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_DisplayMode current;
+    int x = SDL_GetCurrentDisplayMode(0 , &current);
 
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -18,10 +20,13 @@ Display::Display(int width, int height, const std::string& title)
        //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
     //SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 2);
 
-    m_width = width;
-    m_height = height;
+    m_width = current.w;
+    m_height = current.h;
 
-	m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+    if(x == 0)
+        m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, current.w, current.h, SDL_WINDOW_OPENGL);
+	else
+        std::cerr<<"Error in getting display information\n";
 	m_glContext = SDL_GL_CreateContext(m_window);
     m_running = true;
 	GLenum res = glewInit();

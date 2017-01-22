@@ -12,7 +12,7 @@ GameComponent()
     m_transform.SetPos(pos);
     m_transform.setParent(getTransform());
 }
-void Camera::update()
+void Camera::update(float d)
 {
     glm::vec2 mousePos = TheInputHandler::getInstance()->getMousePos();
     glm::vec2 delta = mousePos - screenMiddle;

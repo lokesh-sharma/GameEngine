@@ -91,6 +91,5 @@ void main()
 	
 	color = texture2D(sampler, texCoord0.xy)*(tdiff) + tspec;
 	
-	//texture2D(sampler, texCoord0.xy)
 		
 }

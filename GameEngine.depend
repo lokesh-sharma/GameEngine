@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1484911039 source:/home/loki/GameEngine/main.cpp
+1485079540 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -145,14 +145,19 @@
 	"transform.h"
 	"BoundingSphere.h"
 	"AABB.h"
+	"Plane.h"
+	"PhysicsEngine.h"
+	"PhysicsEngineComponent.h"
+	"PhysicsObject.h"
+	"PhysicsObjectComponent.h"
 
-1483448784 /home/loki/GameEngine/include/display.h
+1485022744 /home/loki/GameEngine/include/display.h
 	<string>
 	<SDL2/SDL.h>
 	"camera.h"
 	"transform.h"
 
-1484586552 /home/loki/GameEngine/include/camera.h
+1485017571 /home/loki/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
@@ -198,7 +203,7 @@
 	<vector>
 	<glm/glm.hpp>
 
-1483623502 source:/home/loki/GameEngine/src/display.cpp
+1485022754 source:/home/loki/GameEngine/src/display.cpp
 	"../include/display.h"
 	<GL/glew.h>
 	<iostream>
@@ -257,7 +262,7 @@
 1482585338 source:/home/loki/GameEngine/src/Game.cpp
 	"Game.h"
 
-1483781405 /home/loki/GameEngine/include/Game.h
+1485017168 /home/loki/GameEngine/include/Game.h
 	"GameObject.h"
 
 1482585430 source:/home/loki/GameEngine/src/TestGame.cpp
@@ -272,15 +277,15 @@
 	"shader.h"
 	"Matrial.h"
 
-1484033021 /home/loki/GameEngine/include/GameComponent.h
+1485017106 /home/loki/GameEngine/include/GameComponent.h
 	"transform.h"
 	"GameObject.h"
 
-1484032960 /home/loki/GameEngine/include/GameObject.h
+1485017100 /home/loki/GameEngine/include/GameObject.h
 	<vector>
 	"transform.h"
 
-1483781177 source:/home/loki/GameEngine/src/CoreEngine.cpp
+1485017180 source:/home/loki/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
 
 1483763406 /home/loki/GameEngine/include/CoreEngine.h
@@ -288,7 +293,7 @@
 	"RenderingEngine.h"
 	"display.h"
 
-1484853045 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1485030645 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -303,12 +308,12 @@
 	"InputHandler.h"
 	<vector>
 
-1484588036 source:/home/loki/GameEngine/src/Camera.cpp
+1485017558 source:/home/loki/GameEngine/src/Camera.cpp
 	"camera.h"
 	"display.h"
 	"CoreEngine.h"
 
-1484287300 /home/loki/GameEngine/include/Matrial.h
+1485025136 /home/loki/GameEngine/include/Matrial.h
 	<glm/glm.hpp>
 	<map>
 	<iostream>
@@ -335,7 +340,7 @@
 	"transform.h"
 	"camera.h"
 
-1484071853 source:/home/loki/GameEngine/src/GameObject.cpp
+1485017143 source:/home/loki/GameEngine/src/GameObject.cpp
 	"GameObject.h"
 	"GameComponent.h"
 	"camera.h"
@@ -350,9 +355,10 @@
 1484908251 source:/home/loki/GameEngine/src/BoundingSphere.cpp
 	"BoundingSphere.h"
 
-1484907913 /home/loki/GameEngine/include/BoundingSphere.h
+1485018546 /home/loki/GameEngine/include/BoundingSphere.h
 	<glm/glm.hpp>
 	"IntersectData.h"
+	"Collider.h"
 
 1484907667 /home/loki/GameEngine/include/IntersectData.h
 
@@ -370,4 +376,39 @@
 	"IntersectData.h"
 	"BoundingSphere.h"
 	<glm/glm.hpp>
+
+1485028397 source:/home/loki/GameEngine/src/PhysicsObject.cpp
+	"PhysicsObject.h"
+
+1485079949 /home/loki/GameEngine/include/PhysicsObject.h
+	<glm/glm.hpp>
+	"BoundingSphere.h"
+
+1485080003 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
+	"PhysicsEngine.h"
+	"BoundingSphere.h"
+	<iostream>
+
+1485079588 /home/loki/GameEngine/include/PhysicsEngine.h
+	<vector>
+	"PhysicsObject.h"
+
+1484941762 source:/home/loki/GameEngine/src/Collider.cpp
+	"Collider.h"
+
+1485018572 /home/loki/GameEngine/include/Collider.h
+
+1485017628 source:/home/loki/GameEngine/src/PhysicsEngineComponent.cpp
+	"PhysicsEngineComponent.h"
+
+1485017240 /home/loki/GameEngine/include/PhysicsEngineComponent.h
+	"GameComponent.h"
+	"PhysicsEngine.h"
+
+1485027619 source:/home/loki/GameEngine/src/PhysicsObjectComponent.cpp
+	"PhysicsObjectComponent.h"
+
+1485021233 /home/loki/GameEngine/include/PhysicsObjectComponent.h
+	"PhysicsObject.h"
+	"GameComponent.h"
 

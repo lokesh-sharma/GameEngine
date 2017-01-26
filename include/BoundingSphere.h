@@ -11,11 +11,13 @@ public:
     m_radius(radius) , m_center(center)
     {}
     IntersectData intersectBoundingSphere(const BoundingSphere& other);
+    virtual void transform(glm::vec3 translation);
+    virtual glm::vec3 getCenter() const { return m_center; }
     inline float getRadius() const { return m_radius;}
-    inline glm::vec3 getCenter() const { return m_center;}
+
 private:
-    const float m_radius;
-    const glm::vec3 m_center;
+    float m_radius;
+    glm::vec3 m_center;
 };
 
 #endif // BOUNDINGSPHERE_H

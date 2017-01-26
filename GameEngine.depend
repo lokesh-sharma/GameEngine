@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1485079540 source:/home/loki/GameEngine/main.cpp
+1485459245 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -352,10 +352,10 @@
 	"ForwardPoint.h"
 	"ForwardSpot.h"
 
-1484908251 source:/home/loki/GameEngine/src/BoundingSphere.cpp
+1485116693 source:/home/loki/GameEngine/src/BoundingSphere.cpp
 	"BoundingSphere.h"
 
-1485018546 /home/loki/GameEngine/include/BoundingSphere.h
+1485458984 /home/loki/GameEngine/include/BoundingSphere.h
 	<glm/glm.hpp>
 	"IntersectData.h"
 	"Collider.h"
@@ -380,11 +380,11 @@
 1485028397 source:/home/loki/GameEngine/src/PhysicsObject.cpp
 	"PhysicsObject.h"
 
-1485079949 /home/loki/GameEngine/include/PhysicsObject.h
+1485459333 /home/loki/GameEngine/include/PhysicsObject.h
 	<glm/glm.hpp>
 	"BoundingSphere.h"
 
-1485080003 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
+1485459262 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
 	"PhysicsEngine.h"
 	"BoundingSphere.h"
 	<iostream>
@@ -393,10 +393,13 @@
 	<vector>
 	"PhysicsObject.h"
 
-1484941762 source:/home/loki/GameEngine/src/Collider.cpp
+1485116587 source:/home/loki/GameEngine/src/Collider.cpp
 	"Collider.h"
+	"BoundingSphere.h"
 
-1485018572 /home/loki/GameEngine/include/Collider.h
+1485458919 /home/loki/GameEngine/include/Collider.h
+	"IntersectData.h"
+	<glm/glm.hpp>
 
 1485017628 source:/home/loki/GameEngine/src/PhysicsEngineComponent.cpp
 	"PhysicsEngineComponent.h"
@@ -411,4 +414,37 @@
 1485021233 /home/loki/GameEngine/include/PhysicsObjectComponent.h
 	"PhysicsObject.h"
 	"GameComponent.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btVector3.h
+	"btScalar.h"
+	"btMinMax.h"
+	"btAlignedAllocator.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btScalar.h
+	<math.h>
+	<stdlib.h>
+	<float.h>
+	<ppcintrinsics.h>
+	<emmintrin.h>
+	<stdio.h>
+	<assert.h>
+	<assert.h>
+	<spu_printf.h>
+	<assert.h>
+	<smmintrin.h>
+	<tmmintrin.h>
+	<pmmintrin.h>
+	<emmintrin.h>
+	<arm_neon.h>
+	<assert.h>
+	<stdio.h>
+	<assert.h>
+	<arm_neon.h>
+	<arm_neon.h>
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btMinMax.h
+	"btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btAlignedAllocator.h
+	"btScalar.h"
 

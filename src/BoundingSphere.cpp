@@ -7,3 +7,7 @@ IntersectData BoundingSphere::intersectBoundingSphere(const BoundingSphere& othe
 
     return IntersectData(centerDistance< radiusDistance , centerDistance-radiusDistance);
 }
+void BoundingSphere::transform(glm::vec3 translation)
+{
+    m_center += translation;
+}

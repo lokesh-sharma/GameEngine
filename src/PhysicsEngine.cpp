@@ -19,8 +19,8 @@ void PhysicsEngine::handleCollisions()
     {
         for(int j = i+1 ; j< m_objects.size() ; j++)
         {
-            IntersectData intersectData = m_objects[i]->getBoundingSphere().intersectBoundingSphere(
-            m_objects[j]->getBoundingSphere());
+            IntersectData intersectData = m_objects[i]->getCollider().doesIntersect(
+            m_objects[j]->getCollider());
 
             if(intersectData.getDoesIntersect())
             {

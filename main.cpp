@@ -33,8 +33,8 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
 
     PhysicsEngine* pEngine = new PhysicsEngine;
-    pEngine->addObject(new PhysicsObject(glm::vec3(10,8,0) , glm::vec3(-1,0,0),1.0f));
-    pEngine->addObject(new PhysicsObject(glm::vec3(-10,8,0) , glm::vec3(1,0,0),2.0f));
+    pEngine->addObject(new PhysicsObject( new BoundingSphere(glm::vec3(10,8,0),1.0f) , glm::vec3(-3,0,0)));
+    pEngine->addObject(new PhysicsObject( new BoundingSphere(glm::vec3(-10,8,0),2.0f) , glm::vec3(1,0,0)));
     PhysicsEngineComponent* pComponent = new PhysicsEngineComponent(pEngine);
     g4->addComponent(new PhysicsObjectComponent(pEngine->getObject(0)));
     g5->addComponent(new PhysicsObjectComponent(pEngine->getObject(1)));

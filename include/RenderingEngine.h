@@ -3,6 +3,7 @@
 
 #include"GameObject.h"
 #include"camera.h"
+#include"FPSCamera.h"
 #include"InputHandler.h"
 #include<vector>
 class Display;
@@ -23,6 +24,7 @@ public:
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
     SpotLight* getActiveSpotLight() { return active_spot_light;}
+    Camera* getCamera() { return camera;}
     virtual ~RenderingEngine();
 private:
     std::vector<DirectionalLight*>dir_lights;

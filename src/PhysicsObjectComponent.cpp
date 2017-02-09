@@ -2,6 +2,6 @@
 
 void PhysicsObjectComponent::update(float delta)
 {
-    getTransform()->SetPos(m_phyObject->getPosition());
+    getTransform()->SetTransform(*(m_phyObject->getTransform()));
 
 }

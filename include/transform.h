@@ -59,6 +59,12 @@ public:
 	inline void SetPos(glm::vec3 pos) { this->pos = pos; }
 	inline void SetRot(glm::quat rot) { this->rot = rot;}
 	inline void SetScale(glm::vec3 scale) { this->scale = scale; }
+	inline void SetTransform(Transform& t)
+	{
+        pos = t.GetPos();
+        rot = t.GetRot();
+        scale = t.GetScale();
+	}
 
 	void rotate(const glm::quat rotation);
 	void rotate(const glm::vec3 axis , float angle);

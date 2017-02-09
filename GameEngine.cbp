@@ -34,14 +34,16 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="../bullet3-2.85/src" />
 		</Compiler>
 		<Linker>
 			<Add library="SDL2" />
 			<Add library="GLEW" />
 			<Add library="GL" />
-			<Add library="/home/loki/bullet3-2.85/bin/libBullet3Collision_gmake_x64_release.a" />
-			<Add library="/home/loki/bullet3-2.85/bin/libBullet3Common_gmake_x64_release.a" />
+			<Add library="/home/loki/bullet3-2.85/bin/libBulletDynamics_gmake_x64_release.a" />
+			<Add library="/home/loki/bullet3-2.85/bin/libBulletCollision_gmake_x64_release.a" />
 			<Add library="/home/loki/bullet3-2.85/bin/libLinearMath_gmake_x64_release.a" />
+			<Add library="/home/loki/bullet3-2.85/bin/libBullet3Common_gmake_x64_release.a" />
 		</Linker>
 		<Unit filename="include/AABB.h" />
 		<Unit filename="include/BoundingSphere.h" />

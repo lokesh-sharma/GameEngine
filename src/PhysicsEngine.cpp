@@ -2,31 +2,30 @@
 #include "BoundingSphere.h"
 #include<iostream>
 
-void PhysicsEngine::addObject(PhysicsObject*object)
+PhysicsEngine::PhysicsEngine()
 {
-    m_objects.push_back(object);
+    collisionConfig = new btDefaultCollisionConfiguration();
+    dispatcher = new btCollisionDispatcher(collisionConfig);
+    broadPhase = new btDbvtBroadphase();
+    solver = new btSequentialImpulseConstraintSolver();
+    world = new btDiscreteDynamicsWorld(dispatcher , broadPhase ,solver ,collisionConfig);
+    world->setGravity(btVector3(0 ,-10 , 0));
+}
+void PhysicsEngine::addObject(PhysicsObject*object , std::string id)
+{
+    m_objects[id] = object;
+    world->addRigidBody(object->getRigidBody());
 }
 void PhysicsEngine::simulate(float delta)
 {
-    for(int i = 0 ; i< m_objects.size() ; i++)
+    std::map<std::string , PhysicsObject*>::iterator it;
+    for(it = m_objects.begin() ; it!= m_objects.end() ; it++)
     {
-        m_objects[i]->integrate(delta);
+        it->second->integrate();
     }
+    world->stepSimulation(delta);
 }
 void PhysicsEngine::handleCollisions()
 {
-    for(int i = 0 ; i< m_objects.size() ; i++)
-    {
-        for(int j = i+1 ; j< m_objects.size() ; j++)
-        {
-            IntersectData intersectData = m_objects[i]->getCollider().doesIntersect(
-            m_objects[j]->getCollider());
 
-            if(intersectData.getDoesIntersect())
-            {
-                m_objects[i]->setVelocity(-m_objects[i]->getVelocity());
-                m_objects[j]->setVelocity(-m_objects[j]->getVelocity());
-            }
-        }
-    }
 }

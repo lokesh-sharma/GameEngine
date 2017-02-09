@@ -17,6 +17,13 @@ enum mouse_scroll
     UP=0,
     DOWN=1
 };
+enum move_keys
+{
+    W_KEY=0,
+    A_KEY=0,
+    S_KEY=0,
+    D_KEY=0
+};
 class InputHandler
 {
 private:
@@ -24,6 +31,7 @@ private:
     const Uint8* m_keystate;
     std::vector<bool>m_mouseButtonStates;
     std::vector<bool>m_mouseWheelStates;
+    std::vector<bool>m_movementKeysStates;
     glm::vec2 m_mousePos;
     Display* display;
     InputHandler() : m_keystate(NULL) ,m_mousePos( glm::vec2(0,0))
@@ -32,6 +40,9 @@ private:
             m_mouseButtonStates.push_back(false);
         for(int i = 0 ; i<2 ; i++)
             m_mouseWheelStates.push_back(false);
+        for(int i = 0 ; i<4 ; i++)
+            m_movementKeysStates.push_back(false);
+
     }
     void onKeyDown();
     void onKeyUp();

@@ -44,6 +44,7 @@ public:
 	void increment() { counter++ ;}
 	void decrement() { if(counter>0)counter-- ;}
 	int getCount() { return counter ;}
+	const std::vector<glm::vec3>& getVerts() { return m_verts;}
 
 	virtual ~MeshData();
 protected:
@@ -57,11 +58,13 @@ private:
 	GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffers[NUM_BUFFERS];
 	unsigned int m_drawCount;
+	std::vector<glm::vec3>m_verts;
 };
 class Mesh
 {
 public:
     Mesh(const std::string& fileName);
+    MeshData* getMeshData() { return m_meshData ;}
     void Draw();
     void remove();
 private:

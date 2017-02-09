@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1485459245 source:/home/loki/GameEngine/main.cpp
+1486680655 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -150,6 +150,7 @@
 	"PhysicsEngineComponent.h"
 	"PhysicsObject.h"
 	"PhysicsObjectComponent.h"
+	"ForwardAmbient.h"
 
 1485022744 /home/loki/GameEngine/include/display.h
 	<string>
@@ -166,14 +167,14 @@
 	"GameComponent.h"
 	<iostream>
 
-1484052606 /home/loki/GameEngine/include/transform.h
+1486677839 /home/loki/GameEngine/include/transform.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/gtx/quaternion.hpp>
 	<glm/gtc/quaternion.hpp>
 	<iostream>
 
-1484663434 /home/loki/GameEngine/include/mesh.h
+1486665955 /home/loki/GameEngine/include/mesh.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<string>
@@ -198,7 +199,7 @@
 	<string>
 	<GL/glew.h>
 
-1483589057 /home/loki/GameEngine/include/InputHandler.h
+1486662138 /home/loki/GameEngine/include/InputHandler.h
 	<SDL2/SDL.h>
 	<vector>
 	<glm/glm.hpp>
@@ -210,12 +211,12 @@
 	"../include/InputHandler.h"
 	"../include/transform.h"
 
-1483429268 source:/home/loki/GameEngine/src/InputHandler.cpp
+1486663887 source:/home/loki/GameEngine/src/InputHandler.cpp
 	"../include/InputHandler.h"
 	"../include/display.h"
 	<iostream>
 
-1484663638 source:/home/loki/GameEngine/src/mesh.cpp
+1485999253 source:/home/loki/GameEngine/src/mesh.cpp
 	"../include/mesh.h"
 	<fstream>
 	<iostream>
@@ -226,7 +227,7 @@
 	<vector>
 	<glm/glm.hpp>
 
-1483381693 source:/home/loki/GameEngine/src/ObjLoader.cpp
+1485969005 source:/home/loki/GameEngine/src/ObjLoader.cpp
 	<stdlib.h>
 	<stdio.h>
 	<vector>
@@ -270,7 +271,7 @@
 
 1482585411 /home/loki/GameEngine/include/TestGame.h
 
-1484287286 /home/loki/GameEngine/include/MeshRenderer.h
+1486679618 /home/loki/GameEngine/include/MeshRenderer.h
 	"mesh.h"
 	"texture.h"
 	"GameComponent.h"
@@ -302,13 +303,14 @@
 	"display.h"
 	"CoreEngine.h"
 
-1484852889 /home/loki/GameEngine/include/RenderingEngine.h
+1486574532 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
+	"FPSCamera.h"
 	"InputHandler.h"
 	<vector>
 
-1485017558 source:/home/loki/GameEngine/src/Camera.cpp
+1486664032 source:/home/loki/GameEngine/src/Camera.cpp
 	"camera.h"
 	"display.h"
 	"CoreEngine.h"
@@ -377,21 +379,29 @@
 	"BoundingSphere.h"
 	<glm/glm.hpp>
 
-1485028397 source:/home/loki/GameEngine/src/PhysicsObject.cpp
+1486680542 source:/home/loki/GameEngine/src/PhysicsObject.cpp
 	"PhysicsObject.h"
 
-1485459333 /home/loki/GameEngine/include/PhysicsObject.h
+1486678827 /home/loki/GameEngine/include/PhysicsObject.h
 	<glm/glm.hpp>
-	"BoundingSphere.h"
+	"mesh.h"
+	"transform.h"
+	"btBulletDynamicsCommon.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
 
-1485459262 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
+1486679955 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
 	"PhysicsEngine.h"
 	"BoundingSphere.h"
 	<iostream>
 
-1485079588 /home/loki/GameEngine/include/PhysicsEngine.h
+1486678516 /home/loki/GameEngine/include/PhysicsEngine.h
 	<vector>
+	<map>
 	"PhysicsObject.h"
+	"btBulletDynamicsCommon.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
 
 1485116587 source:/home/loki/GameEngine/src/Collider.cpp
 	"Collider.h"
@@ -408,7 +418,7 @@
 	"GameComponent.h"
 	"PhysicsEngine.h"
 
-1485027619 source:/home/loki/GameEngine/src/PhysicsObjectComponent.cpp
+1486679505 source:/home/loki/GameEngine/src/PhysicsObjectComponent.cpp
 	"PhysicsObjectComponent.h"
 
 1485021233 /home/loki/GameEngine/include/PhysicsObjectComponent.h
@@ -447,4 +457,505 @@
 
 1476342022 /home/loki/bullet3-2.85/src/LinearMath/btAlignedAllocator.h
 	"btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/btBulletDynamicsCommon.h
+	"btBulletCollisionCommon.h"
+	"BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h"
+	"BulletDynamics/Dynamics/btSimpleDynamicsWorld.h"
+	"BulletDynamics/Dynamics/btRigidBody.h"
+	"BulletDynamics/ConstraintSolver/btPoint2PointConstraint.h"
+	"BulletDynamics/ConstraintSolver/btHingeConstraint.h"
+	"BulletDynamics/ConstraintSolver/btConeTwistConstraint.h"
+	"BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h"
+	"BulletDynamics/ConstraintSolver/btSliderConstraint.h"
+	"BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h"
+	"BulletDynamics/ConstraintSolver/btUniversalConstraint.h"
+	"BulletDynamics/ConstraintSolver/btHinge2Constraint.h"
+	"BulletDynamics/ConstraintSolver/btGearConstraint.h"
+	"BulletDynamics/ConstraintSolver/btFixedConstraint.h"
+	"BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h"
+	"BulletDynamics/Vehicle/btRaycastVehicle.h"
+
+1476342022 /home/loki/bullet3-2.85/src/btBulletCollisionCommon.h
+	"BulletCollision/CollisionDispatch/btCollisionWorld.h"
+	"BulletCollision/CollisionDispatch/btCollisionObject.h"
+	"BulletCollision/CollisionShapes/btBoxShape.h"
+	"BulletCollision/CollisionShapes/btSphereShape.h"
+	"BulletCollision/CollisionShapes/btCapsuleShape.h"
+	"BulletCollision/CollisionShapes/btCylinderShape.h"
+	"BulletCollision/CollisionShapes/btConeShape.h"
+	"BulletCollision/CollisionShapes/btStaticPlaneShape.h"
+	"BulletCollision/CollisionShapes/btConvexHullShape.h"
+	"BulletCollision/CollisionShapes/btTriangleMesh.h"
+	"BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btTriangleMeshShape.h"
+	"BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h"
+	"BulletCollision/CollisionShapes/btCompoundShape.h"
+	"BulletCollision/CollisionShapes/btTetrahedronShape.h"
+	"BulletCollision/CollisionShapes/btEmptyShape.h"
+	"BulletCollision/CollisionShapes/btMultiSphereShape.h"
+	"BulletCollision/CollisionShapes/btUniformScalingShape.h"
+	"BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h"
+	"BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h"
+	"BulletCollision/CollisionDispatch/btCollisionDispatcher.h"
+	"BulletCollision/BroadphaseCollision/btSimpleBroadphase.h"
+	"BulletCollision/BroadphaseCollision/btAxisSweep3.h"
+	"BulletCollision/BroadphaseCollision/btMultiSapBroadphase.h"
+	"BulletCollision/BroadphaseCollision/btDbvtBroadphase.h"
+	"LinearMath/btQuaternion.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btDefaultMotionState.h"
+	"LinearMath/btQuickprof.h"
+	"LinearMath/btIDebugDraw.h"
+	"LinearMath/btSerializer.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btCollisionWorld.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"btCollisionObject.h"
+	"btCollisionDispatcher.h"
+	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btTransform.h
+	"btMatrix3x3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btMatrix3x3.h
+	"btVector3.h"
+	"btQuaternion.h"
+	<stdio.h>
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btQuaternion.h
+	"btVector3.h"
+	"btQuadWord.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btQuadWord.h
+	"btScalar.h"
+	"btMinMax.h"
+	<altivec.h>
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btCollisionObject.h
+	"LinearMath/btTransform.h"
+	"LinearMath/btMotionState.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btMotionState.h
+	"btTransform.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btAlignedObjectArray.h
+	"btScalar.h"
+	"btAlignedAllocator.h"
+	<memory.h>
+	<string.h>
+	<new>
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btCollisionDispatcher.h
+	"BulletCollision/BroadphaseCollision/btDispatcher.h"
+	"BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
+	"BulletCollision/CollisionDispatch/btManifoldResult.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btCollisionCreateFunc.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btDispatcher.h
+	"LinearMath/btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/NarrowPhaseCollision/btPersistentManifold.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"btManifoldPoint.h"
+	"LinearMath/btAlignedAllocator.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/NarrowPhaseCollision/btManifoldPoint.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransformUtil.h"
+	"physics_effects/base_level/solver/pfx_constraint_row.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btTransformUtil.h
+	"btTransform.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btManifoldResult.h
+	"BulletCollision/NarrowPhaseCollision/btPersistentManifold.h"
+	"BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h"
+	"LinearMath/btTransform.h"
+	"BulletCollision/CollisionDispatch/btCollisionObjectWrapper.h"
+	"BulletCollision/CollisionDispatch/btCollisionObject.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/NarrowPhaseCollision/btDiscreteCollisionDetectorInterface.h
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btCollisionObjectWrapper.h
+	"LinearMath/btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btBroadphaseProxy.h
+	"LinearMath/btScalar.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btAlignedAllocator.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btCollisionCreateFunc.h
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btOverlappingPairCache.h
+	"btBroadphaseInterface.h"
+	"btBroadphaseProxy.h"
+	"btOverlappingPairCallback.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btBroadphaseInterface.h
+	"btBroadphaseProxy.h"
+	"LinearMath/btVector3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btBoxShape.h
+	"btPolyhedralConvexShape.h"
+	"btCollisionMargin.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btMinMax.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btPolyhedralConvexShape.h
+	"LinearMath/btMatrix3x3.h"
+	"btConvexInternalShape.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btConvexInternalShape.h
+	"btConvexShape.h"
+	"LinearMath/btAabbUtil2.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btConvexShape.h
+	"btCollisionShape.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btMatrix3x3.h"
+	"btCollisionMargin.h"
+	"LinearMath/btAlignedAllocator.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btCollisionShape.h
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btMatrix3x3.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btCollisionMargin.h
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btAabbUtil2.h
+	"btTransform.h"
+	"btVector3.h"
+	"btMinMax.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btSphereShape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btCapsuleShape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btCylinderShape.h
+	"btBoxShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btVector3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btConeShape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btStaticPlaneShape.h
+	"btConcaveShape.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btConcaveShape.h
+	"btCollisionShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"btTriangleCallback.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btTriangleCallback.h
+	"LinearMath/btVector3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btConvexHullShape.h
+	"btPolyhedralConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btTriangleMesh.h
+	"btTriangleIndexVertexArray.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h
+	"btStridingMeshInterface.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btStridingMeshInterface.h
+	"LinearMath/btVector3.h"
+	"btTriangleCallback.h"
+	"btConcaveShape.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h
+	"btPolyhedralConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h
+	"btTriangleMeshShape.h"
+	"btOptimizedBvh.h"
+	"LinearMath/btAlignedAllocator.h"
+	"btTriangleInfoMap.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btTriangleMeshShape.h
+	"btConcaveShape.h"
+	"btStridingMeshInterface.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btOptimizedBvh.h
+	"BulletCollision/BroadphaseCollision/btQuantizedBvh.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btQuantizedBvh.h
+	<stdio.h>
+	<stdlib.h>
+	"LinearMath/btVector3.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btTriangleInfoMap.h
+	"LinearMath/btHashMap.h"
+	"LinearMath/btSerializer.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btHashMap.h
+	"btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btSerializer.h
+	"btScalar.h"
+	"btHashMap.h"
+	<memory.h>
+	<string.h>
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btScaledBvhTriangleMeshShape.h
+	"BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btCompoundShape.h
+	"btCollisionShape.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btMatrix3x3.h"
+	"btCollisionMargin.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btTetrahedronShape.h
+	"btPolyhedralConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btEmptyShape.h
+	"btConcaveShape.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btMatrix3x3.h"
+	"btCollisionMargin.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btMultiSphereShape.h
+	"btConvexInternalShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btAabbUtil2.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionShapes/btUniformScalingShape.h
+	"btConvexShape.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btSphereSphereCollisionAlgorithm.h
+	"btActivatingCollisionAlgorithm.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"BulletCollision/CollisionDispatch/btCollisionCreateFunc.h"
+	"btCollisionDispatcher.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btActivatingCollisionAlgorithm.h
+	"BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h
+	"LinearMath/btScalar.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btDefaultCollisionConfiguration.h
+	"btCollisionConfiguration.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btCollisionConfiguration.h
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btSimpleBroadphase.h
+	"btOverlappingPairCache.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btAxisSweep3.h
+	"LinearMath/btVector3.h"
+	"btOverlappingPairCache.h"
+	"btBroadphaseInterface.h"
+	"btBroadphaseProxy.h"
+	"btOverlappingPairCallback.h"
+	"btDbvtBroadphase.h"
+	<stdio.h>
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btDbvtBroadphase.h
+	"BulletCollision/BroadphaseCollision/btDbvt.h"
+	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+	"LinearMath/btQuickprof.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btDbvt.h
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btAabbUtil2.h"
+	<emmintrin.h>
+	<memory.h>
+	<string.h>
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btQuickprof.h
+	"btScalar.h"
+	<stdio.h>
+	"btAlignedAllocator.h"
+	<new>
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/BroadphaseCollision/btMultiSapBroadphase.h
+	"btBroadphaseInterface.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btOverlappingPairCache.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btDefaultMotionState.h
+	"btMotionState.h"
+
+1476342022 /home/loki/bullet3-2.85/src/LinearMath/btIDebugDraw.h
+	"btVector3.h"
+	"btTransform.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h
+	"btDynamicsWorld.h"
+	"LinearMath/btAlignedObjectArray.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Dynamics/btDynamicsWorld.h
+	"BulletCollision/CollisionDispatch/btCollisionWorld.h"
+	"BulletDynamics/ConstraintSolver/btContactSolverInfo.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btContactSolverInfo.h
+	"LinearMath/btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Dynamics/btSimpleDynamicsWorld.h
+	"btDynamicsWorld.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Dynamics/btRigidBody.h
+	"LinearMath/btAlignedObjectArray.h"
+	"LinearMath/btTransform.h"
+	"BulletCollision/BroadphaseCollision/btBroadphaseProxy.h"
+	"BulletCollision/CollisionDispatch/btCollisionObject.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btPoint2PointConstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btJacobianEntry.h
+	"LinearMath/btMatrix3x3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btTypedConstraint.h
+	"LinearMath/btScalar.h"
+	"btSolverConstraint.h"
+	"BulletDynamics/Dynamics/btRigidBody.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btSolverConstraint.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btMatrix3x3.h"
+	"btJacobianEntry.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btSolverBody.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btSolverBody.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btMatrix3x3.h"
+	"LinearMath/btAlignedAllocator.h"
+	"LinearMath/btTransformUtil.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btHingeConstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btConeTwistConstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btSliderConstraint.h
+	"LinearMath/btScalar.h"
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpringConstraint.h
+	"LinearMath/btVector3.h"
+	"btTypedConstraint.h"
+	"btGeneric6DofConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btUniversalConstraint.h
+	"LinearMath/btVector3.h"
+	"btTypedConstraint.h"
+	"btGeneric6DofConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btHinge2Constraint.h
+	"LinearMath/btVector3.h"
+	"btTypedConstraint.h"
+	"btGeneric6DofSpring2Constraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btGeneric6DofSpring2Constraint.h
+	"LinearMath/btVector3.h"
+	"btJacobianEntry.h"
+	"btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btGearConstraint.h
+	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btFixedConstraint.h
+	"btGeneric6DofSpring2Constraint.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btSequentialImpulseConstraintSolver.h
+	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
+	"BulletDynamics/ConstraintSolver/btContactSolverInfo.h"
+	"BulletDynamics/ConstraintSolver/btSolverBody.h"
+	"BulletDynamics/ConstraintSolver/btSolverConstraint.h"
+	"BulletCollision/NarrowPhaseCollision/btManifoldPoint.h"
+	"BulletDynamics/ConstraintSolver/btConstraintSolver.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/ConstraintSolver/btConstraintSolver.h
+	"LinearMath/btScalar.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Vehicle/btRaycastVehicle.h
+	"BulletDynamics/Dynamics/btRigidBody.h"
+	"BulletDynamics/ConstraintSolver/btTypedConstraint.h"
+	"btVehicleRaycaster.h"
+	"LinearMath/btAlignedObjectArray.h"
+	"btWheelInfo.h"
+	"BulletDynamics/Dynamics/btActionInterface.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Vehicle/btVehicleRaycaster.h
+	"LinearMath/btVector3.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Vehicle/btWheelInfo.h
+	"LinearMath/btVector3.h"
+	"LinearMath/btTransform.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Dynamics/btActionInterface.h
+	"LinearMath/btScalar.h"
+	"btRigidBody.h"
+
+1486574330 /home/loki/GameEngine/include/FPSCamera.h
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/detail/func_geometric.hpp>
+	"InputHandler.h"
+	"transform.h"
+	"GameComponent.h"
+	<iostream>
 

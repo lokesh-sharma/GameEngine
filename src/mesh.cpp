@@ -19,6 +19,7 @@ void MeshData::LoadMesh(const std::string & filename)
     std::vector<glm::vec2> texcord;
 
     ObjLoader loader(filename.c_str() , vertices , texcord , normals);
+    m_verts = vertices;
 
     m_drawCount = vertices.size();
 

@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1486680655 source:/home/loki/GameEngine/main.cpp
+1486735612 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -303,10 +303,9 @@
 	"display.h"
 	"CoreEngine.h"
 
-1486574532 /home/loki/GameEngine/include/RenderingEngine.h
+1486682454 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
-	"FPSCamera.h"
 	"InputHandler.h"
 	<vector>
 
@@ -379,10 +378,10 @@
 	"BoundingSphere.h"
 	<glm/glm.hpp>
 
-1486680542 source:/home/loki/GameEngine/src/PhysicsObject.cpp
+1486735402 source:/home/loki/GameEngine/src/PhysicsObject.cpp
 	"PhysicsObject.h"
 
-1486678827 /home/loki/GameEngine/include/PhysicsObject.h
+1486735362 /home/loki/GameEngine/include/PhysicsObject.h
 	<glm/glm.hpp>
 	"mesh.h"
 	"transform.h"
@@ -407,7 +406,7 @@
 	"Collider.h"
 	"BoundingSphere.h"
 
-1485458919 /home/loki/GameEngine/include/Collider.h
+1486735282 /home/loki/GameEngine/include/Collider.h
 	"IntersectData.h"
 	<glm/glm.hpp>
 

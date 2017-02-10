@@ -11,7 +11,16 @@
 class PhysicsObject
 {
 public:
+    enum
+    {
+        TYPE_BOUNDINGSPHERE,
+        TYPE_BOX,
+        TYPE_CYLINDER,
+        TYPE_CONE,
+        TYPE_SIZE
+    };
     PhysicsObject(Mesh* mesh , glm::vec3 pos ,float mass , int isStaticObject);
+    PhysicsObject(glm::vec3 pos , glm::vec3 halfExtents , float mass , int shapeType);
     void integrate();
     btRigidBody* getRigidBody() { return m_body;}
     Transform* getTransform() { return &m_transform ;}

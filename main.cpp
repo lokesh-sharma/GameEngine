@@ -22,9 +22,6 @@
 #include"PhysicsEngineComponent.h"
 #include"PhysicsObject.h"
 #include"PhysicsObjectComponent.h"
-//#include"btBulletDynamicsCommon.h"
-//#include"LinearMath/btTransform.h"
-//#include"LinearMath/btVector3.h"
 #include"ForwardAmbient.h"
 
 
@@ -45,11 +42,12 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
 
     Mesh* mesh1 = new Mesh("./res/dima.obj");
-    Mesh* mesh2 = new Mesh("./res/monkey.obj");
+    Mesh* mesh2 = new Mesh("./res/sphere.obj");
 
     PhysicsEngine* pEngine = new PhysicsEngine();
     pEngine->addObject(new PhysicsObject(mesh1 , glm::vec3(0,0,0) , 0 , 1) , "dima");
-    pEngine->addObject(new PhysicsObject(mesh2 , glm::vec3(0,40,-0.1) ,4 , 0) , "sphere");
+    pEngine->addObject(new PhysicsObject(glm::vec3(0,10,0) ,glm::vec3(2,2,2) ,
+     5 , PhysicsObject::TYPE_BOUNDINGSPHERE) , "sphere");
     PhysicsObjectComponent* comp = new PhysicsObjectComponent(pEngine->getObject("dima"));
     PhysicsObjectComponent* comp2 = new PhysicsObjectComponent(pEngine->getObject("sphere"));
 
@@ -97,6 +95,8 @@ int main(int argc, char** argv)
         framestart = SDL_GetTicks();
         pEngine->simulate(1/60.0);
         pEngine->handleCollisions();
+        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_SPACE))
+        pEngine->getObject("sphere")->getRigidBody()->setLinearVelocity(btVector3(1,1,1));
         core.run();
 
 		TheInputHandler::getInstance()->resetStates();

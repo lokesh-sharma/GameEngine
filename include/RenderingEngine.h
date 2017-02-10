@@ -3,7 +3,6 @@
 
 #include"GameObject.h"
 #include"camera.h"
-#include"FPSCamera.h"
 #include"InputHandler.h"
 #include<vector>
 class Display;

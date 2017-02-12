@@ -43,6 +43,10 @@ PhysicsObject::PhysicsObject(glm::vec3 pos , glm::vec3 extents , float mass , in
         m_body = new btRigidBody(info);
     }
 
+    m_body->setUserPointer(this);
+    m_isActive = true;
+    m_disableRotation = false;
+
 }
 PhysicsObject::PhysicsObject(Mesh* mesh , glm::vec3 pos ,float mass , int isStaticObject)
 {
@@ -63,6 +67,7 @@ PhysicsObject::PhysicsObject(Mesh* mesh , glm::vec3 pos ,float mass , int isStat
         m_isActive = true;
     }
     m_body->setUserPointer(this);
+    m_disableRotation = false;
 }
 void PhysicsObject::integrate()
 {
@@ -76,9 +81,8 @@ void PhysicsObject::integrate()
     btVector3 axis = quat.getAxis();
     m_transform.SetPos(glm::vec3(pos.getX() , pos.getY() , pos.getZ()));
     glm::quat q = glm::angleAxis(float(angle*(180.0/3.14)) , glm::vec3(axis.getX() , axis.getY() , axis.getZ()));
-    m_transform.SetRot(q);
-
-    std::cout<<pos.getY()<<std::endl;
+    if(!m_disableRotation)
+        m_transform.SetRot(q);
 //    m_position += m_velocity*delta;
 }
 btRigidBody* PhysicsObject::triangleMeshFromMesh(Mesh* mesh , glm::vec3 pos )

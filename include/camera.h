@@ -15,16 +15,13 @@ class Camera : public GameComponent
 {
 public:
     Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar);
-    void update(float delta);
-	glm::mat4 getMVP() const ;
-	glm::mat4 getModel() const { return getTransform()->GetModel()*m_transform.GetModel();}
-	glm::vec3 getPos() const;
-	void addToEngine(CoreEngine* core);
-private:
+    virtual void update();
+	virtual glm::mat4 getMVP() const ;
+	virtual glm::mat4 getModel() const { return getTransform()->GetModel();}
+	virtual glm::vec3 getPos() const;
+	virtual void addToEngine(CoreEngine* core);
+protected:
     glm::mat4 projection;
-    glm::vec2 screenMiddle;
-    mutable Transform m_transform;
-    void move(const glm::vec3 direction , float distance);
 };
 
 #endif

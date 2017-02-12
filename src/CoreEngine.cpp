@@ -15,10 +15,10 @@ void CoreEngine::run()
         return;
     if(!m_display->isRunning())
         stop();
-    m_display->Clear(0.0f, 0.0f, 0.0f, 1.0f);
+    m_display->Clear(0.3f, 0.3f, 0.3f, 1.0f);
     m_display->update();
     renderingEngine->render(m_game->getRootObject());
-    m_game->update(4.0f);
+    m_game->update();
     m_display->SwapBuffers();
 }
 CoreEngine::~CoreEngine()

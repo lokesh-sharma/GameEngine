@@ -18,7 +18,7 @@ private:
     CoreEngine* coreEngine;
 public:
     GameObject() : m_transform(Transform()){}
-    void update(float delta);
+    void update();
 
     void render(Shader& bs, const Camera& camera , RenderingEngine* renderingEngine);
 

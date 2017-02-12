@@ -1,6 +1,6 @@
 #include "PhysicsObjectComponent.h"
 
-void PhysicsObjectComponent::update(float delta)
+void PhysicsObjectComponent::update()
 {
     getTransform()->SetTransform(*(m_phyObject->getTransform()));
 

@@ -24,9 +24,11 @@ public:
     void integrate();
     btRigidBody* getRigidBody() { return m_body;}
     Transform* getTransform() { return &m_transform ;}
+    void disableRotation() { m_disableRotation = true ;}
 private:
     Transform m_transform;
     bool m_isActive;
+    bool m_disableRotation;
     btRigidBody* m_body;
 
     btRigidBody* triangleMeshFromMesh(Mesh* mesh , glm::vec3 pos);

@@ -7,7 +7,7 @@ class Game
 {
 public:
     Game() { m_root = nullptr;}
-    virtual void update(float delta) { m_root->update(delta); }
+    virtual void update() { m_root->update(); }
     GameObject* getRootObject() { return m_root;}
     void setEngine(CoreEngine* core) { getRootObject()->setEngine(core);}
     void addToScene(GameObject* child)

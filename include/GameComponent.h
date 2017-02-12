@@ -14,7 +14,7 @@ protected:
     GameObject* m_parent;
 public:
     GameComponent() : m_parent(nullptr) {}
-    virtual void update(float delta) {};
+    virtual void update() {};
     virtual void render(Shader& bs,const Camera& c , RenderingEngine* renderingEngine) {};
     virtual void setParent(GameObject* gObject)
     {

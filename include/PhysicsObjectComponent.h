@@ -8,7 +8,7 @@ class PhysicsObjectComponent : public GameComponent
 {
 public:
     PhysicsObjectComponent(PhysicsObject* object) : m_phyObject(object) {};
-    virtual void update(float delta);
+    virtual void update();
 private:
     PhysicsObject* m_phyObject;
 };

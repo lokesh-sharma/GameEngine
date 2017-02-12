@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1486735612 source:/home/loki/GameEngine/main.cpp
+1486858801 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -136,6 +136,7 @@
 	"./include/transform.h"
 	"./include/camera.h"
 	"./include/InputHandler.h"
+	"FreeLook.h"
 	"MeshRenderer.h"
 	"RenderingEngine.h"
 	"CoreEngine.h"
@@ -151,6 +152,8 @@
 	"PhysicsObject.h"
 	"PhysicsObjectComponent.h"
 	"ForwardAmbient.h"
+	"Player.h"
+	"FPSCamera.h"
 
 1485022744 /home/loki/GameEngine/include/display.h
 	<string>
@@ -158,7 +161,7 @@
 	"camera.h"
 	"transform.h"
 
-1485017571 /home/loki/GameEngine/include/camera.h
+1486822353 /home/loki/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
@@ -263,7 +266,7 @@
 1482585338 source:/home/loki/GameEngine/src/Game.cpp
 	"Game.h"
 
-1485017168 /home/loki/GameEngine/include/Game.h
+1486822307 /home/loki/GameEngine/include/Game.h
 	"GameObject.h"
 
 1482585430 source:/home/loki/GameEngine/src/TestGame.cpp
@@ -271,22 +274,22 @@
 
 1482585411 /home/loki/GameEngine/include/TestGame.h
 
-1486679618 /home/loki/GameEngine/include/MeshRenderer.h
+1486822461 /home/loki/GameEngine/include/MeshRenderer.h
 	"mesh.h"
 	"texture.h"
 	"GameComponent.h"
 	"shader.h"
 	"Matrial.h"
 
-1485017106 /home/loki/GameEngine/include/GameComponent.h
+1486822253 /home/loki/GameEngine/include/GameComponent.h
 	"transform.h"
 	"GameObject.h"
 
-1485017100 /home/loki/GameEngine/include/GameObject.h
+1486822293 /home/loki/GameEngine/include/GameObject.h
 	<vector>
 	"transform.h"
 
-1485017180 source:/home/loki/GameEngine/src/CoreEngine.cpp
+1486822315 source:/home/loki/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
 
 1483763406 /home/loki/GameEngine/include/CoreEngine.h
@@ -294,7 +297,7 @@
 	"RenderingEngine.h"
 	"display.h"
 
-1485030645 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1486822330 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -309,7 +312,7 @@
 	"InputHandler.h"
 	<vector>
 
-1486664032 source:/home/loki/GameEngine/src/Camera.cpp
+1486822379 source:/home/loki/GameEngine/src/Camera.cpp
 	"camera.h"
 	"display.h"
 	"CoreEngine.h"
@@ -341,7 +344,7 @@
 	"transform.h"
 	"camera.h"
 
-1485017143 source:/home/loki/GameEngine/src/GameObject.cpp
+1486822280 source:/home/loki/GameEngine/src/GameObject.cpp
 	"GameObject.h"
 	"GameComponent.h"
 	"camera.h"
@@ -378,10 +381,10 @@
 	"BoundingSphere.h"
 	<glm/glm.hpp>
 
-1486735402 source:/home/loki/GameEngine/src/PhysicsObject.cpp
+1486837277 source:/home/loki/GameEngine/src/PhysicsObject.cpp
 	"PhysicsObject.h"
 
-1486735362 /home/loki/GameEngine/include/PhysicsObject.h
+1486836001 /home/loki/GameEngine/include/PhysicsObject.h
 	<glm/glm.hpp>
 	"mesh.h"
 	"transform.h"
@@ -417,10 +420,10 @@
 	"GameComponent.h"
 	"PhysicsEngine.h"
 
-1486679505 source:/home/loki/GameEngine/src/PhysicsObjectComponent.cpp
+1486858190 source:/home/loki/GameEngine/src/PhysicsObjectComponent.cpp
 	"PhysicsObjectComponent.h"
 
-1485021233 /home/loki/GameEngine/include/PhysicsObjectComponent.h
+1486821913 /home/loki/GameEngine/include/PhysicsObjectComponent.h
 	"PhysicsObject.h"
 	"GameComponent.h"
 
@@ -949,12 +952,36 @@
 	"LinearMath/btScalar.h"
 	"btRigidBody.h"
 
-1486574330 /home/loki/GameEngine/include/FPSCamera.h
+1486822372 /home/loki/GameEngine/include/FPSCamera.h
+	"camera.h"
+
+1486737806 source:/home/loki/GameEngine/src/Player.cpp
+	"Player.h"
+
+1486860587 /home/loki/GameEngine/include/Player.h
+	"MeshRenderer.h"
+	"btBulletDynamicsCommon.h"
+	"LinearMath/btTransform.h"
+	"LinearMath/btVector3.h"
+	"PhysicsObject.h"
+
+1486822396 source:/home/loki/GameEngine/src/FreeLook.cpp
+	"FreeLook.h"
+	"display.h"
+	"CoreEngine.h"
+
+1486822364 /home/loki/GameEngine/include/FreeLook.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
 	"InputHandler.h"
 	"transform.h"
 	"GameComponent.h"
+	"camera.h"
 	<iostream>
+
+1486849055 source:/home/loki/GameEngine/src/FPSCamera.cpp
+	"FPSCamera.h"
+	"display.h"
+	"CoreEngine.h"
 

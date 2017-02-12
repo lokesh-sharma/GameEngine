@@ -3,12 +3,12 @@
 #include"camera.h"
 #include"shader.h"
 
-void GameObject::update(float delta)
+void GameObject::update()
 {
     for(int i = 0 ; i< m_children.size() ;i++)
-        m_children[i]->update(delta);
+        m_children[i]->update();
     for(int i = 0 ; i< m_components.size() ;i++)
-        m_components[i]->update(delta);
+        m_components[i]->update();
      m_transform.update();
 }
 void GameObject::render(Shader& bs, const Camera& camera , RenderingEngine* renderingEngine)

@@ -18,8 +18,9 @@ public:
         m_mesh = mesh;
         m_material = material;
     }
-    void update(const Transform& t)
+    void update()
     {
+
     }
     void render(Shader& bs,const Camera& c ,RenderingEngine* renderingEngine)
     {

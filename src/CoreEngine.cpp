@@ -1,4 +1,5 @@
 #include "CoreEngine.h"
+#include "display.h"
 
 CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingEngine)
 {
@@ -16,9 +17,12 @@ void CoreEngine::run()
     if(!m_display->isRunning())
         stop();
     m_display->Clear(0.3f, 0.3f, 0.3f, 1.0f);
+
     m_display->update();
     renderingEngine->render(m_game->getRootObject());
     m_game->update();
+
+
     m_display->SwapBuffers();
 }
 CoreEngine::~CoreEngine()

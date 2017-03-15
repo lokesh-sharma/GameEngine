@@ -37,6 +37,7 @@
 			<Add directory="../bullet3-2.85/src" />
 		</Compiler>
 		<Linker>
+			<Add option="-lassimp" />
 			<Add library="SDL2" />
 			<Add library="GLEW" />
 			<Add library="GL" />

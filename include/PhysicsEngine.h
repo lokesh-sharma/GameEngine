@@ -14,6 +14,8 @@ public:
     void addObject(PhysicsObject*object , std::string id );
     void simulate(float delta);
     void handleCollisions();
+    btBroadphaseInterface* getBroadPhase() { return broadPhase ; }
+    btDynamicsWorld* getDynamicWorld() { return world ;}
     PhysicsObject* getObject(std::string name) {  return m_objects[name] ;}
     int getNumObjects() const { return m_objects.size() ;}
 private:

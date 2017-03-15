@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1486858801 source:/home/loki/GameEngine/main.cpp
+1489521073 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -289,13 +289,16 @@
 	<vector>
 	"transform.h"
 
-1486822315 source:/home/loki/GameEngine/src/CoreEngine.cpp
+1487338296 source:/home/loki/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
+	"display.h"
 
-1483763406 /home/loki/GameEngine/include/CoreEngine.h
+1487009411 /home/loki/GameEngine/include/CoreEngine.h
 	"Game.h"
 	"RenderingEngine.h"
 	"display.h"
+	<GL/glew.h>
+	<GL/gl.h>
 
 1486822330 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
@@ -397,7 +400,7 @@
 	"BoundingSphere.h"
 	<iostream>
 
-1486678516 /home/loki/GameEngine/include/PhysicsEngine.h
+1489511827 /home/loki/GameEngine/include/PhysicsEngine.h
 	<vector>
 	<map>
 	"PhysicsObject.h"
@@ -958,12 +961,15 @@
 1486737806 source:/home/loki/GameEngine/src/Player.cpp
 	"Player.h"
 
-1486860587 /home/loki/GameEngine/include/Player.h
+1489596101 /home/loki/GameEngine/include/Player.h
 	"MeshRenderer.h"
 	"btBulletDynamicsCommon.h"
+	"BulletCollision/CollisionDispatch/btGhostObject.h"
+	"BulletDynamics/Character/btKinematicCharacterController.h"
 	"LinearMath/btTransform.h"
 	"LinearMath/btVector3.h"
 	"PhysicsObject.h"
+	"PhysicsEngine.h"
 
 1486822396 source:/home/loki/GameEngine/src/FreeLook.cpp
 	"FreeLook.h"
@@ -980,8 +986,24 @@
 	"camera.h"
 	<iostream>
 
-1486849055 source:/home/loki/GameEngine/src/FPSCamera.cpp
+1487625458 source:/home/loki/GameEngine/src/FPSCamera.cpp
 	"FPSCamera.h"
 	"display.h"
 	"CoreEngine.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletCollision/CollisionDispatch/btGhostObject.h
+	"btCollisionObject.h"
+	"BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h"
+	"LinearMath/btAlignedAllocator.h"
+	"BulletCollision/BroadphaseCollision/btOverlappingPairCache.h"
+	"btCollisionWorld.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Character/btKinematicCharacterController.h
+	"LinearMath/btVector3.h"
+	"btCharacterControllerInterface.h"
+	"BulletCollision/BroadphaseCollision/btCollisionAlgorithm.h"
+
+1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Character/btCharacterControllerInterface.h
+	"LinearMath/btVector3.h"
+	"BulletDynamics/Dynamics/btActionInterface.h"
 

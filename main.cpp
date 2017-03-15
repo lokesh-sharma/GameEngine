@@ -28,11 +28,6 @@
 #include"FPSCamera.h"
 
 
-btDynamicsWorld* world;
-btDispatcher* dispatcher;
-btBroadphaseInterface* broadPhase;
-btConstraintSolver* solver;
-btCollisionConfiguration* collisionConfig;
 
 int main(int argc, char** argv)
 {
@@ -47,17 +42,15 @@ int main(int argc, char** argv)
 
     Mesh* mesh1 = new Mesh("./res/dima.obj");
     Mesh* mesh2 = new Mesh("./res/sphere.obj");
-    Mesh* mesh3 = new Mesh("./res/cube.obj");
 
     PhysicsEngine* pEngine = new PhysicsEngine();
     pEngine->addObject(new PhysicsObject(mesh1 , glm::vec3(0,0,0) , 0 , 1) , "dima");
     pEngine->addObject(new PhysicsObject(glm::vec3(0,10,1) ,glm::vec3(2,2,2) ,
      5 , PhysicsObject::TYPE_BOUNDINGSPHERE) , "sphere");
-     pEngine->addObject(new PhysicsObject(glm::vec3(0,4,0) , glm::vec3(2,2,2) , 2 ,
-      PhysicsObject::TYPE_BOX) , "cube");
+
     PhysicsObjectComponent* comp = new PhysicsObjectComponent(pEngine->getObject("dima"));
     PhysicsObjectComponent* comp2 = new PhysicsObjectComponent(pEngine->getObject("sphere"));
-    PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
+    //PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
 //    btTransform qt;
 //    qt = pEngine->getObject("cube")->getRigidBody()->getWorldTransform();
 //    qt.setRotation(btQuaternion(1,0,0,0));
@@ -67,8 +60,7 @@ int main(int argc, char** argv)
     Material* m1 = new Material();
     m->addTexture("diffuse" , "./res/TextureAtlas.png");
     m1->addTexture("diffuse" , "./res/sphere.png");
-     MeshRenderer h( mesh3,m1);
-    GameComponent* player = new Player(pEngine->getObject("cube"));
+    GameComponent* player = new Player(pEngine);
 
     MeshRenderer f( mesh1,m);
     MeshRenderer g( mesh2,m1);
@@ -100,8 +92,7 @@ int main(int argc, char** argv)
     g4->addComponent(&g);
     g4->addComponent(comp2);
       g2->addComponent(player); //order is important
-      g2->addComponent(comp3);
-      g2->addComponent(&h);
+
 
     core.start();
 	float counter = 0.0f;
@@ -110,6 +101,10 @@ int main(int argc, char** argv)
 
 	while(core.is_running())
 	{
+//        glMatrixMode(GL_PROJECTION);
+//glLoadIdentity();
+//glOrtho(0, display.getWidth(), display.getHeight(), 0, -1, 1);
+
         framestart = SDL_GetTicks();
         core.run();
         pEngine->simulate(1/60.0);
@@ -118,9 +113,13 @@ int main(int argc, char** argv)
 
 		TheInputHandler::getInstance()->resetStates();
 		long time = SDL_GetTicks() - framestart;
+
+
+
 		//std::cout<<1000.0/time<<std::endl;
 		counter += 0.1;
 	}
 
 	return 0;
 }
+

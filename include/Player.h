@@ -2,9 +2,12 @@
 #define PLAYER_H
 #include"MeshRenderer.h"
 #include"btBulletDynamicsCommon.h"
+#include"BulletCollision/CollisionDispatch/btGhostObject.h"
+#include"BulletDynamics/Character/btKinematicCharacterController.h"
 #include"LinearMath/btTransform.h"
 #include"LinearMath/btVector3.h"
 #include"PhysicsObject.h"
+#include"PhysicsEngine.h"
 
 class Player : public GameComponent
 {
@@ -13,55 +16,76 @@ private:
     std::string m_name;
     int m_health;
     PhysicsObject* m_body;
+    btPairCachingGhostObject * m_ghostObject;
+    btKinematicCharacterController* charCon;
     void renderCrossHair() const;
 public:
-    Player(PhysicsObject* body)
+    Player(PhysicsEngine* pEngine)
     {
         m_name = "minh";
         m_health=100;
-        m_body = body;
-        m_body->getRigidBody()->setAngularFactor(btVector3(0,0,0));
-        //m_body->getRigidBody()->setDamping(0.8f , 0.8f);
-        //m_body->getRigidBody()->setFriction(0.8f);
-        m_body->disableRotation();
+        btTransform startTransform;
+        startTransform.setIdentity ();
+        startTransform.setOrigin (btVector3(0, 0, 4));
+
+        btConvexShape* capsule = new btCapsuleShape(0.5, 1);
+
+        m_ghostObject = new btPairCachingGhostObject();
+        m_ghostObject->setWorldTransform(startTransform);
+        pEngine->getBroadPhase()->getOverlappingPairCache()->setInternalGhostPairCallback(new btGhostPairCallback());
+        m_ghostObject->setCollisionShape(capsule);
+        m_ghostObject->setCollisionFlags(btCollisionObject::CF_CHARACTER_OBJECT);
+        charCon = new btKinematicCharacterController (m_ghostObject, capsule,0.05f);
+        charCon->setGravity(pEngine->getDynamicWorld()->getGravity());
+
+        pEngine->getDynamicWorld()->addCollisionObject(m_ghostObject, btBroadphaseProxy::CharacterFilter, btBroadphaseProxy::AllFilter);
+        pEngine->getDynamicWorld()->addAction(charCon);
+        charCon->setMaxJumpHeight(1);
+
+
+
     }
     void update()
     {
-        btTransform t1  = m_body->getRigidBody()->getWorldTransform();
-        glm::quat q = getTransform()->GetRot();
-        //t1.setRotation(bq);
-        glm::quat before = m_body->getTransform()->GetRot();
-        m_body->getTransform()->SetRot(q);
-        glm::quat after = m_body->getTransform()->GetRot();
+        btTransform t ;
+        t = charCon->getGhostObject()->getWorldTransform();
+        btVector3 pos = t.getOrigin();
+        btQuaternion  quat = t.getRotation();
+        float angle = quat.getAngle();
+        btVector3 axis = quat.getAxis();
+        getTransform()->SetPos(glm::vec3(pos.getX() , pos.getY() , pos.getZ()));
+        glm::quat q = glm::angleAxis(float(angle*(180.0/3.14)) , glm::vec3(axis.getX() , axis.getY() , axis.getZ()));
+        //getTransform()->SetRot(q);
+        glm::vec3 fb = getTransform()->getForward();
+        glm::vec3 rl = getTransform()->getRight();
+        glm::vec3 dir(0,0,0);
+        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_SPACE)){
+        if(charCon->onGround())
+        charCon->jump(btVector3(0,4,0));
+        }
 
-        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_SPACE))
-            m_body->getRigidBody()->applyCentralForce(btVector3(0,20,0));
-        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_UP))
+        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_W) )
+            dir += fb;
+        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_S) )
+            dir -= fb;
+        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_A) )
+            dir -= rl;
+        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_D) )
+            dir += rl;
+
+        if(dir != glm::vec3(0,0,0))
         {
-            glm::vec3 forward = glm::normalize(getTransform()->getForward());
-            forward=forward*5.0f;
-            glm::vec3 right = getTransform()->getRight();
-            m_body->getRigidBody()->applyCentralForce(btVector3(forward.x , forward.y,forward.z));
+            if(charCon->onGround())
+                charCon->setWalkDirection(btVector3(dir.x , dir.y , dir.z).normalized()/10);
+            else
+               charCon->setWalkDirection(btVector3(dir.x , dir.y , dir.z).normalized()/30);
         }
-        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_DOWN))
-        {
-            glm::vec3 forward = glm::normalize(getTransform()->getForward());
-            forward=forward*(-5.0f);
-            m_body->getRigidBody()->applyCentralForce(btVector3(forward.x , forward.y,forward.z));
-        }
-        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_LEFT))
-        {
-            glm::vec3 forward = glm::normalize(getTransform()->getForward());
-            glm::vec3 right = glm::normalize(getTransform()->getRight());
-            right=right*(-5.0f);
-            m_body->getRigidBody()->applyCentralForce(btVector3(right.x , right.y,right.z));
-        }
-        if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_RIGHT))
-        {
-            glm::vec3 right = glm::normalize(getTransform()->getRight());
-            right=right*5.0f;
-            m_body->getRigidBody()->applyCentralForce(btVector3(right.x , right.y,right.z));
-        }
+
+        else
+            charCon->setWalkDirection(btVector3(0 , 0 , 0));
+       //charCon->setVelocityForTimeInterval(btVector3(wd.x , wd.y , wd.z).normalized()*4 , 0.01f);
+
+
 
     }
     void render(Shader& bs,const Camera& c ,RenderingEngine* renderingEngine)

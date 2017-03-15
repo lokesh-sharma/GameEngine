@@ -41,7 +41,7 @@ void FPSCamera::addToEngine(CoreEngine* core)
 glm::mat4 FPSCamera::getMVP() const
 {
     glm::vec3 pos =getTransform()->GetPos();
-    pos.y += 2;
+    pos.y += 1.5;
     glm::mat4 transformedposmat = glm::translate(-pos);
     glm::mat4 transformedrotmat = glm::toMat4(glm::conjugate(m_rot));
     return projection*transformedrotmat*transformedposmat;

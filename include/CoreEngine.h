@@ -5,6 +5,8 @@
 #include"Game.h"
 #include"RenderingEngine.h"
 #include"display.h"
+#include<GL/glew.h>
+#include<GL/gl.h>
 
 
 class CoreEngine

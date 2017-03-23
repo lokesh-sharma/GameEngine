@@ -3,6 +3,7 @@
 in vec2 texCoord0;
 in vec3 normal0;
 in vec3 worldPos0;
+in mat3 tbnmatrix;
 out vec4 color;
 
 struct BaseLight
@@ -30,7 +31,8 @@ struct PointLight
 	float range;
 };
 
-uniform sampler2D sampler;
+uniform sampler2D diffuse;
+uniform sampler2D normalMap;
 uniform vec3 eyePos;
 uniform float specularPower;
 uniform float specularIntensity;
@@ -81,16 +83,16 @@ void main()
 	vec3 lightDirection = worldPos0 - pointLight.position;
 	float distanceToPoint = length(lightDirection);
 	lightDirection = normalize(lightDirection);
-	vec4 dcolor = calcLightDiffuse(pointLight.base , lightDirection , normal0);
+	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texCoord0.xy).xyz - 1));
+	vec4 dcolor = calcLightDiffuse(pointLight.base , lightDirection , normal);
 	float attenu = pointLight.atten.constant + pointLight.atten.linear*distanceToPoint
 		       + pointLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;
 	if(dcolor.w > 0 && pointLight.range > distanceToPoint){
-		tspec += calcLightSpec(pointLight.base , lightDirection , normal0)/attenu;
+		tspec += calcLightSpec(pointLight.base , lightDirection , normal)/attenu;
 		tdiff += dcolor/attenu;
 		}
 	
-	color = texture2D(sampler, texCoord0.xy)*(tdiff) + tspec;
+	color = texture2D(diffuse, texCoord0.xy)*(tdiff) + tspec;
 	
-	//texture2D(sampler, texCoord0.xy)
 		
 }

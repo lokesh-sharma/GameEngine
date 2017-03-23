@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
     GameObject* g6 = new GameObject;
 
-    Mesh* mesh1 = new Mesh("./res/dima.obj");
+    Mesh* mesh1 = new Mesh("./res/plane.obj");
     Mesh* mesh2 = new Mesh("./res/sphere.obj");
 
     PhysicsEngine* pEngine = new PhysicsEngine();
@@ -58,8 +58,10 @@ int main(int argc, char** argv)
 
     Material* m = new Material();
     Material* m1 = new Material();
-    m->addTexture("diffuse" , "./res/TextureAtlas.png");
-    m1->addTexture("diffuse" , "./res/sphere.png");
+    m->addTexture("diffuse" , "./res/bricks2.jpg");
+    m->addTexture("normal" , "./res/bricks2_normal.png");
+    m1->addTexture("diffuse" , "./res/bricks.jpg");
+    m1->addTexture("normal" , "./res/bricks_normal.jpg");
     GameComponent* player = new Player(pEngine);
 
     MeshRenderer f( mesh1,m);
@@ -86,7 +88,7 @@ int main(int argc, char** argv)
     //g2->addComponent(&g);
     game->setEngine(&core);
     //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
-    g3->addComponent(new SpotLight(glm::vec3(1,1,1) , 3.0f ));
+    g3->addComponent(new PointLight(glm::vec3(1,1,1) , 3.0f ));
       g2->addComponent(new FPSCamera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 100.0f));
     g4->addComponent(&g);

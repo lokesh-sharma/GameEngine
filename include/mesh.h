@@ -25,6 +25,7 @@ private:
 	glm::vec3 pos;
 	glm::vec2 texCoord;
 	glm::vec3 normal;
+	glm::vec3 tangent;
 };
 
 enum MeshBufferPositions
@@ -32,7 +33,9 @@ enum MeshBufferPositions
 	POSITION_VB,
 	TEXCOORD_VB,
 	NORMAL_VB,
-	INDEX_VB
+	TANGENT_VB,
+	INDEX_VB,
+	NUM_BUFFERS
 };
 
 class MeshData
@@ -49,7 +52,6 @@ public:
 	virtual ~MeshData();
 protected:
 private:
-	static const unsigned int NUM_BUFFERS = 3;
 	unsigned int counter;
 	void operator=(const MeshData& mesh) {}
 	MeshData(const MeshData& mesh) {}
@@ -58,6 +60,7 @@ private:
 	GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffers[NUM_BUFFERS];
 	unsigned int m_drawCount;
+	int m_numIndices;
 	std::vector<glm::vec3>m_verts;
 };
 class Mesh

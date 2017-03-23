@@ -13,6 +13,13 @@ public:
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
         m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
+        int diffuseLocation = glGetUniformLocation(m_program , "diffuse");
+        if(diffuseLocation>=0)
+            m_uniforms["diffuse"] = diffuseLocation;
+        int normalMapLocation = glGetUniformLocation(m_program , "normalMap");
+        if(normalMapLocation>=0)
+            m_uniforms["normalMap"] = normalMapLocation;
+
         std::string light = "spotLight";
         m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
         m_uniforms[light + ".base.intensity"] = glGetUniformLocation(m_program ,(light+".base.intensity").c_str());
@@ -29,6 +36,8 @@ public:
         Shader::Update(transform , c,material , renderer);
         SpotLight* spotLight = renderer->getActiveSpotLight();
         std::string light = "spotLight";
+        setUniformSampler("diffuse" , 0);
+        setUniformSampler("normalMap" , 1);
         glm::vec3 color = spotLight->getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);
         setUniform1f(light+".base.intensity" , spotLight->getIntensity());

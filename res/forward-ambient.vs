@@ -3,7 +3,6 @@
 in vec3 position;
 in vec2 texCoord;
 
-
 out vec2 texCoord0;
 
 uniform mat4 MVP;

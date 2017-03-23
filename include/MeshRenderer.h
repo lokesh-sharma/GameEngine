@@ -26,7 +26,8 @@ public:
     {
         bs.Bind();
         bs.Update(*getTransform(),c,*m_material, renderingEngine);
-        m_material->getDiffuseTexture()->Bind();
+        m_material->getDiffuseTexture()->Bind(0);
+        m_material->getNormalMap()->Bind(1);
         m_mesh->Draw();
     }
 };

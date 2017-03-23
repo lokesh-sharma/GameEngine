@@ -32,6 +32,10 @@ public:
 	{
         glUniform1f(m_uniforms[uName], x);
 	}
+	void setUniformSampler(const std::string& uNAme , int x)
+	{
+        glUniform1i(m_uniforms[uNAme] , x);
+	}
 	virtual ~Shader();
 private:
     static const unsigned int NUM_SHADERS = 2;

@@ -9,7 +9,7 @@ class Texture
 public:
 	Texture(const std::string& fileName);
 
-	void Bind();
+	void Bind(GLuint id);
 
 	virtual ~Texture();
 protected:

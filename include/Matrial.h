@@ -11,17 +11,25 @@ class Material
 public:
     Material()
     {
-        specPower = 3.0f;
-        specIntensity=9.0f;
+        specPower = 1.0f;
+        specIntensity=3.0f;
         ambient = glm::vec4(0.9f , 0.9f , 0.9f , 1.0f);
+        //texture_map["normal"] = new Texture("./res/default_normal.jpg");
+
     }
     Texture* getTexture(const std::string& uName)
     {
+
         return texture_map[uName];
     }
     Texture* getDiffuseTexture()
     {
+
         return texture_map["diffuse"];
+    }
+    Texture* getNormalMap()
+    {
+        return texture_map["normal"];
     }
     void addTexture(const std::string& uName , const std::string fName)
     {

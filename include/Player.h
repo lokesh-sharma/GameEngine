@@ -75,7 +75,7 @@ public:
 
         if(dir != glm::vec3(0,0,0))
         {
-            if(charCon->onGround())
+            if(charCon->onGround() )
                 charCon->setWalkDirection(btVector3(dir.x , dir.y , dir.z).normalized()/10);
             else
                charCon->setWalkDirection(btVector3(dir.x , dir.y , dir.z).normalized()/30);

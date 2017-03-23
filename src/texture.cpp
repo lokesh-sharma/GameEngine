@@ -34,8 +34,26 @@ Texture::~Texture()
 	glDeleteTextures(1, &m_texture);
 }
 
-void Texture::Bind()
+void Texture::Bind(GLuint id)
 {
+    if(id == 0)
+        glActiveTexture(GL_TEXTURE0);
+    else if(id == 1)
+        glActiveTexture(GL_TEXTURE1);
+    else if(id == 2)
+        glActiveTexture(GL_TEXTURE2);
+    else if(id == 3)
+        glActiveTexture(GL_TEXTURE3);
+    else if(id == 4)
+        glActiveTexture(GL_TEXTURE4);
+    else if(id == 5)
+        glActiveTexture(GL_TEXTURE5);
+    else if(id == 6)
+        glActiveTexture(GL_TEXTURE6);
+    else if(id == 7)
+        glActiveTexture(GL_TEXTURE7);
+    else if(id == 8)
+        glActiveTexture(GL_TEXTURE8);
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 
 }

@@ -2,7 +2,9 @@
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
-#include"../include/ObjLoader.h"
+#include<assimp/Importer.hpp>
+#include<assimp/scene.h>
+#include<assimp/postprocess.h>
 
 
 std::map<std::string, MeshData*> Mesh::meshResource;
@@ -13,15 +15,46 @@ MeshData::MeshData(const std::string& fileName)
 }
 void MeshData::LoadMesh(const std::string & filename)
 {
-    counter=0;
+    Assimp::Importer importer;
     std::vector<glm::vec3> vertices;
-    std::vector<glm::vec3> normals;
     std::vector<glm::vec2> texcord;
+    std::vector<glm::vec3> normals;
+    std::vector<glm::vec3> tangents;
 
-    ObjLoader loader(filename.c_str() , vertices , texcord , normals);
+    const aiScene* scene = importer.ReadFile(filename , aiProcess_Triangulate|
+                                            aiProcess_GenSmoothNormals|
+                                            aiProcess_CalcTangentSpace
+                                            );
+    const aiMesh *model = scene->mMeshes[0];
+
+    counter=0;
+
+    std::vector<int> indices;
+    const aiVector3D zero(0.0f , 0.0f , 0.0f);
+    for(int i = 0 ; i < model->mNumVertices ; i++)
+    {
+        const aiVector3D* pPos = &(model->mVertices[i]);
+        const aiVector3D* pNormal  = &(model->mNormals[i]);
+        const aiVector3D* pTangent  = &(model->mTangents[i]);
+        const aiVector3D* pTexcoord  = &(model->mTextureCoords[0][i]);
+        vertices.push_back(glm::vec3(pPos->x , pPos->y , pPos->z));
+        tangents.push_back(glm::vec3(pTangent->x , pTangent->y , pTangent->z));
+        normals.push_back(glm::vec3(pNormal->x , pNormal->y , pNormal->z));
+        texcord.push_back(glm::vec2(pTexcoord->x , pTexcoord->y));
+    }
+    for(int i = 0 ; i<model->mNumFaces ; i++)
+    {
+        const aiFace& face = model->mFaces[i];
+
+        indices.push_back(face.mIndices[0]);
+        indices.push_back(face.mIndices[1]);
+        indices.push_back(face.mIndices[2]);
+    }
+
     m_verts = vertices;
 
     m_drawCount = vertices.size();
+    m_numIndices = indices.size();
 
     glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
@@ -43,6 +76,14 @@ void MeshData::LoadMesh(const std::string & filename)
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[TANGENT_VB]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(tangents[0]) * tangents.size(), &tangents[0], GL_STATIC_DRAW);
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_vertexArrayBuffers[INDEX_VB]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices[0]) *indices.size(), &indices[0], GL_STATIC_DRAW);
+
 	glBindVertexArray(0);
 
 }
@@ -59,7 +100,7 @@ MeshData::~MeshData()
 void MeshData::Draw()
 {
 	glBindVertexArray(m_vertexArrayObject);
-	glDrawArrays(GL_TRIANGLES , 0 , m_drawCount);
+	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
 
 	glBindVertexArray(0);
 }

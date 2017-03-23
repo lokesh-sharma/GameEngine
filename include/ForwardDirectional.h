@@ -12,6 +12,12 @@ public:
 	m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
 	m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
 	m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
+	int diffuseLocation = glGetUniformLocation(m_program , "diffuse");
+	if(diffuseLocation>=0)
+            m_uniforms["diffuse"] = diffuseLocation;
+        int normalMapLocation = glGetUniformLocation(m_program , "normalMap");
+        if(normalMapLocation>=0)
+            m_uniforms["normalMap"] = normalMapLocation;
 	std::string light = "directionalLight";
     m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
     m_uniforms[light + ".base.intensity"] = glGetUniformLocation(m_program ,(light+".base.intensity").c_str());
@@ -21,6 +27,8 @@ public:
     void Update(const Transform& transform,const Camera&c,const Material& material , RenderingEngine* renderingEngine)
     {
         Shader::Update(transform , c,material,renderingEngine);
+        setUniformSampler("diffuse" , 0);
+        setUniformSampler("normalMap" , 1);
         std::string light = "directionalLight";
         DirectionalLight* dirlight = renderingEngine->getActiveDirectionalLight();
         glm::vec3 color = dirlight->getColor();

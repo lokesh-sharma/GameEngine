@@ -60,12 +60,14 @@ int main(int argc, char** argv)
     Material* m1 = new Material();
     m->addTexture("diffuse" , "./res/bricks2.jpg");
     m->addTexture("normal" , "./res/bricks2_normal.png");
+    m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
     m1->addTexture("diffuse" , "./res/bricks.jpg");
     m1->addTexture("normal" , "./res/bricks_normal.jpg");
+    m1->addTexture("dispMap" , "./res/bricks_disp.png");
     GameComponent* player = new Player(pEngine);
 
-    MeshRenderer f( mesh1,m);
-    MeshRenderer g( mesh2,m1);
+    MeshRenderer f( mesh1,m1);
+    MeshRenderer g( mesh2,m);
 
     Game* game = new Game();
     TheInputHandler::getInstance()->disableCursor();
@@ -88,12 +90,14 @@ int main(int argc, char** argv)
     //g2->addComponent(&g);
     game->setEngine(&core);
     //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
-    g3->addComponent(new PointLight(glm::vec3(1,1,1) , 3.0f ));
-      g2->addComponent(new FPSCamera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
+    g3->addComponent(new DirectionalLight(glm::vec3(1,1,1) , 1.0f ));
+
+    g3->getTransform()->rotate(glm::vec3(1,0,0) , -45);
+      g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 100.0f));
     g4->addComponent(&g);
     g4->addComponent(comp2);
-      g2->addComponent(player); //order is important
+     // g2->addComponent(player); //order is important
 
 
     core.start();

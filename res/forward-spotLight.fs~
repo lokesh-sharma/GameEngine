@@ -2,7 +2,7 @@
 
 in vec2 texCoord0;
 in vec3 worldPos0;
-in vec3 normal0
+in vec3 normal0;
 in mat3 tbnMatrix;
 out vec4 color;
 
@@ -29,6 +29,9 @@ struct SpotLight
 
 uniform sampler2D diffuse;
 uniform sampler2D normalMap;
+uniform sampler2D dispMap;
+uniform float dispMapScale;
+uniform float dispMapBias;
 uniform vec3 eyePos;
 uniform float specularPower;
 uniform float specularIntensity;
@@ -40,7 +43,7 @@ vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)
 	float diffuseFactor = dot(normalize(normal) , -normalize(direction));
 	vec4 diffuseColor = vec4(0,0,0,0);
 	
-	if(diffuseFactor > 0)
+	if(diffuseFactor >= 0)
 	{
 		diffuseColor = vec4(base.color,1)*base.intensity*diffuseFactor;
 	}
@@ -69,8 +72,12 @@ void main()
 	vec3 distanceVector = worldPos0 - spotLight.position;
 	float distanceToPoint = length(distanceVector);
 	distanceVector = normalize(distanceVector);
-	
-	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texCoord0.xy).xyz - 1));
+
+	vec3 directionToEye = normalize(eyePos - worldPos0);
+	vec2 texcoords = texCoord0.xy + (directionToEye*tbnMatrix).xy*(texture2D(dispMap , texCoord0.xy).r*
+			dispMapScale + dispMapBias);
+
+	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dcolor = calcLightDiffuse(spotLight.base , distanceVector , normal);
 	float attenu = spotLight.atten.constant + spotLight.atten.linear*distanceToPoint
 		       + spotLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;
@@ -81,7 +88,7 @@ void main()
 		tspec += calcLightSpec(spotLight.base , distanceVector , normal)*falloff/attenu;
 		tdiff += dcolor*falloff/attenu;
 		}	
-	color = texture2D(diffuse, texCoord0.xy)*(tdiff) + tspec;
+	color = texture2D(dispMap, texcoords.xy)*(tdiff) + tspec;
 	
 	//texture2D(sampler, texCoord0.xy)
 		

@@ -7,7 +7,6 @@ point lights <br />
 spot lights <br />
 rigid bodies(bullet physics)
 # Features remaining
-Normal mapping <br />
 Shadow mapping <br />
 Reflection <br />
 Water refraction <br />

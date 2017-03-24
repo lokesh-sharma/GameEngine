@@ -13,12 +13,18 @@ public:
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
         m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
+         m_uniforms["dispMapScale"] = glGetUniformLocation(m_program , "dispMapScale");
+        m_uniforms["dispMapBias"] = glGetUniformLocation(m_program , "dispMapBias");
         int diffuseLocation = glGetUniformLocation(m_program , "diffuse");
         if(diffuseLocation>=0)
             m_uniforms["diffuse"] = diffuseLocation;
         int normalMapLocation = glGetUniformLocation(m_program , "normalMap");
         if(normalMapLocation>=0)
             m_uniforms["normalMap"] = normalMapLocation;
+         int dispMapLocation = glGetUniformLocation(m_program , "dispMap");
+        if(dispMapLocation>=0)
+            m_uniforms["dispMap"] = dispMapLocation;
+
         std::string light = "pointLight";
         m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
         m_uniforms[light + ".base.intensity"] = glGetUniformLocation(m_program ,(light+".base.intensity").c_str());
@@ -34,6 +40,10 @@ public:
         PointLight* pointLight = renderer->getActivePointLight();
         setUniformSampler("diffuse" , 0);
         setUniformSampler("normalMap" , 1);
+        setUniformSampler("dispMap" , 2);
+         setUniform1f("dispMapScale" , material.getDispMapScale());
+        float baseBias = material.getDispMapScale()/2.0f;
+        setUniform1f("dispMapBias" , -baseBias + baseBias*material.getDispMapOffset());
         std::string light = "pointLight";
         glm::vec3 color = pointLight->getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);

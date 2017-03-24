@@ -5,6 +5,8 @@ phong shading <br />
 directional lights <br />
 point lights <br />
 spot lights <br />
+normal mapping<br />
+displacement mapping<br />
 rigid bodies(bullet physics)
 # Features remaining
 Shadow mapping <br />

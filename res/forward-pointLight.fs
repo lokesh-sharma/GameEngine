@@ -33,6 +33,9 @@ struct PointLight
 
 uniform sampler2D diffuse;
 uniform sampler2D normalMap;
+uniform sampler2D dispMap;
+uniform float dispMapScale;
+uniform float dispMapBias;
 uniform vec3 eyePos;
 uniform float specularPower;
 uniform float specularIntensity;
@@ -44,7 +47,7 @@ vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)
 	float diffuseFactor = dot(normalize(normal) , -normalize(direction));
 	vec4 diffuseColor = vec4(0,0,0,0);
 	
-	if(diffuseFactor > 0)
+	if(diffuseFactor >= 0)
 	{
 		diffuseColor = vec4(base.color,1)*base.intensity*diffuseFactor;
 	}
@@ -83,7 +86,10 @@ void main()
 	vec3 lightDirection = worldPos0 - pointLight.position;
 	float distanceToPoint = length(lightDirection);
 	lightDirection = normalize(lightDirection);
-	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texCoord0.xy).xyz - 1));
+	vec3 directionToEye = normalize(eyePos - worldPos0);
+	vec2 texcoords = texCoord0.xy + (tbnMatrix*directionToEye).xy*(texture2D(dispMap , texCoord0.xy).r*
+			dispMapScale + dispMapBias);
+	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dcolor = calcLightDiffuse(pointLight.base , lightDirection , normal);
 	float attenu = pointLight.atten.constant + pointLight.atten.linear*distanceToPoint
 		       + pointLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;
@@ -92,7 +98,7 @@ void main()
 		tdiff += dcolor/attenu;
 		}
 	
-	color = texture2D(diffuse, texCoord0.xy)*(tdiff) + tspec;
+	color = texture2D(diffuse, texcoords.xy)*(tdiff) + tspec;
 	
 		
 }

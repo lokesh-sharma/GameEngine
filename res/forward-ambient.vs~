@@ -2,8 +2,14 @@
 
 in vec3 position;
 in vec2 texCoord;
+in vec3 normal;
+in vec3 tangent;
 
 
+out vec2 texCoord0;
+out vec3 normal0;
+out vec3 worldPos0;
+out mat3 tbnMatrix;
 
 out vec2 texCoord0;
 

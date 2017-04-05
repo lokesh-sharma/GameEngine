@@ -49,6 +49,13 @@ void Display::clean()
 	SDL_Quit();
 }
 
+void Display::bindAsRenderTarget()
+{
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER , 0 );
+    glViewport(0 , 0 , getWidth() , getHeight());
+}
+
+
 void Display::Clear(float r, float g, float b, float a)
 {
 	glClearColor(r, g, b, a);

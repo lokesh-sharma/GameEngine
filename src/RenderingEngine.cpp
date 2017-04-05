@@ -25,6 +25,7 @@ void RenderingEngine::init(Display* d)
 }
 void RenderingEngine::render(GameObject* object)
 {
+    display->bindAsRenderTarget();
     object->render(*ambientShader , *camera , this);
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE , GL_ONE);

@@ -17,6 +17,7 @@ public:
 	void Clear(float r, float g, float b, float a);
 	void SwapBuffers();
 	void update();
+	void bindAsRenderTarget() ;
     void clean();
     bool isRunning() { return m_running;}
     SDL_Window* getWindow() { return m_window;}

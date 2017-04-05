@@ -17,8 +17,8 @@ uniform vec3 eyePos;
 
 void main()
 {
-	vec3 directionToEye = normalize(eyePos - worldPos0);
-	vec2 texcoords = texCoord0.xy + (directionToEye*tbnMatrix).xy*(texture2D(dispMap , texCoord0.xy).r*
+	vec3 directionToEye = normalize( tbnMatrix*(eyePos - worldPos0));
+	vec2 texcoords = texCoord0.xy + (tbnMatrix*directionToEye).xy*(texture2D(dispMap , texCoord0.xy).r*
 			dispMapScale + dispMapBias);
 	color = texture2D(diffuse, texcoords)*(MaterialAmbientColor);	
 }

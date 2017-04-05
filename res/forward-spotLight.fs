@@ -74,8 +74,7 @@ void main()
 	distanceVector = normalize(distanceVector);
 
 	vec3 directionToEye = normalize(eyePos - worldPos0);
-	vec2 texcoords = texCoord0.xy + (directionToEye*tbnMatrix).xy*(texture2D(dispMap , texCoord0.xy).r*
-			dispMapScale + dispMapBias);
+	vec2 texcoords = texCoord0;
 
 	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dcolor = calcLightDiffuse(spotLight.base , distanceVector , normal);

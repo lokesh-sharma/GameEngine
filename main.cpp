@@ -40,16 +40,20 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
     GameObject* g6 = new GameObject;
 
-    Mesh* mesh1 = new Mesh("./res/plane.obj");
-    Mesh* mesh2 = new Mesh("./res/sphere.obj");
+    Mesh* mesh1 = new Mesh("./res/plane2.obj");
+    Mesh* mesh2 = new Mesh("./res/sphere2.obj");
+    Mesh* mesh3 = new Mesh("./res/cube4.obj");
 
     PhysicsEngine* pEngine = new PhysicsEngine();
     pEngine->addObject(new PhysicsObject(mesh1 , glm::vec3(0,0,0) , 0 , 1) , "dima");
     pEngine->addObject(new PhysicsObject(glm::vec3(0,10,1) ,glm::vec3(2,2,2) ,
      5 , PhysicsObject::TYPE_BOUNDINGSPHERE) , "sphere");
+    pEngine->addObject(new PhysicsObject(glm::vec3(1,4,0) , glm::vec3(2,2,2) , 2 ,
+    PhysicsObject::TYPE_BOX) , "cube");
 
     PhysicsObjectComponent* comp = new PhysicsObjectComponent(pEngine->getObject("dima"));
     PhysicsObjectComponent* comp2 = new PhysicsObjectComponent(pEngine->getObject("sphere"));
+    PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
     //PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
 //    btTransform qt;
 //    qt = pEngine->getObject("cube")->getRigidBody()->getWorldTransform();
@@ -68,6 +72,7 @@ int main(int argc, char** argv)
 
     MeshRenderer f( mesh1,m1);
     MeshRenderer g( mesh2,m);
+    MeshRenderer h( mesh3,m);
 
     Game* game = new Game();
     TheInputHandler::getInstance()->disableCursor();
@@ -97,13 +102,14 @@ int main(int argc, char** argv)
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 100.0f));
     g4->addComponent(&g);
     g4->addComponent(comp2);
-     // g2->addComponent(player); //order is important
+      //g2->addComponent(player); //order is important
 
-
+    g5->addComponent(&h);
+    g5->addComponent(comp3);
     core.start();
 	float counter = 0.0f;
     long framestart;
-    g3->getTransform()->SetPos(glm::vec3(0,2,0));
+    g3->getTransform()->SetPos(glm::vec3(0,5,0));
 
 	while(core.is_running())
 	{

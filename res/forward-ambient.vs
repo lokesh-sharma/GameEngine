@@ -19,7 +19,7 @@ void main()
 	gl_Position = MVP*vec4(position, 1.0);
 	texCoord0 = texCoord;
 	normal0 = normal;
-	worldPos0 =vec3(Model*vec4(position,1.0));
+	
 	vec3 n = normalize((Model*vec4(normal ,0.0)).xyz);
 	vec3 t = normalize((Model*vec4(tangent , 0.0)).xyz);
 
@@ -27,4 +27,5 @@ void main()
 
 	vec3 bitangent = cross(t,n);
 	tbnMatrix = mat3(t,bitangent , n );
+	worldPos0 =vec3(Model*vec4(position,1.0));
 }

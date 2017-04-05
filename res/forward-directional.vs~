@@ -3,7 +3,7 @@
 in vec3 position;
 in vec2 texCoord;
 in vec3 normal;
-in vec3 tangent
+in vec3 tangent;
 
 
 out vec2 texCoord0;
@@ -25,6 +25,6 @@ void main()
 
 	t = normalize(t - dot(t,n)*n);
 
-	vec3 bitangent = cross(t,n);
-	tbnMatrix = mat3(t,bitangent , n );
+	vec3 bitangent = normalize(cross(t,n));
+	tbnMatrix = transpose(mat3(t,bitangent , n ));
 }

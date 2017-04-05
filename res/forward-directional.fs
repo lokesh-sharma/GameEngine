@@ -66,9 +66,7 @@ void main()
 
 	vec4 tspec = vec4(0.0,0.0,0.0,1.0);
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
-	vec3 directionToEye = normalize(eyePos - worldPos0);
-	vec2 texcoords = texCoord0.xy + (directionToEye*tbnMatrix).xy*(texture2D(dispMap , texCoord0.xy).r*
-			dispMapScale);
+    	vec2 texcoords = texCoord0;
 	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	tdiff += calcLightDiffuse(directionalLight.base , directionalLight.direction , normal);
 	if(tdiff.w > 0)

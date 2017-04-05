@@ -88,7 +88,7 @@ void main()
 		tspec += calcLightSpec(spotLight.base , distanceVector , normal)*falloff/attenu;
 		tdiff += dcolor*falloff/attenu;
 		}	
-	color = texture2D(dispMap, texcoords.xy)*(tdiff) + tspec;
+	color = texture2D(diffuse, texcoords.xy)*(tdiff) + tspec;
 	
 	//texture2D(sampler, texCoord0.xy)
 		

@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1490383425 source:/home/loki/GameEngine/main.cpp
+1490796606 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -155,7 +155,7 @@
 	"Player.h"
 	"FPSCamera.h"
 
-1485022744 /home/loki/GameEngine/include/display.h
+1491305974 /home/loki/GameEngine/include/display.h
 	<string>
 	<SDL2/SDL.h>
 	"camera.h"
@@ -198,7 +198,7 @@
 	"transform.h"
 	"CoreEngine.h"
 
-1490209353 /home/loki/GameEngine/include/texture.h
+1491375869 /home/loki/GameEngine/include/texture.h
 	<string>
 	<GL/glew.h>
 
@@ -207,7 +207,7 @@
 	<vector>
 	<glm/glm.hpp>
 
-1485022754 source:/home/loki/GameEngine/src/display.cpp
+1491306073 source:/home/loki/GameEngine/src/display.cpp
 	"../include/display.h"
 	<GL/glew.h>
 	<iostream>
@@ -245,7 +245,7 @@
 	<iostream>
 	<fstream>
 
-1490381927 source:/home/loki/GameEngine/src/texture.cpp
+1491338821 source:/home/loki/GameEngine/src/texture.cpp
 	"../include/texture.h"
 	"../include/stb_image.h"
 	<iostream>
@@ -302,7 +302,7 @@
 	<GL/glew.h>
 	<GL/gl.h>
 
-1490374238 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1491317650 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -322,13 +322,13 @@
 	"display.h"
 	"CoreEngine.h"
 
-1490383578 /home/loki/GameEngine/include/Matrial.h
+1490884670 /home/loki/GameEngine/include/Matrial.h
 	<glm/glm.hpp>
 	<map>
 	<iostream>
 	"texture.h"
 
-1490371958 /home/loki/GameEngine/include/ForwardAmbient.h
+1490772459 /home/loki/GameEngine/include/ForwardAmbient.h
 	"Light.h"
 	"shader.h"
 
@@ -397,7 +397,7 @@
 	"LinearMath/btTransform.h"
 	"LinearMath/btVector3.h"
 
-1486679955 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
+1491325560 source:/home/loki/GameEngine/src/PhysicsEngine.cpp
 	"PhysicsEngine.h"
 	"BoundingSphere.h"
 	<iostream>
@@ -960,10 +960,10 @@
 1486822372 /home/loki/GameEngine/include/FPSCamera.h
 	"camera.h"
 
-1486737806 source:/home/loki/GameEngine/src/Player.cpp
+1490710246 source:/home/loki/GameEngine/src/Player.cpp
 	"Player.h"
 
-1489675284 /home/loki/GameEngine/include/Player.h
+1490428203 /home/loki/GameEngine/include/Player.h
 	"MeshRenderer.h"
 	"btBulletDynamicsCommon.h"
 	"BulletCollision/CollisionDispatch/btGhostObject.h"

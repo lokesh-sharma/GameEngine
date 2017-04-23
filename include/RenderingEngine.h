@@ -23,6 +23,8 @@ public:
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
     SpotLight* getActiveSpotLight() { return active_spot_light;}
+    CoreEngine* getCoreEngine() { return core;}
+    void setCoreEngine(CoreEngine* c) { core = c ;}
     Camera* getCamera() { return camera;}
     virtual ~RenderingEngine();
 private:
@@ -35,6 +37,7 @@ private:
     Shader* ambientShader;
     Camera* camera;
     Display* display;
+    CoreEngine* core;
     RenderingEngine(const RenderingEngine& other) {}
     RenderingEngine& operator=(const RenderingEngine& other) {}
 };

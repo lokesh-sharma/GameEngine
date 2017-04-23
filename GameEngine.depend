@@ -198,7 +198,7 @@
 	"transform.h"
 	"CoreEngine.h"
 
-1491375869 /home/loki/GameEngine/include/texture.h
+1491406927 /home/loki/GameEngine/include/texture.h
 	<string>
 	<GL/glew.h>
 
@@ -245,7 +245,7 @@
 	<iostream>
 	<fstream>
 
-1491338821 source:/home/loki/GameEngine/src/texture.cpp
+1492161587 source:/home/loki/GameEngine/src/texture.cpp
 	"../include/texture.h"
 	"../include/stb_image.h"
 	<iostream>
@@ -291,7 +291,7 @@
 	<vector>
 	"transform.h"
 
-1487338296 source:/home/loki/GameEngine/src/CoreEngine.cpp
+1491400047 source:/home/loki/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
 	"display.h"
 
@@ -302,7 +302,7 @@
 	<GL/glew.h>
 	<GL/gl.h>
 
-1491317650 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1492160530 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -310,8 +310,11 @@
 	"ForwardSpot.h"
 	"display.h"
 	"CoreEngine.h"
+	"mesh.h"
+	"transform.h"
+	"FreeLook.h"
 
-1486682454 /home/loki/GameEngine/include/RenderingEngine.h
+1491400080 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
 	"InputHandler.h"
@@ -322,7 +325,7 @@
 	"display.h"
 	"CoreEngine.h"
 
-1490884670 /home/loki/GameEngine/include/Matrial.h
+1491396912 /home/loki/GameEngine/include/Matrial.h
 	<glm/glm.hpp>
 	<map>
 	<iostream>

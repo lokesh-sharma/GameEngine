@@ -41,6 +41,10 @@ public:
     {
         texture_map[uName] = new Texture(fName);
     }
+    void addTexture(const std::string& uName , Texture* tex)
+    {
+        texture_map[uName] = tex;
+    }
     float getSpecularPower() const { return specPower;}
     float getSpecularIntensity() const { return specIntensity;}
     float getDispMapScale() const { return dispMapScale;}

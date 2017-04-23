@@ -9,6 +9,7 @@ class Texture
 public:
 	Texture(const std::string& fileName , int numTextures=1, GLenum targetType = GL_TEXTURE_2D
 	, GLfloat filter = GL_LINEAR_MIPMAP_LINEAR , GLenum attachment= GL_NONE);
+	Texture(unsigned char* data ,int width , int height , GLfloat filter, GLenum attach);
 
 	void Bind(GLuint id);
     void bindAsRenderTarget() ;

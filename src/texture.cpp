@@ -2,6 +2,7 @@
 #include "../include/stb_image.h"
 #include <iostream>
 
+
 Texture::Texture(const std::string& fileName, int numTextures , GLenum targetType , GLfloat filter,
 GLenum attachment)
 {
@@ -20,6 +21,14 @@ GLenum attachment)
 
     stbi_image_free(data);
 }
+Texture::Texture(unsigned char* data ,int width , int height , GLfloat filter , GLenum attach)
+{
+    m_numTextures = 1;
+    m_frameBuffer = 0;
+    m_textureTarget = GL_TEXTURE_2D;
+    initTextures(&data , width , height , &filter );
+    initRenderTargets(&attach);
+}
 
 Texture::~Texture()
 {
@@ -27,11 +36,16 @@ Texture::~Texture()
 	if(m_frameBuffer) glDeleteFramebuffers(1 , &m_frameBuffer);
 	delete [] m_texture;
 }
+void Texture::bindAsRenderTarget()
+{
+    glBindFramebuffer(GL_FRAMEBUFFER , m_frameBuffer);
+    glViewport(0, 0, m_width, m_height);
+}
 void Texture::initTextures(unsigned char** data ,int width , int height , GLfloat* filters)
 {
     glGenTextures(m_numTextures, m_texture);
     for(int i = 0 ; i< m_numTextures ; i++)
-    {   glBindTexture(GL_TEXTURE_2D, m_texture[i]);
+    {   glBindTexture(m_textureTarget, m_texture[i]);
 
         glTexParameterf(m_textureTarget, GL_TEXTURE_MIN_FILTER, filters[i]);
         //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -63,14 +77,16 @@ void Texture::initRenderTargets(GLenum* attachments)
         if(m_frameBuffer == 0)
         {
             glGenFramebuffers(1 , &m_frameBuffer);
-            glBindFramebuffer(GL_DRAW_FRAMEBUFFER , m_frameBuffer);
+            glBindFramebuffer(GL_FRAMEBUFFER , m_frameBuffer);
         }
 
-        glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER , attachments[i] ,
+        glFramebufferTexture2D(GL_FRAMEBUFFER , attachments[i] ,
         m_textureTarget , m_texture[i],0);
     }
-    if(m_frameBuffer == 0)
+    if(m_frameBuffer == 0){
+
         return;
+        }
     glDrawBuffers(m_numTextures , drawBuffers);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         std::cerr<<"frame buffer creation failed \n";

@@ -1,6 +1,6 @@
 # GameEngine
 3D game engine in c++
-# Supported features
+# Features
 -[x]Blinn-Phong shading <br />
 -[x]Directional lights <br />
 -[x]Point lights <br />
@@ -20,7 +20,6 @@ You need to first compile bullet-library on your machine see the link
 [Bullet-physics](https://github.bulletphysics/com/bullet3). < br />
 
 [Assimp](https://github.com/assimp/assimp).< br/>
-[GLM Math library](
 
 You will also need GLEW SDL GL assimp libraries.<br/>
 build instruction SDL GLEW and GL.<br/>

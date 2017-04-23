@@ -1,18 +1,18 @@
 # GameEngine
 3D game engine in c++
-# Supported features
--[x]Blinn-Phong shading <br />
--[x]Directional lights <br />
--[x]Point lights <br />
--[x]Spot lights <br />
--[x]Normal mapping<br />
--[x]Forward rendering<br />
--[x]Rigid bodies(bullet physics)
--[ ]Shadow mapping <br />
--[ ]Reflection <br />
--[ ]Water refraction <br />
--[ ]Environment mapping <br />
--[ ]Soft bodies <br />
+# Features
+- [x] Blinn-Phong shading <br />
+- [x] Directional lights <br />
+- [x] Point lights <br />
+- [x] Spot lights <br />
+- [x] Normal mapping<br />
+- [x] Forward rendering<br />
+- [x] Rigid bodies(bullet physics)
+- [ ] Shadow mapping <br />
+- [ ] Reflection <br />
+- [ ] Water refraction <br />
+- [ ] Environment mapping <br />
+- [ ] Soft bodies <br />
 
 # Build Instructions
 

@@ -1,5 +1,6 @@
 # GameEngine
-3D game engine in c++
+3D game engine in c++ < br/>
+[Demo Video](https://www.youtube.com/watch?v=J8xELr8XOuU)
 # Features
 - [x] Blinn-Phong shading <br />
 - [x] Directional lights <br />
@@ -17,7 +18,7 @@
 # Build Instructions
 
 You need to first compile bullet-library on your machine see the link
-[Bullet-physics](https://github.bulletphysics/com/bullet3). < br />
+[Bullet-physics](https://github.bulletphysics/com/bullet3). 
 
 [Assimp](https://github.com/assimp/assimp).
 

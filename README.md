@@ -17,9 +17,9 @@
 # Build Instructions
 
 You need to first compile bullet-library on your machine see the link
-[Bullet-physics](https://github.bulletphysics/com/bullet3). < br />
+[Bullet-physics](https://github.bulletphysics/com/bullet3). 
 
-[Assimp](https://github.com/assimp/assimp).< br/>
+[Assimp](https://github.com/assimp/assimp).
 
 You will also need GLEW SDL GL assimp libraries.<br/>
 build instruction SDL GLEW and GL.<br/>
@@ -28,4 +28,4 @@ build instruction SDL GLEW and GL.<br/>
 <pre>sudo apt-get install libglm-dev</pre> <br/>
 
 
-Install code blocks and open GameEngine.cbp file .< br/>
+Install code blocks and open GameEngine.cbp file.

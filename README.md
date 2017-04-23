@@ -1,5 +1,5 @@
 # GameEngine
-3D game engine in c++ < br/>
+3D game engine in c++
 [Demo Video](https://www.youtube.com/watch?v=J8xELr8XOuU)
 # Features
 - [x] Blinn-Phong shading <br />

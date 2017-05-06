@@ -16,6 +16,8 @@ static Transform g_transform;
 static Material* g_material;
 static Camera* g_camera = 0;
 static GameObject* g_cameraObject = 0;
+static GLuint fbo = 0;
+static GLuint* color_texture = 0;
 
 RenderingEngine::RenderingEngine()
 {
@@ -24,23 +26,19 @@ RenderingEngine::RenderingEngine()
     //pointShader = new ForwardPoint("./res/forward-pointLight");
     //spotShader = new ForwardSpot("./res/forward-spotLight");
     //shader = new PhongShader("./res/phongShader");
+
+    g_temptarget = new Texture("./res/bricks2.jpg" ,1, GL_TEXTURE_2D,GL_LINEAR_MIPMAP_LINEAR,GL_COLOR_ATTACHMENT0);
+
     g_material = new Material();
-    int width = 200;
-    int height = 200;
-    unsigned char * data = new unsigned char[width*height*4];
-    memset(data , 0 , width*height*4);
-    g_temptarget = new Texture( data , width , height , GL_LINEAR_MIPMAP_LINEAR , GL_COLOR_ATTACHMENT0);
     g_material->addTexture("diffuse" , g_temptarget);
-//    g_material->addTexture("diffuse" , "./res/bricks.jpg");
-//    g_material->addTexture("normal" , "./res/default_normal.jpg");
-//    g_material->addTexture("dispMap" , "./res/default_disp.png");
-    g_mesh = new Mesh("./res/plane.obj");
-    g_camera = new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
-    , 5.0/4.0, 0.1f, 100.0f);
     g_cameraObject = new GameObject();
+    g_camera = new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
+    , 1152.0/864.0, 0.1f, 100.0f);
+    g_cameraObject->setEngine(core);
     g_camera->setParent(g_cameraObject);
-    //g_cameraObject->addComponent(g_camera);
-    //g_camera->getTransform()->rotate()
+    g_mesh = new Mesh("./res/plane.obj");
+    g_transform.rotate(glm::vec3(1,0,0) , 90.0f);
+    g_cameraObject->getTransform()->rotate(glm::vec3(1,0,0) , 90.0f);
 }
 RenderingEngine::~RenderingEngine()
 {
@@ -52,10 +50,10 @@ void RenderingEngine::init(Display* d)
 }
 void RenderingEngine::render(GameObject* object)
 {
-    display->bindAsRenderTarget();
-   // g_temptarget->bindAsRenderTarget();
-    //glClearColor(0.1 , 0.1, 0.1, 1);
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    g_temptarget->bindAsRenderTarget();
+    glClearColor(0.1 , 0.1, 0.1, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     object->render(*ambientShader , *camera , this);
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE , GL_ONE);
@@ -81,16 +79,18 @@ void RenderingEngine::render(GameObject* object)
     glDepthMask(true);
     glDisable(GL_BLEND);
     object->update();
-//    display->bindAsRenderTarget();
-//    glClearColor(0.1 , 0.1, 0.1, 1);
-//     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-//     g_temptarget->Bind(0);
-//    ambientShader->Bind();
-//    ambientShader->Update(g_transform , *g_camera  , *g_material , this);
+    display->bindAsRenderTarget();
+    glClearColor(0.1 , 0.1, 0.1, 1);
+     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+     g_temptarget->Bind(0);
+    //g_temptarget->Bind(0);
+    ambientShader->Bind();
+    ambientShader->Update(g_transform , *g_camera  , *g_material , this);
 //
-//    //g_camera->update();
-//    g_mesh->Draw();
+    g_camera->update();
+    g_mesh->Draw();
    // glBindTexture(GL_TEXTURE_2D , 0);
+    glBindTexture(GL_TEXTURE_2D, 0);
 
 }
  void RenderingEngine::addDirectionalLight(DirectionalLight* light)

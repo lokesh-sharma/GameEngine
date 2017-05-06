@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
     GameObject* g6 = new GameObject;
 
-    Mesh* mesh1 = new Mesh("./res/plane2.obj");
+    Mesh* mesh1 = new Mesh("./res/dima.obj");
     Mesh* mesh2 = new Mesh("./res/sphere2.obj");
     Mesh* mesh3 = new Mesh("./res/cube4.obj");
 
@@ -65,8 +65,8 @@ int main(int argc, char** argv)
     m->addTexture("diffuse" , "./res/bricks2.jpg");
     m->addTexture("normal" , "./res/bricks2_normal.png");
     m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
-    m1->addTexture("diffuse" , "./res/bricks.jpg");
-    m1->addTexture("normal" , "./res/bricks_normal.jpg");
+    m1->addTexture("diffuse" , "./res/TextureAtlas.png");
+    m1->addTexture("normal" , "./res/default_normal.jpg");
     m1->addTexture("dispMap" , "./res/bricks_disp.png");
     GameComponent* player = new Player(pEngine);
 
@@ -78,8 +78,10 @@ int main(int argc, char** argv)
     TheInputHandler::getInstance()->disableCursor();
 
     TheInputHandler::getInstance()->setDisplay(&display);
+    RenderingEngine* renderer = new RenderingEngine();
 
-    CoreEngine core(&display , game , new RenderingEngine() );
+    CoreEngine core(&display , game , renderer );
+    renderer->setCoreEngine(&core);
 //     g1->getTransform()->SetPos(glm::vec3(0,2,0));
 //    g2->getTransform()->SetPos(glm::vec3(0,-1,0));
 

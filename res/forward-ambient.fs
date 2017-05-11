@@ -11,6 +11,7 @@ uniform sampler2D diffuse;
 uniform vec4 MaterialAmbientColor;
 uniform sampler2D normalMap;
 uniform sampler2D dispMap;
+uniform sampler2D shadowMap;
 uniform float dispMapScale;
 uniform float dispMapBias;
 uniform vec3 eyePos;

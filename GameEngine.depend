@@ -125,7 +125,7 @@
 1481565185 /home/loki/gl/GameEngine/include/Light.h
 	<glm/glm.hpp>
 
-1494077195 source:/home/loki/GameEngine/main.cpp
+1494543595 source:/home/loki/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -161,7 +161,7 @@
 	"camera.h"
 	"transform.h"
 
-1486822353 /home/loki/GameEngine/include/camera.h
+1494428672 /home/loki/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
@@ -170,7 +170,7 @@
 	"GameComponent.h"
 	<iostream>
 
-1486677839 /home/loki/GameEngine/include/transform.h
+1494429079 /home/loki/GameEngine/include/transform.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/gtx/quaternion.hpp>
@@ -192,13 +192,13 @@
 	"../include/Light.h"
 	"Matrial.h"
 
-1484852771 /home/loki/GameEngine/include/Light.h
+1494542192 /home/loki/GameEngine/include/Light.h
 	<glm/glm.hpp>
 	"GameComponent.h"
 	"transform.h"
 	"CoreEngine.h"
 
-1494034640 /home/loki/GameEngine/include/texture.h
+1494422616 /home/loki/GameEngine/include/texture.h
 	<string>
 	<GL/glew.h>
 
@@ -207,7 +207,7 @@
 	<vector>
 	<glm/glm.hpp>
 
-1491306073 source:/home/loki/GameEngine/src/display.cpp
+1494440695 source:/home/loki/GameEngine/src/display.cpp
 	"../include/display.h"
 	<GL/glew.h>
 	<iostream>
@@ -245,7 +245,7 @@
 	<iostream>
 	<fstream>
 
-1494035521 source:/home/loki/GameEngine/src/texture.cpp
+1494424760 source:/home/loki/GameEngine/src/texture.cpp
 	"../include/texture.h"
 	"../include/stb_image.h"
 	<iostream>
@@ -276,7 +276,7 @@
 
 1482585411 /home/loki/GameEngine/include/TestGame.h
 
-1490369044 /home/loki/GameEngine/include/MeshRenderer.h
+1494444897 /home/loki/GameEngine/include/MeshRenderer.h
 	"mesh.h"
 	"texture.h"
 	"GameComponent.h"
@@ -291,7 +291,7 @@
 	<vector>
 	"transform.h"
 
-1491400047 source:/home/loki/GameEngine/src/CoreEngine.cpp
+1494356476 source:/home/loki/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
 	"display.h"
 
@@ -302,7 +302,7 @@
 	<GL/glew.h>
 	<GL/gl.h>
 
-1494035454 source:/home/loki/GameEngine/src/RenderingEngine.cpp
+1494544315 source:/home/loki/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -313,8 +313,9 @@
 	"mesh.h"
 	"transform.h"
 	"FreeLook.h"
+	"ShadowShader.h"
 
-1491400080 /home/loki/GameEngine/include/RenderingEngine.h
+1494543384 /home/loki/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
 	"InputHandler.h"
@@ -325,17 +326,17 @@
 	"display.h"
 	"CoreEngine.h"
 
-1491396912 /home/loki/GameEngine/include/Matrial.h
+1494511507 /home/loki/GameEngine/include/Matrial.h
 	<glm/glm.hpp>
 	<map>
 	<iostream>
 	"texture.h"
 
-1490772459 /home/loki/GameEngine/include/ForwardAmbient.h
+1494445100 /home/loki/GameEngine/include/ForwardAmbient.h
 	"Light.h"
 	"shader.h"
 
-1490373571 /home/loki/GameEngine/include/ForwardDirectional.h
+1494543570 /home/loki/GameEngine/include/ForwardDirectional.h
 	"Light.h"
 	"shader.h"
 
@@ -358,11 +359,14 @@
 	"camera.h"
 	"shader.h"
 
-1484853554 source:/home/loki/GameEngine/src/light.cpp
+1494531561 source:/home/loki/GameEngine/src/light.cpp
 	"Light.h"
 	"ForwardDirectional.h"
 	"ForwardPoint.h"
 	"ForwardSpot.h"
+	<glm/glm.hpp>
+	<glm/gtx/transform.hpp>
+	<glm/detail/func_geometric.hpp>
 
 1485116693 source:/home/loki/GameEngine/src/BoundingSphere.cpp
 	"BoundingSphere.h"
@@ -1011,4 +1015,8 @@
 1476342022 /home/loki/bullet3-2.85/src/BulletDynamics/Character/btCharacterControllerInterface.h
 	"LinearMath/btVector3.h"
 	"BulletDynamics/Dynamics/btActionInterface.h"
+
+1494431519 /home/loki/GameEngine/include/ShadowShader.h
+	"Light.h"
+	"shader.h"
 

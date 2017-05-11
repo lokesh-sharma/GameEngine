@@ -68,6 +68,7 @@ public:
 
 	void rotate(const glm::quat rotation);
 	void rotate(const glm::vec3 axis , float angle);
+	glm::vec3 getTransformedPos();
 protected:
 private:
     Transform* m_parent;

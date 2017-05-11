@@ -21,6 +21,9 @@ public:
          int dispMapLocation = glGetUniformLocation(m_program , "dispMap");
         if(dispMapLocation>=0)
             m_uniforms["dispMap"] = dispMapLocation;
+        int shadowMapLocation = glGetUniformLocation(m_program , "shadowMap");
+        if(shadowMapLocation>=0)
+            m_uniforms["shadowMap"] = shadowMapLocation;
     }
     void Update(const Transform& transform,const Camera&c,const Material& m , RenderingEngine* renderer)
     {
@@ -30,6 +33,7 @@ public:
         setUniformSampler("diffuse" , 0);
         setUniformSampler("normalMap" , 1);
         setUniformSampler("dispMap" , 2);
+        setUniformSampler("shadowMap" , 3);
         setUniform1f("dispMapScale" , m.getDispMapScale());
         float baseBias = m.getDispMapScale()/2.0f;
         setUniform1f("dispMapBias" , -baseBias + baseBias*m.getDispMapOffset());

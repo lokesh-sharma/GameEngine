@@ -19,6 +19,7 @@ public:
 	virtual glm::mat4 getMVP() const ;
 	virtual glm::mat4 getModel() const { return getTransform()->GetModel();}
 	virtual glm::vec3 getPos() const;
+	virtual void setProjection(glm::mat4 proj) { projection = proj; }
 	virtual void addToEngine(CoreEngine* core);
 protected:
     glm::mat4 projection;

@@ -51,6 +51,12 @@ public:
     float getDispMapOffset() const { return dispMapOffset;}
     glm::vec4 getAmbientColor() const { return ambient;}
 
+    void setAmbientColor(glm::vec4 color) { ambient = color; }
+     void setSpecularPower(float specPw)  {  specPower = specPw;}
+    void setSpecularIntensity(float specI)  { specIntensity = specI;}
+    void setDispMapScale(float dispS) { dispMapScale = dispS;}
+    void setDispMapOffset(float dispO)  {  dispMapOffset = dispO;}
+
 private:
     float specPower;
     float specIntensity;

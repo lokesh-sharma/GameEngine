@@ -10,6 +10,9 @@ public:
     ForwardDirectional(const std::string fileName): Shader(fileName)
     {
 	m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+	m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
+	m_uniforms["shadowBias"] = glGetUniformLocation(m_program , "shadowBias");
+	m_uniforms["lightMatrix"] = glGetUniformLocation(m_program , "lightMatrix");
 	m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
 	m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
 	 m_uniforms["dispMapScale"] = glGetUniformLocation(m_program , "dispMapScale");
@@ -23,6 +26,9 @@ public:
          int dispMapLocation = glGetUniformLocation(m_program , "dispMap");
         if(dispMapLocation>=0)
             m_uniforms["dispMap"] = dispMapLocation;
+            int shadowMapLocation = glGetUniformLocation(m_program , "shadowMap");
+        if(shadowMapLocation>=0)
+            m_uniforms["shadowMap"] = shadowMapLocation;
 
 	std::string light = "directionalLight";
     m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
@@ -32,10 +38,13 @@ public:
     }
     void Update(const Transform& transform,const Camera&c,const Material& material , RenderingEngine* renderingEngine)
     {
+        glm::mat4 lightMat = renderingEngine->getLightMatrix()*transform.GetModel();
+        setUniformMatrix4f("lightMatrix" , &lightMat[0][0]);
         Shader::Update(transform , c,material,renderingEngine);
         setUniformSampler("diffuse" , 0);
         setUniformSampler("normalMap" , 1);
         setUniformSampler("dispMap" , 2);
+        setUniformSampler("shadowMap" , 3);
          setUniform1f("dispMapScale" , material.getDispMapScale());
         float baseBias = material.getDispMapScale()/2.0f;
         setUniform1f("dispMapBias" , -baseBias + baseBias*material.getDispMapOffset());
@@ -47,6 +56,9 @@ public:
         glm::vec3 dir = dirlight->getDirection();
         setUniformVector3f(light+".direction" ,dir.x , dir.y , dir.z);
         setUniform1f("specularPower" , material.getSpecularPower());
+        setUniform1f("shadowBias" , renderingEngine->getShadowBias());
+        glm::vec3 tSize = renderingEngine->getShadowTexelSize();
+        setUniformVector3f("shadowTexelSize" , tSize.x , tSize.y , tSize.z);
         setUniform1f("specularIntensity" , material.getSpecularIntensity());
         glm::vec3 p = c.getPos();
         setUniformVector3f("eyePos" , p.x , p.y , p.z);

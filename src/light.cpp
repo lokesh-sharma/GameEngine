@@ -2,6 +2,9 @@
 #include"ForwardDirectional.h"
 #include"ForwardPoint.h"
 #include"ForwardSpot.h"
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include<glm/detail/func_geometric.hpp>
 
 glm::vec3 DirectionalLight::getDirection() const
 {
@@ -16,6 +19,7 @@ DirectionalLight:: DirectionalLight(const glm::vec3 color , float inten ) :
     BaseLight(color , inten )
 {
     m_shader = new ForwardDirectional("./res/forward-directional");
+    m_shadowInfo = new ShadowInfo(glm::ortho(-10.0f,10.0f,-10.0f,10.0f,-10.0f,20.0f), 2.0/1024.0);
 }
 PointLight::PointLight(const glm::vec3 color , float inten , float c
     , float l,float e, float r):

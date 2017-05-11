@@ -78,7 +78,7 @@ int main(int argc, char** argv)
     TheInputHandler::getInstance()->disableCursor();
 
     TheInputHandler::getInstance()->setDisplay(&display);
-    RenderingEngine* renderer = new RenderingEngine();
+    RenderingEngine* renderer = new RenderingEngine(&display);
 
     CoreEngine core(&display , game , renderer );
     renderer->setCoreEngine(&core);
@@ -97,7 +97,9 @@ int main(int argc, char** argv)
     //g2->addComponent(&g);
     game->setEngine(&core);
     //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
-    g3->addComponent(new DirectionalLight(glm::vec3(1,1,1) , 1.0f ));
+    PointLight*point = new PointLight(glm::vec3(1,1,1) , 60.0f);
+    DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 2.0f);
+    g3->addComponent(dir);
 
     g3->getTransform()->rotate(glm::vec3(1,0,0) , -45);
       g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
@@ -132,6 +134,7 @@ int main(int argc, char** argv)
 
 		//std::cout<<1000.0/time<<std::endl;
 		counter += 0.1;
+		//dir->setIntensity((glm::sin(counter) + 1)*3);
 	}
 
 	return 0;

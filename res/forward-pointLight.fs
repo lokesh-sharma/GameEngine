@@ -4,6 +4,7 @@ in vec2 texCoord0;
 in vec3 normal0;
 in vec3 worldPos0;
 in mat3 tbnMatrix;
+in vec3 tangent0;
 out vec4 color;
 
 struct BaseLight
@@ -98,6 +99,7 @@ void main()
 		}
 	
 	color = texture2D(diffuse, texcoords.xy)*(tdiff) + tspec;
+	
 	
 		
 }

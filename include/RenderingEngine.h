@@ -24,7 +24,8 @@ public:
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
     SpotLight* getActiveSpotLight() { return active_spot_light;}
-    Texture* getShadowMap() { return temptarget ; }
+    Texture* getDirShadowMap() { return temptarget ; }
+    Texture* getPointShadowMap() { return pointshadowMap ; }
     glm::mat4 getLightMatrix() { return m_lightMatrix;}
     CoreEngine* getCoreEngine() { return core;}
     float getShadowBias() { return shadowMapBias;}
@@ -41,10 +42,12 @@ private:
     DirectionalLight* active_dir_light;
     SpotLight* active_spot_light;
     Shader* ambientShader;
-    Shader* shadowShader;
+    Shader* dirShadowShader;
+    Shader* pointShadowShader;
     Camera* camera;
     Camera* altCamera;
     Texture* temptarget;
+    Texture* pointshadowMap;
     float shadowMapBias ;
     glm::vec3 shadowTexelSize;
     Mesh * mesh ;

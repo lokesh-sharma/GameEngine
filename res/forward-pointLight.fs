@@ -4,7 +4,9 @@ in vec2 texCoord0;
 in vec3 normal0;
 in vec3 worldPos0;
 in mat3 tbnMatrix;
-in vec3 tangent0;
+in vec3 T;
+in vec3 B;
+in vec3 N;
 out vec4 color;
 
 struct BaseLight
@@ -35,11 +37,14 @@ struct PointLight
 uniform sampler2D diffuse;
 uniform sampler2D normalMap;
 uniform sampler2D dispMap;
+uniform samplerCube shadowMap;
 uniform float dispMapScale;
 uniform float dispMapBias;
 uniform vec3 eyePos;
+uniform vec3 shadowTexelSize;
 uniform float specularPower;
 uniform float specularIntensity;
+uniform float shadowBias;
 uniform PointLight pointLight;
 
 
@@ -76,6 +81,40 @@ vec4 calcLightDirectionalSpec(DirectionalLight dirlight , vec3 normal)
 {
 	return calcLightSpec(dirlight.base , dirlight.direction , normal);
 }
+vec2 calcParallaxTexCoords(sampler2D dMap , mat3 matrix , vec3 directionToEye , vec2 texCoords , float scale,
+float bias)
+{
+	vec2 offset = (directionToEye * matrix).xy * (texture2D(dMap, texCoords.xy).r * scale + bias);
+	vec2 texNew = texCoords.xy;
+	texNew.x += offset.x;
+	texNew.y -= offset.y;
+	return texNew;
+}
+float sampleShadowMap(samplerCube map , vec3 coords , float compare)
+{
+	return step(compare , texture(map , coords).r*25.0f);
+}
+float sampleShadowMapPCF(samplerCube map , vec3 coords , float compare , vec3 texelSize)
+{
+	float result = 0.0f;
+	for(float x = -1.0f ; x<= 1.0f ; x += 1.0f)
+	{
+		for(float y = -1.0f ; y<= 1.0f ; y += 1.0f)
+		{
+			for(float z = -1.0f ; z<= 1.0f ; z += 1.0f)
+			{
+				vec3 coordsOffset = vec3(x,y,z)*texelSize;
+				result += sampleShadowMap(map , coords + coordsOffset , compare );
+			}
+			
+		}
+	}
+	return result/27.0f;
+}
+float calcShadowMapEffect(samplerCube map , vec3 coords  , float distanceTopoint)
+{
+	return sampleShadowMapPCF(map , coords , distanceTopoint - shadowBias , shadowTexelSize);	
+}
 
 void main()
 {
@@ -88,8 +127,9 @@ void main()
 	float distanceToPoint = length(lightDirection);
 	lightDirection = normalize(lightDirection);
 	vec3 directionToEye = normalize(eyePos - worldPos0);
-	vec2 texcoords = texCoord0;
-	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
+	mat3 Matrix = mat3(T,B,N);
+	vec2 texcoords = calcParallaxTexCoords(dispMap,Matrix,directionToEye,texCoord0,dispMapScale,dispMapBias);
+	vec3 normal = normalize(Matrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dcolor = calcLightDiffuse(pointLight.base , lightDirection , normal);
 	float attenu = pointLight.atten.constant + pointLight.atten.linear*distanceToPoint
 		       + pointLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;
@@ -98,7 +138,8 @@ void main()
 		tdiff += dcolor/attenu;
 		}
 	
-	color = texture2D(diffuse, texcoords.xy)*(tdiff) + tspec;
+	float shadow = calcShadowMapEffect(shadowMap , lightDirection , distanceToPoint);
+	color = (texture2D(diffuse, texcoords.xy)*(tdiff*shadow))+ tspec*(shadow);
 	
 	
 		

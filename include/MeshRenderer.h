@@ -29,7 +29,6 @@ public:
         m_material->getDiffuseTexture()->Bind(0);
         m_material->getNormalMap()->Bind(1);
         m_material->getDispMap()->Bind(2);
-        renderingEngine->getShadowMap()->Bind(3);
         m_mesh->Draw();
     }
 };

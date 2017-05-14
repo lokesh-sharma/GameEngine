@@ -18,14 +18,17 @@ RenderingEngine::RenderingEngine(Display* d)
 {
     //directionalShader = new ForwardDirectional("./res/forward-directional");
     ambientShader = new ForwardAmbient("./res/forward-ambient");
-    shadowShader = new ShadowShader("./res/shadow");
+    dirShadowShader = new DirectionalShadowShader("./res/directionalShadow");
+    pointShadowShader = new PointShadowShader("./res/pointShadow");
     //pointShader = new ForwardPoint("./res/forward-pointLight");
     //spotShader = new ForwardSpot("./res/forward-spotLight");
     //shader = new PhongShader("./res/phongShader");
     display = d;
 
-    temptarget = new Texture(0 , 1024 , 1024,GL_LINEAR , GL_DEPTH_COMPONENT16 ,
+    temptarget = new Texture(0 , GL_TEXTURE_2D, 1024 , 1024,GL_LINEAR , GL_DEPTH_COMPONENT16 ,
      GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
+    pointshadowMap = new Texture(0 , GL_TEXTURE_CUBE_MAP , 1024 , 1024 , GL_LINEAR ,
+     GL_DEPTH_COMPONENT , GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
 
     temp_material = new Material();
     temp_material->addTexture("diffuse" , temptarget);
@@ -57,6 +60,20 @@ void RenderingEngine::render(GameObject* object)
     for(int i = 0 ; i<point_lights.size(); i++)
     {
         active_point_light = point_lights[i];
+        ShadowInfo* shadowInfo = active_point_light->getShadowInfo();
+        pointshadowMap->bindAsRenderTarget();
+        glClear(GL_DEPTH_BUFFER_BIT);
+
+        if(shadowInfo)
+        {
+            setShadowBias(active_point_light->getShadowInfo()->getBias());
+            shadowTexelSize = glm::vec3(1.0f/1024.0f , 1.0f/1024.0f , 1.0f/1024.0f);
+            //glEnable(GL_CULL_FACE);
+             //glCullFace(GL_BACK);
+            object->render(*pointShadowShader , *camera ,this);
+
+        }
+        display->bindAsRenderTarget();
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE , GL_ONE);
         glDepthMask(false);
@@ -87,9 +104,10 @@ void RenderingEngine::render(GameObject* object)
             altCamera->getTransform()->SetRot(rotation);
             setShadowBias(active_dir_light->getShadowInfo()->getBias());
             shadowTexelSize = glm::vec3(1.0f/1024.0f , 1.0f/1024.0f , 0.0f);
-             glCullFace(GL_FRONT);
-            object->render(*shadowShader , *altCamera ,this);
-                //glCullFace(GL_BACK);
+            glEnable(GL_CULL_FACE);
+             glCullFace(GL_BACK);
+            object->render(*dirShadowShader , *altCamera ,this);
+            glDisable(GL_CULL_FACE);
 
         }
         display->bindAsRenderTarget();

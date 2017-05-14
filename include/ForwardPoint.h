@@ -12,6 +12,8 @@ public:
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
+        m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
+	m_uniforms["shadowBias"] = glGetUniformLocation(m_program , "shadowBias");
         m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
          m_uniforms["dispMapScale"] = glGetUniformLocation(m_program , "dispMapScale");
         m_uniforms["dispMapBias"] = glGetUniformLocation(m_program , "dispMapBias");
@@ -24,7 +26,9 @@ public:
          int dispMapLocation = glGetUniformLocation(m_program , "dispMap");
         if(dispMapLocation>=0)
             m_uniforms["dispMap"] = dispMapLocation;
-
+        int shadowMapLocation = glGetUniformLocation(m_program , "shadowMap");
+        if(shadowMapLocation>=0)
+            m_uniforms["shadowMap"] = shadowMapLocation;
         std::string light = "pointLight";
         m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
         m_uniforms[light + ".base.intensity"] = glGetUniformLocation(m_program ,(light+".base.intensity").c_str());
@@ -36,11 +40,13 @@ public:
     }
     void Update(const Transform& transform,const Camera&c,const Material& material, RenderingEngine* renderer)
     {
+        renderer->getPointShadowMap()->Bind(3);
         Shader::Update(transform,c,material,renderer);
         PointLight* pointLight = renderer->getActivePointLight();
         setUniformSampler("diffuse" , 0);
         setUniformSampler("normalMap" , 1);
         setUniformSampler("dispMap" , 2);
+        setUniformSampler("shadowMap" , 3);
          setUniform1f("dispMapScale" , material.getDispMapScale());
         float baseBias = material.getDispMapScale()/2.0f;
         setUniform1f("dispMapBias" , -baseBias + baseBias*material.getDispMapOffset());
@@ -52,6 +58,9 @@ public:
         setUniform1f("specularIntensity" , material.getSpecularIntensity());
         glm::vec3 p = c.getPos();
         setUniformVector3f("eyePos" , p.x , p.y , p.z);
+        setUniform1f("shadowBias" , renderer->getShadowBias());
+        glm::vec3 tSize = renderer->getShadowTexelSize();
+        setUniformVector3f("shadowTexelSize" , tSize.x , tSize.y , tSize.z);
 
         setUniform1f(light+".range" , pointLight->getRange());
         Attenuation atten = pointLight->getAttenuation();

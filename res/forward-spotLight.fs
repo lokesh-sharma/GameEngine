@@ -63,6 +63,11 @@ vec4 calcLightSpec(BaseLight base , vec3 direction , vec3 normal)
 	}
 	return specularColor;
 }
+vec2 calcParallaxTexCoords(sampler2D dMap , mat3 matrix , vec3 directionToEye , vec2 texCoords , float scale,
+float bias)
+{
+	return texCoords.xy + (directionToEye*matrix).xy *(texture2D(dMap , texCoords.xy).r *scale + bias );
+}
 void main()
 {
 
@@ -74,7 +79,7 @@ void main()
 	distanceVector = normalize(distanceVector);
 
 	vec3 directionToEye = normalize(eyePos - worldPos0);
-	vec2 texcoords = texCoord0;
+	vec2 texcoords = calcParallaxTexCoords(dispMap,tbnMatrix,directionToEye,texCoord0,dispMapScale,dispMapBias);
 
 	vec3 normal = normalize(tbnMatrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dcolor = calcLightDiffuse(spotLight.base , distanceVector , normal);

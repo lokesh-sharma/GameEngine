@@ -38,6 +38,7 @@ public:
     }
     void Update(const Transform& transform,const Camera&c,const Material& material , RenderingEngine* renderingEngine)
     {
+         renderingEngine->getDirShadowMap()->Bind(3);
         glm::mat4 lightMat = renderingEngine->getLightMatrix()*transform.GetModel();
         setUniformMatrix4f("lightMatrix" , &lightMat[0][0]);
         Shader::Update(transform , c,material,renderingEngine);

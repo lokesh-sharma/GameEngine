@@ -25,7 +25,7 @@ Texture::Texture(const std::string& fileName , int numTextures, GLenum targetTyp
 
     stbi_image_free(data);
 }
-Texture::Texture(unsigned char* data ,int width , int height , GLfloat filter ,GLenum internalFormat,
+Texture::Texture(unsigned char* data ,GLenum targetType,int width , int height , GLfloat filter ,GLenum internalFormat,
 	GLenum format , bool clamp , GLenum attach)
 {
     m_numTextures = 1;
@@ -34,7 +34,7 @@ Texture::Texture(unsigned char* data ,int width , int height , GLfloat filter ,G
     m_renderBuffer = 0;
     m_width = width;
     m_height = height;
-    m_textureTarget = GL_TEXTURE_2D;
+    m_textureTarget = targetType;
 
     initTextures(&data , width , height , &filter , &internalFormat , &format , clamp);
     initRenderTargets(&attach);
@@ -66,10 +66,17 @@ void Texture::initTextures(unsigned char** data ,int width , int height , GLfloa
 
         if(clamp)
         {
-            glTexParameterf(m_textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP);
-            glTexParameterf(m_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP);
+            glTexParameterf(m_textureTarget, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameterf(m_textureTarget, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            if(m_textureTarget == GL_TEXTURE_CUBE_MAP)
+                glTexParameterf(m_textureTarget, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
         }
-        glTexImage2D(m_textureTarget, 0, internalFormats[i], width, height, 0, formats[i], GL_UNSIGNED_BYTE, data[i]);
+        if(m_textureTarget == GL_TEXTURE_CUBE_MAP){
+
+            for(int j = 0 ; j< 6 ; j++)
+                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, 0, internalFormats[i], width, height, 0, formats[i], GL_UNSIGNED_BYTE,NULL);
+        }
+        else glTexImage2D(m_textureTarget, 0, internalFormats[i], width, height, 0, formats[i], GL_UNSIGNED_BYTE, data[i]);
         if(filters[i] == GL_LINEAR_MIPMAP_LINEAR)
         {
             glGenerateMipmap(m_textureTarget);
@@ -106,8 +113,7 @@ void Texture::initRenderTargets(GLenum* attachments)
             glBindFramebuffer(GL_FRAMEBUFFER , m_frameBuffer);
         }
 
-        glFramebufferTexture2D(GL_FRAMEBUFFER , attachments[i] ,
-        m_textureTarget , m_texture[i],0);
+        glFramebufferTexture(GL_FRAMEBUFFER , attachments[i] ,m_texture[i],0);
 
         //glFramebufferTexture(GL_FRAMEBUFFER,attachments[i],
         //m_texture[i], 0);
@@ -132,6 +138,6 @@ void Texture::initRenderTargets(GLenum* attachments)
 void Texture::Bind(GLuint id)
 {
     glActiveTexture(GL_TEXTURE0 + id);
-	glBindTexture(GL_TEXTURE_2D, m_texture[0]);
+	glBindTexture(m_textureTarget, m_texture[0]);
 
 }

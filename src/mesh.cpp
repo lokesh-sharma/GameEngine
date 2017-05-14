@@ -21,8 +21,8 @@ void MeshData::LoadMesh(const std::string & filename)
     std::vector<glm::vec3> normals;
     std::vector<glm::vec3> tangents;
 
-    const aiScene* scene = importer.ReadFile(filename , aiProcess_Triangulate|
-                                            aiProcess_GenSmoothNormals|
+    const aiScene* scene = importer.ReadFile(filename ,
+
                                             aiProcess_CalcTangentSpace
                                             );
     const aiMesh *model = scene->mMeshes[0];

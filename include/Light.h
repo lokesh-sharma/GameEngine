@@ -84,7 +84,7 @@ private:
     float range;
 public:
     PointLight(const glm::vec3 color , float inten ,float c=0
-    , float l=0,float e=1 , float r=50);
+    , float l=0,float e=1 , float r=100);
     Attenuation getAttenuation() const { return atten ;}
     glm::vec3 getPosition() const { return getTransform()->GetPos() ;}
     float getRange() const { return range ;}

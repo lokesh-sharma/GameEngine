@@ -9,6 +9,7 @@ class ForwardAmbient : public Shader
 public:
     ForwardAmbient(const std::string fileName) : Shader(fileName)
     {
+        m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
         m_uniforms["dispMapScale"] = glGetUniformLocation(m_program , "dispMapScale");
         m_uniforms["dispMapBias"] = glGetUniformLocation(m_program , "dispMapBias");

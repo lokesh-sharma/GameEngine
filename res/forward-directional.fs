@@ -3,7 +3,6 @@
 in vec2 texCoord0;
 in vec3 normal0;
 in vec3 worldPos0;
-in mat3 tbnMatrix;
 in vec4 shadowMapCoords0;
 in vec3 T;
 in vec3 B;
@@ -69,6 +68,15 @@ vec4 calcLightDirectionalSpec(DirectionalLight dirlight , vec3 normal)
 {
 	return calcLightSpec(dirlight.base , dirlight.direction , normal);
 }
+vec2 calcParallaxTexCoords(sampler2D dMap , mat3 matrix , vec3 directionToEye , vec2 texCoords , float scale,
+float bias)
+{
+	vec2 offset = (directionToEye * matrix).xy * (texture2D(dispMap, texCoords.xy).r * scale + bias);
+	vec2 texNew = texCoords.xy;
+	texNew.x += offset.x;
+	texNew.y -= offset.y;
+	return texNew;
+}
 float sampleShadowMap(sampler2D map , vec2 coords , float compare)
 {
 	return step(compare , texture2D(map , coords.xy).r);
@@ -112,15 +120,18 @@ void main()
 
 	vec4 tspec = vec4(0.0,0.0,0.0,1.0);
 	vec4 tdiff = vec4(0.0,0.0,0.0,1.0);
-    	vec2 texcoords = texCoord0;
 	mat3 Matrix = mat3(T,B,N);
+	vec3 directionToEye = normalize(eyePos - worldPos0);
+	vec2 texcoords = calcParallaxTexCoords(dispMap,Matrix,directionToEye,texCoord0,dispMapScale,dispMapBias);
 	vec3 normal = normalize(Matrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
-	tdiff += calcLightDiffuse(directionalLight.base , directionalLight.direction , normal);
-	if(tdiff.x > 0)
+	vec4 dColor = calcLightDiffuse(directionalLight.base , directionalLight.direction , normal);
+	if(dColor.w>0){
+		tdiff+= dColor;
 		tspec += calcLightSpec(directionalLight.base , directionalLight.direction , normal);
+	}
 	tspec = tspec*calcShadowMapEffect(shadowMap ,shadowMapCoords0);
 	
-	color = (texture2D(diffuse, texcoords.xy)*(tdiff))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) ;//+ tspec;
+	color = (texture2D(diffuse, texcoords.xy)*(tdiff))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) + tspec;	
 	
 		
 }

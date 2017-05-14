@@ -3,7 +3,9 @@
 in vec2 texCoord0;
 in vec3 worldPos0;
 in vec3 normal0;
-in mat3 tbnMatrix;
+in vec3 T;
+in vec3 B;
+in vec3 N;
 
 layout(location = 0) out vec4 color;
 
@@ -16,10 +18,19 @@ uniform float dispMapScale;
 uniform float dispMapBias;
 uniform vec3 eyePos;
 
+vec2 calcParallaxTexCoords(sampler2D dMap , mat3 matrix , vec3 directionToEye , vec2 texCoords , float scale,
+float bias)
+{
+	vec2 offset = (directionToEye*matrix).xy * (texture2D(dispMap, texCoords.xy).r * scale + bias);
+	vec2 texNew = texCoords.xy ;
+	texNew.x += offset.x;
+	texNew.y -= offset.y;
+	return texNew;
+}
 void main()
 {
-	vec3 directionToEye = normalize( tbnMatrix*(eyePos - worldPos0));
-	vec2 texcoords = texCoord0.xy + (tbnMatrix*directionToEye).xy*(texture2D(dispMap , texCoord0.xy).r*
-			dispMapScale + dispMapBias);
-	color = texture2D(diffuse, texCoord0)*(MaterialAmbientColor);	
+	vec3 directionToEye = normalize(eyePos - worldPos0);
+	mat3 Matrix = mat3(T , B ,N);
+	vec2 texcoords = calcParallaxTexCoords(dispMap , Matrix , directionToEye,texCoord0,dispMapScale,dispMapBias);
+	color = texture2D(diffuse, texcoords)*(MaterialAmbientColor);	
 }

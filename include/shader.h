@@ -12,7 +12,7 @@ class RenderingEngine;
 class Shader
 {
 public:
-    Shader(const std::string & filename);
+    Shader(const std::string & filename , bool hasGeometryShader=false);
     virtual void Update(const Transform& transform,const Camera& camera,const Material& m , RenderingEngine* renderer);
     void Bind() const ;
 
@@ -38,7 +38,7 @@ public:
 	}
 	virtual ~Shader();
 private:
-    static const unsigned int NUM_SHADERS = 2;
+    static const unsigned int NUM_SHADERS = 3;
 	void operator=(const Shader& shader) {}
 	Shader(const Shader& shader) {}
 

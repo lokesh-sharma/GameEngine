@@ -17,10 +17,10 @@ void Camera::addToEngine(CoreEngine* core)
 }
 glm::mat4 Camera::getMVP() const
 {
-    glm::mat4 transformedposmat = glm::translate(-getTransform()->GetPos());
-    glm::mat4 transformedrotmat = glm::toMat4(glm::conjugate(getTransform()->GetRot()));
+    //glm::mat4 transformedposmat = glm::translate(-getTransform()->GetPos());
+    //glm::mat4 transformedrotmat = glm::toMat4(glm::conjugate(getTransform()->GetRot()));
 
-    return projection *transformedrotmat*transformedposmat;
+    return projection *getModel();
 }
 glm::vec3 Camera::getPos() const
 {

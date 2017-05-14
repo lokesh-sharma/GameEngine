@@ -2,13 +2,19 @@
 #include <iostream>
 #include <fstream>
 
-Shader::Shader(const std::string& fileName)
+Shader::Shader(const std::string& fileName, bool hasGeometryShader)
 {
 	m_program = glCreateProgram();
 	m_shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);
 	m_shaders[1] = CreateShader(LoadShader(fileName + ".fs"), GL_FRAGMENT_SHADER);
+	int offset = 1;
+    if(hasGeometryShader)
+    {
+        m_shaders[2] = CreateShader(LoadShader(fileName + ".gs"), GL_GEOMETRY_SHADER);
+        offset = 0;
+    }
 
-	for(unsigned int i = 0; i < NUM_SHADERS; i++)
+	for(unsigned int i = 0; i < NUM_SHADERS-offset; i++)
 		glAttachShader(m_program, m_shaders[i]);
 
 	glBindAttribLocation(m_program, 0, "position");
@@ -56,7 +62,7 @@ std::string Shader::LoadShader(const std::string& fileName)
     std::ifstream file;
     file.open((fileName).c_str());
 
-    std::string output;
+    std::string output="";
     std::string line;
 
     if(file.is_open())

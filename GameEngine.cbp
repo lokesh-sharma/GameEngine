@@ -87,6 +87,7 @@
 		<Unit filename="include/Plane.h" />
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/RenderingEngine.h" />
+		<Unit filename="include/ShadowShader.h" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/display.h" />
 		<Unit filename="include/mesh.h" />

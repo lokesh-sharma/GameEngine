@@ -40,7 +40,7 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
     GameObject* g6 = new GameObject;
 
-    Mesh* mesh1 = new Mesh("./res/dima.obj");
+    Mesh* mesh1 = new Mesh("./res/plane2.obj");
     Mesh* mesh2 = new Mesh("./res/sphere2.obj");
     Mesh* mesh3 = new Mesh("./res/cube4.obj");
 
@@ -65,9 +65,9 @@ int main(int argc, char** argv)
     m->addTexture("diffuse" , "./res/bricks2.jpg");
     m->addTexture("normal" , "./res/bricks2_normal.png");
     m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
-    m1->addTexture("diffuse" , "./res/TextureAtlas.png");
-    m1->addTexture("normal" , "./res/default_normal.jpg");
-    m1->addTexture("dispMap" , "./res/bricks_disp.png");
+    m1->addTexture("diffuse" , "./res/1diffuse.jpg");
+    m1->addTexture("normal" , "./res/1normal.jpg");
+    m1->addTexture("dispMap" , "./res/1disp.jpg");
     GameComponent* player = new Player(pEngine);
 
     MeshRenderer f( mesh1,m1);
@@ -97,8 +97,8 @@ int main(int argc, char** argv)
     //g2->addComponent(&g);
     game->setEngine(&core);
     //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
-    PointLight*point = new PointLight(glm::vec3(1,1,1) , 60.0f);
-    DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 2.0f);
+    PointLight*point = new PointLight(glm::vec3(1,1,1) , 10.0f);
+    DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 1.0f);
     g3->addComponent(dir);
 
     g3->getTransform()->rotate(glm::vec3(1,0,0) , -45);
@@ -113,7 +113,7 @@ int main(int argc, char** argv)
     core.start();
 	float counter = 0.0f;
     long framestart;
-    g3->getTransform()->SetPos(glm::vec3(0,5,0));
+    g3->getTransform()->SetPos(glm::vec3(0,3,0));
 
 	while(core.is_running())
 	{

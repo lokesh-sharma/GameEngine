@@ -10,7 +10,9 @@ out vec2 texCoord0;
 out vec3 normal0;
 out vec3 worldPos0;
 out mat3 tbnMatrix;
-out vec3 tangent0;
+out vec3 T;
+out vec3 B;
+out vec3 N;
 
 uniform mat4 MVP;
 uniform mat4 Model;
@@ -27,7 +29,9 @@ void main()
 	t = normalize(t - dot(t,n)*n);
 
 	vec3 bitangent = cross(t,n);
+	T = t;
+	B = bitangent;
+	N = n;
 	
 	tbnMatrix = mat3(t,bitangent , n );
-	tangent0 = tbnMatrix*vec3(1,1,1);
 }

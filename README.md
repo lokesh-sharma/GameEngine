@@ -9,7 +9,7 @@
 - [x] Normal mapping<br />
 - [x] Forward rendering<br />
 - [x] Rigid bodies(bullet physics)
-- [ ] Shadow mapping <br />
+- [x] Shadow mapping <br />
 - [ ] Reflection <br />
 - [ ] Water refraction <br />
 - [ ] Environment mapping <br />

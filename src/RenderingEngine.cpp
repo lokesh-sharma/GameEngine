@@ -41,7 +41,6 @@ RenderingEngine::RenderingEngine(Display* d)
     mesh = new Mesh("./res/plane.obj");
     temp_transform.SetScale(glm::vec3(aspectRatio , 1 , 1));
 
-    cameraObject->getTransform()->rotate(glm::vec3(1,0,0) , -90.0f);
 }
 RenderingEngine::~RenderingEngine()
 {
@@ -93,7 +92,6 @@ void RenderingEngine::render(GameObject* object)
         if(shadowInfo)
         {
             altCamera->setProjection(shadowInfo->getProjection());
-            m_lightMatrix = altCamera->getMVP();
             glm::mat4 matrix = active_dir_light->getTransform()->getParentMatrix();
             glm::vec3 pos = active_dir_light->getTransform()->GetPos();
 
@@ -102,6 +100,7 @@ void RenderingEngine::render(GameObject* object)
             glm::quat rotation = glm::quat_cast(matrix*glm::toMat4
             (active_dir_light->getTransform()->GetRot()));
             altCamera->getTransform()->SetRot(rotation);
+            m_lightMatrix = altCamera->getMVP();
             setShadowBias(active_dir_light->getShadowInfo()->getBias());
             shadowTexelSize = glm::vec3(1.0f/1024.0f , 1.0f/1024.0f , 0.0f);
             glEnable(GL_CULL_FACE);
@@ -128,7 +127,41 @@ void RenderingEngine::render(GameObject* object)
     for(int i = 0 ; i<spot_lights.size() ; i++)
     {
         active_spot_light = spot_lights[i];
-        object->render(*(spot_lights[i]->getShader()) , *camera , this);
+        ShadowInfo* shadowInfo = spot_lights[i]->getShadowInfo();
+        temptarget->bindAsRenderTarget();
+        glClear(GL_DEPTH_BUFFER_BIT);
+        if(shadowInfo)
+        {
+            altCamera->setProjection(shadowInfo->getProjection());
+
+            glm::mat4 matrix = active_spot_light->getTransform()->getParentMatrix();
+            glm::vec3 pos =active_spot_light->getTransform()->GetPos();
+
+            glm::vec4 transformedPos = matrix*glm::vec4(pos.x , pos.y , pos.z , 1);
+            altCamera->getTransform()->SetPos(glm::vec3(transformedPos.x , transformedPos.y , transformedPos.z));
+            glm::quat rotation = glm::quat_cast(matrix*glm::toMat4
+            (active_spot_light->getTransform()->GetRot()));
+            altCamera->getTransform()->SetRot(rotation);
+
+            m_lightMatrix = altCamera->getMVP();
+            setShadowBias(active_spot_light->getShadowInfo()->getBias());
+            shadowTexelSize = glm::vec3(1.0f/1024.0f , 1.0f/1024.0f , 0.0f);
+            glEnable(GL_CULL_FACE);
+             glCullFace(GL_BACK);
+            object->render(*dirShadowShader , *altCamera ,this);
+            glDisable(GL_CULL_FACE);
+
+        }
+
+        display->bindAsRenderTarget();
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE , GL_ONE);
+        glDepthMask(false);
+        glDepthFunc(GL_EQUAL);
+        object->render(*(active_spot_light->getShader()) , *camera , this);
+        glDepthFunc(GL_LESS);
+        glDepthMask(true);
+       glDisable(GL_BLEND);
     }
 
     object->update();

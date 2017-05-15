@@ -11,6 +11,9 @@ public:
     ForwardSpot(const std::string fileName): Shader(fileName)
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+        m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
+        m_uniforms["shadowBias"] = glGetUniformLocation(m_program , "shadowBias");
+        m_uniforms["lightMatrix"] = glGetUniformLocation(m_program , "lightMatrix");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
         m_uniforms["specularIntensity"] = glGetUniformLocation(m_program , "specularIntensity");
         m_uniforms["dispMapScale"] = glGetUniformLocation(m_program , "dispMapScale");
@@ -24,6 +27,9 @@ public:
          int dispMapLocation = glGetUniformLocation(m_program , "dispMap");
         if(dispMapLocation>=0)
             m_uniforms["dispMap"] = dispMapLocation;
+        int shadowMapLocation = glGetUniformLocation(m_program , "shadowMap");
+        if(shadowMapLocation>=0)
+            m_uniforms["shadowMap"] = shadowMapLocation;
 
         std::string light = "spotLight";
         m_uniforms[light + ".base.color"] = glGetUniformLocation(m_program ,(light+".base.color").c_str());
@@ -38,12 +44,16 @@ public:
     }
     void Update(const Transform& transform, const Camera&c,const Material& material,RenderingEngine* renderer)
     {
+        renderer->getDirShadowMap()->Bind(3);
+        glm::mat4 lightMat = renderer->getLightMatrix()*transform.GetModel();
+        setUniformMatrix4f("lightMatrix" , &lightMat[0][0]);
         Shader::Update(transform , c,material , renderer);
         SpotLight* spotLight = renderer->getActiveSpotLight();
         std::string light = "spotLight";
         setUniformSampler("diffuse" , 0);
         setUniformSampler("normalMap" , 1);
         setUniformSampler("dispMap" , 2);
+        setUniformSampler("shadowMap" , 3);
         glm::vec3 color = spotLight->getColor();
         setUniformVector3f(light+".base.color" ,color.x , color.y , color.z);
         setUniform1f(light+".base.intensity" , spotLight->getIntensity());
@@ -64,6 +74,9 @@ public:
         glm::vec3 pos  = spotLight->getPosition();
         setUniformVector3f(light + ".position" , pos.x , pos.y , pos.z);
         setUniform1f(light+".cut_off" , spotLight->getCutOff());
+        setUniform1f("shadowBias" , renderer->getShadowBias());
+        glm::vec3 tSize = renderer->getShadowTexelSize();
+        setUniformVector3f("shadowTexelSize" , tSize.x , tSize.y , tSize.z);
         glm::vec3 dir = spotLight->getDirection();
         setUniformVector3f(light + ".direction" , dir.x , dir.y , dir.z);
     }

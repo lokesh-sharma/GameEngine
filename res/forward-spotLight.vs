@@ -9,14 +9,19 @@ in vec3 tangent;
 out vec2 texCoord0;
 out vec3 normal0;
 out vec3 worldPos0;
-out mat3 tbnMatrix;
+out vec4 shadowMapCoords0;
+out vec3 T;
+out vec3 B;
+out vec3 N;
 
 uniform mat4 MVP;
 uniform mat4 Model;
+uniform mat4 lightMatrix;
 
 void main()
 {
 	gl_Position = MVP*vec4(position, 1.0);
+	shadowMapCoords0 =  lightMatrix*vec4(position, 1.0);
 	texCoord0 = texCoord;
 	normal0 = normal;
 	worldPos0 =vec3(Model*vec4(position,1.0));
@@ -26,5 +31,7 @@ void main()
 	t = normalize(t - dot(t,n)*n);
 
 	vec3 bitangent = cross(t,n);
-	tbnMatrix = mat3(t,bitangent , n );
+	T = t;
+	B = bitangent;
+	N = n;
 }

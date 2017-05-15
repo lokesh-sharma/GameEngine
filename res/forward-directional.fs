@@ -129,9 +129,8 @@ void main()
 		tdiff+= dColor;
 		tspec += calcLightSpec(directionalLight.base , directionalLight.direction , normal);
 	}
-	tspec = tspec*calcShadowMapEffect(shadowMap ,shadowMapCoords0);
+	//tspec = tspec*calcShadowMapEffect(shadowMap ,shadowMapCoords0);
 	
-	color = (texture2D(diffuse, texcoords.xy)*(tdiff))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) + tspec;	
-	
+	color = (texture2D(diffuse, texcoords.xy)*(tdiff+ tspec))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) ;	
 		
 }

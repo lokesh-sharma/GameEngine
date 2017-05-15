@@ -13,7 +13,7 @@ glm::vec3 DirectionalLight::getDirection() const
 
 glm::vec3 SpotLight::getDirection()
 {
-    return -m_parent->getTransform()->getUp();
+    return m_parent->getTransform()->getForward();
 }
 DirectionalLight:: DirectionalLight(const glm::vec3 color , float inten ) :
     BaseLight(color , inten )
@@ -34,4 +34,6 @@ SpotLight::SpotLight(const glm::vec3 color , float inten,
     PointLight(color , inten,c ,l , e , r) , cut_off(cut)
 {
         m_shader = new ForwardSpot("./res/forward-spotLight");
+        m_shadowInfo = new ShadowInfo(glm::perspective(90.0f, 1.0f, 1.0f, 25.0f)
+        , 3.0/1024.0);
 }

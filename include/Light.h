@@ -99,7 +99,7 @@ private:
     float cut_off;
 public:
     SpotLight(const glm::vec3 color , float inten ,
-    float c=0, float l=0,float e=1 , float r=50 , float cut = 0.354);
+    float c=0, float l=0,float e=1 , float r=50 , float cut = 0.86);
     float getCutOff() const { return cut_off;}
     glm::vec3 getDirection() ;
     virtual void addToEngine(CoreEngine*core)

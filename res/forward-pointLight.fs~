@@ -138,7 +138,6 @@ void main()
 		tdiff += dcolor/attenu;
 		}
 	
-	
 	float shadow = calcShadowMapEffect(shadowMap , lightDirection , distanceToPoint);
 	color = (texture2D(diffuse, texcoords.xy)*(tdiff*shadow))+ tspec*(shadow);
 	

@@ -64,10 +64,10 @@ int main(int argc, char** argv)
     Material* m1 = new Material();
     m->addTexture("diffuse" , "./res/bricks2.jpg");
     m->addTexture("normal" , "./res/bricks2_normal.png");
-    m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
+    m->addTexture("dispMap" , "./res/default_disp.png");
     m1->addTexture("diffuse" , "./res/1diffuse.jpg");
     m1->addTexture("normal" , "./res/1normal.jpg");
-    m1->addTexture("dispMap" , "./res/1disp.jpg");
+    m1->addTexture("dispMap" , "./res/default_disp.png");
     GameComponent* player = new Player(pEngine);
 
     MeshRenderer f( mesh1,m1);
@@ -99,9 +99,9 @@ int main(int argc, char** argv)
     //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
     PointLight*point = new PointLight(glm::vec3(1,1,1) , 10.0f);
     DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 1.0f);
-    g3->addComponent(dir);
+    SpotLight * spot =new SpotLight(glm::vec3(1,1  ,1) , 100.0f);
+    g3->addComponent(spot);
 
-    g3->getTransform()->rotate(glm::vec3(1,0,0) , -45);
       g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 100.0f));
     g4->addComponent(&g);
@@ -113,7 +113,8 @@ int main(int argc, char** argv)
     core.start();
 	float counter = 0.0f;
     long framestart;
-    g3->getTransform()->SetPos(glm::vec3(0,3,0));
+    g3->getTransform()->SetPos(glm::vec3(0,10,0));
+    g3->getTransform()->rotate(glm::vec3(1,0,0) , -90);
 
 	while(core.is_running())
 	{
@@ -129,7 +130,7 @@ int main(int argc, char** argv)
 
 		TheInputHandler::getInstance()->resetStates();
 		long time = SDL_GetTicks() - framestart;
-
+        //g3->getTransform()->rotate(glm::vec3(1,0,0) , (glm::sin(counter)+1)*10);
 
 
 		//std::cout<<1000.0/time<<std::endl;

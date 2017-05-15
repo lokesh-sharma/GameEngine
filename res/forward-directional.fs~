@@ -125,11 +125,13 @@ void main()
 	vec2 texcoords = calcParallaxTexCoords(dispMap,Matrix,directionToEye,texCoord0,dispMapScale,dispMapBias);
 	vec3 normal = normalize(Matrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dColor = calcLightDiffuse(directionalLight.base , directionalLight.direction , normal);
-	if(dColor.w>0)
+	if(dColor.w>0){
+		tdiff+= dColor;
 		tspec += calcLightSpec(directionalLight.base , directionalLight.direction , normal);
-	tspec = tspec*calcShadowMapEffect(shadowMap ,shadowMapCoords0);
+	}
+	//tspec = tspec*calcShadowMapEffect(shadowMap ,shadowMapCoords0);
 	
-	color = (texture2D(diffuse, texcoords.xy)*(tdiff))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) + tspec;	
-	
+	//color = (texture2D(diffuse, texcoords.xy)*(tdiff+ tspec))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) ;	
+	color = (texture2D(shadowMap, texcoords.xy)*(tdiff+ tspec));
 		
 }

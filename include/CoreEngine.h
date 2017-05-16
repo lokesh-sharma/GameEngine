@@ -8,11 +8,13 @@
 #include<GL/glew.h>
 #include<GL/gl.h>
 
+class GUIManager;
+
 
 class CoreEngine
 {
 public:
-    CoreEngine( Display* display , Game* game , RenderingEngine* renderingEngine);
+    CoreEngine( Display* display , Game* game , RenderingEngine* renderingEngine , GUIManager* m);
     void start(){ m_running = true;}
     void stop() { m_running = false;}
     Display* getDisplay() { return m_display;}
@@ -23,6 +25,7 @@ public:
 private:
     bool m_running;
     RenderingEngine* renderingEngine;
+    GUIManager* m_guiManager;
     Display* m_display;
     Game* m_game;
     CoreEngine(const CoreEngine& other) {}

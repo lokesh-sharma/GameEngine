@@ -11,8 +11,8 @@ class Material
 public:
     Material()
     {
-        specPower = 7.0f;
-        specIntensity=0.8f;
+        specPower = 1.0f;
+        specIntensity=0.2f;
         ambient = glm::vec4(0.2f , 0.2f , 0.2f , 1.0f);
         dispMapScale = 0.03f;
         dispMapOffset = 0.0;

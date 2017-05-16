@@ -16,6 +16,7 @@ out mat3 tbnMatrix;
 
 uniform mat4 MVP;
 uniform mat4 Model;
+uniform mat4 hello;
 
 void main()
 {
@@ -30,7 +31,7 @@ void main()
 	t = normalize(t - dot(t,n)*n);
 
 	vec3 bitangent = cross(t,n);
-	T = -t;
+	T = t;
 	B = bitangent;
 	N = n;
 	tbnMatrix = mat3(t,bitangent , n );

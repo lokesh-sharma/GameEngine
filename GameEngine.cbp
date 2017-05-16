@@ -64,6 +64,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/FreeLook.h" />
+		<Unit filename="include/GUIManager.h" />
 		<Unit filename="include/Game.h" />
 		<Unit filename="include/GameComponent.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -71,6 +72,7 @@
 		<Unit filename="include/GameObject.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/GuiShader.h" />
 		<Unit filename="include/InputHandler.h" />
 		<Unit filename="include/IntersectData.h" />
 		<Unit filename="include/Light.h" />
@@ -103,6 +105,7 @@
 		<Unit filename="src/CoreEngine.cpp" />
 		<Unit filename="src/FPSCamera.cpp" />
 		<Unit filename="src/FreeLook.cpp" />
+		<Unit filename="src/GUIManager.cpp" />
 		<Unit filename="src/GameObject.cpp" />
 		<Unit filename="src/InputHandler.cpp" />
 		<Unit filename="src/ObjLoader.cpp" />

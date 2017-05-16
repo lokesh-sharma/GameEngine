@@ -33,6 +33,7 @@ public:
     }
     void Update(const Transform& transform,const Camera&c,const Material& m , RenderingEngine* renderer)
     {
+
         Shader::Update(transform , c,m ,renderer );
         glm::mat4 shadowProj  = renderer->getActivePointLight()->getShadowInfo()->getProjection();
         glm::mat4 pMatrix = renderer->getActivePointLight()->getTransform()->getParentMatrix();
@@ -63,7 +64,6 @@ public:
         }
         setUniform1f("farPlane" , 25.0f);
         setUniformVector3f("lightPos" , lightPos.x , lightPos.y , lightPos.z);
-
     }
 };
 

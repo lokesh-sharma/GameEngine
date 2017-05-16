@@ -26,6 +26,7 @@
 #include"ForwardAmbient.h"
 #include"Player.h"
 #include"FPSCamera.h"
+#include"GUIManager.h"
 
 
 
@@ -79,8 +80,11 @@ int main(int argc, char** argv)
 
     TheInputHandler::getInstance()->setDisplay(&display);
     RenderingEngine* renderer = new RenderingEngine(&display);
+    GUIManager * manager =   new GUIManager();
+    manager->addGUI("./res/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
 
-    CoreEngine core(&display , game , renderer );
+
+    CoreEngine core(&display , game , renderer , manager);
     renderer->setCoreEngine(&core);
 //     g1->getTransform()->SetPos(glm::vec3(0,2,0));
 //    g2->getTransform()->SetPos(glm::vec3(0,-1,0));
@@ -98,23 +102,23 @@ int main(int argc, char** argv)
     game->setEngine(&core);
     //SpotLight*sp = new SpotLight(glm::vec3(1,1,1) , 2.0f);
     PointLight*point = new PointLight(glm::vec3(1,1,1) , 10.0f);
-    DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 1.0f);
-    SpotLight * spot =new SpotLight(glm::vec3(1,1  ,1) , 100.0f);
-    g3->addComponent(spot);
+    DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 1.3f);
+    SpotLight * spot =new SpotLight(glm::vec3(1,1  ,1) , 12.0f);
+    g3->addComponent(dir);
 
-      g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
+      g2->addComponent(new FPSCamera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 100.0f));
     g4->addComponent(&g);
     g4->addComponent(comp2);
-      //g2->addComponent(player); //order is important
+      g2->addComponent(player); //order is important
 
     g5->addComponent(&h);
     g5->addComponent(comp3);
     core.start();
 	float counter = 0.0f;
     long framestart;
-    g3->getTransform()->SetPos(glm::vec3(0,10,0));
-    g3->getTransform()->rotate(glm::vec3(1,0,0) , -90);
+    g3->getTransform()->SetPos(glm::vec3(0,4,0));
+    g3->getTransform()->rotate(glm::vec3(1,0,0) , -45);
 
 	while(core.is_running())
 	{

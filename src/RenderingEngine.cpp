@@ -10,7 +10,7 @@
 #include"transform.h"
 #include"FreeLook.h"
 #include"ShadowShader.h"
-
+#include"SkyBoxManager.h"
 
 
 
@@ -20,6 +20,7 @@ RenderingEngine::RenderingEngine(Display* d)
     ambientShader = new ForwardAmbient("./res/forward-ambient");
     dirShadowShader = new DirectionalShadowShader("./res/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/pointShadow");
+    skyBoxManager = new SkyBoxManager();
     //pointShader = new ForwardPoint("./res/forward-pointLight");
     //spotShader = new ForwardSpot("./res/forward-spotLight");
     //shader = new PhongShader("./res/phongShader");
@@ -52,8 +53,9 @@ void RenderingEngine::render(GameObject* object)
     display->bindAsRenderTarget();
 //    glClearColor(0.1 , 0.1, 0.1, 1);
 //    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+       skyBoxManager->renderSkyBox(*camera);
    object->render(*ambientShader , *camera , this);
+
 
    // object->render(*spotShader , *camera);
     for(int i = 0 ; i<point_lights.size(); i++)
@@ -178,6 +180,10 @@ void RenderingEngine::render(GameObject* object)
     //mesh->Draw();
    // glBindTexture(GL_TEXTURE_2D , 0);
 
+}
+void RenderingEngine::addSkyBox(std::string filename , std::string format)
+{
+    skyBoxManager->addSkyBox(filename , format);
 }
  void RenderingEngine::addDirectionalLight(DirectionalLight* light)
  {

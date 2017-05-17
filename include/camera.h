@@ -18,6 +18,8 @@ public:
     virtual void update();
 	virtual glm::mat4 getMVP() const ;
 	virtual glm::mat4 getModel() const { return getTransform()->GetModel();}
+	virtual glm::quat getRot() const { return getTransform()->GetRot() ;}
+	virtual glm::mat4 getProjection() const { return projection;}
 	virtual glm::vec3 getPos() const;
 	virtual void setProjection(glm::mat4 proj) { projection = proj; }
 	virtual void addToEngine(CoreEngine* core);

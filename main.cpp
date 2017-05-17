@@ -83,6 +83,7 @@ int main(int argc, char** argv)
     GUIManager * manager =   new GUIManager(display.getWidth()/display.getHeight());
 
     manager->addGUI("./res/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
+    renderer->addSkyBox("./res/Yokohama" , "jpg");
 
     CoreEngine core(&display , game , renderer , manager);
     renderer->setCoreEngine(&core);

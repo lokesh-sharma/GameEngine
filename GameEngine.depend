@@ -1044,7 +1044,7 @@
 	"shader.h"
 	"string"
 
-1494981136 source:/home/loki/game engine/GameEngine/main.cpp
+1495028617 source:/home/loki/game engine/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -1081,7 +1081,7 @@
 	"camera.h"
 	"transform.h"
 
-1494428672 /home/loki/game engine/GameEngine/include/camera.h
+1495031541 /home/loki/game engine/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
@@ -1141,7 +1141,7 @@
 1486822307 /home/loki/game engine/GameEngine/include/Game.h
 	"GameObject.h"
 
-1494643406 /home/loki/game engine/GameEngine/include/RenderingEngine.h
+1494992287 /home/loki/game engine/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"camera.h"
 	"InputHandler.h"
@@ -1232,7 +1232,7 @@
 	"PhysicsObject.h"
 	"PhysicsEngine.h"
 
-1486822372 /home/loki/game engine/GameEngine/include/FPSCamera.h
+1495032901 /home/loki/game engine/GameEngine/include/FPSCamera.h
 	"camera.h"
 
 1494981157 /home/loki/game engine/GameEngine/include/GUIManager.h
@@ -1356,7 +1356,7 @@
 1490710246 source:/home/loki/game engine/GameEngine/src/Player.cpp
 	"Player.h"
 
-1494817446 source:/home/loki/game engine/GameEngine/src/RenderingEngine.cpp
+1494993410 source:/home/loki/game engine/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -1368,6 +1368,7 @@
 	"transform.h"
 	"FreeLook.h"
 	"ShadowShader.h"
+	"SkyBoxManager.h"
 
 1494903345 /home/loki/game engine/GameEngine/include/ShadowShader.h
 	"Light.h"
@@ -1380,7 +1381,7 @@
 	<iostream>
 	<fstream>
 
-1494889950 source:/home/loki/game engine/GameEngine/src/texture.cpp
+1495028544 source:/home/loki/game engine/GameEngine/src/texture.cpp
 	"../include/texture.h"
 	"../include/stb_image.h"
 	<iostream>
@@ -1405,8 +1406,25 @@
 	"transform.h"
 	"camera.h"
 
-1494981208 source:/home/loki/game engine/GameEngine/src/GUIManager.cpp
+1494985041 source:/home/loki/game engine/GameEngine/src/GUIManager.cpp
 	"GUIManager.h"
 	"GuiShader.h"
 	"stb_image.h"
+
+1495035104 source:/home/loki/game engine/GameEngine/src/SkyBoxManager.cpp
+	"SkyBoxManager.h"
+	"camera.h"
+	"stb_image.h"
+	<iostream>
+
+1494991385 /home/loki/game engine/GameEngine/include/SkyBoxManager.h
+	<vector>
+	<string>
+	"SkyBoxShader.h"
+
+1495032925 /home/loki/game engine/GameEngine/include/SkyBoxShader.h
+	"Light.h"
+	"shader.h"
+	"string"
+	<glm/gtc/type_ptr.hpp>
 

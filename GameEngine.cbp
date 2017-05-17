@@ -90,6 +90,10 @@
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/RenderingEngine.h" />
 		<Unit filename="include/ShadowShader.h" />
+		<Unit filename="include/SkyBoxManager.h" />
+		<Unit filename="include/SkyBoxShader.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/display.h" />
 		<Unit filename="include/mesh.h" />
@@ -116,6 +120,7 @@
 		<Unit filename="src/Plane.cpp" />
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/RenderingEngine.cpp" />
+		<Unit filename="src/SkyBoxManager.cpp" />
 		<Unit filename="src/display.cpp" />
 		<Unit filename="src/light.cpp" />
 		<Unit filename="src/mesh.cpp" />

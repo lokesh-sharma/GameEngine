@@ -12,6 +12,8 @@ class SpotLight;
 class Texture;
 class Material;
 class Mesh;
+class SkyBoxManager;
+
 class RenderingEngine
 {
 public:
@@ -21,6 +23,7 @@ public:
     void addPointLight(PointLight* light);
     void addSpotLight(SpotLight* light);
     void addCamera(Camera* c) { camera = c;}
+    void addSkyBox(std::string filename , std::string format);
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
     SpotLight* getActiveSpotLight() { return active_spot_light;}
@@ -57,6 +60,7 @@ private:
     glm::mat4 m_lightMatrix;
     Display* display;
     CoreEngine* core;
+    SkyBoxManager* skyBoxManager;
     RenderingEngine(const RenderingEngine& other) {}
     RenderingEngine& operator=(const RenderingEngine& other) {}
 };

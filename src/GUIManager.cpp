@@ -2,9 +2,10 @@
 #include"GuiShader.h"
 #include "stb_image.h"
 
-GUIManager::GUIManager()
+GUIManager::GUIManager(float aspect)
 {
     m_guiShader = new GuiShader("./res/guiShader");
+    m_aspect = aspect;
     float vertices[] = { -1 , 1 , -1 , -1 , 1 , 1 , 1 ,  -1};
     glGenVertexArrays(1, &m_vertexArrayObject);
 	glBindVertexArray(m_vertexArrayObject);
@@ -37,6 +38,9 @@ void GUIManager::addGUI(std::string fileName , glm::vec3 position , glm::vec3 sc
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     stbi_image_free(data);
+    float textureAspect = width/height;
+    scale.x /= m_aspect;
+    scale.x *= textureAspect;
     struct GUITexture t = {texture , position , scale};
 
     m_textures.push_back(t);

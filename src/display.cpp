@@ -24,7 +24,7 @@ Display::Display( const std::string& title)
     m_height = current.h;
 
     if(x == 0)
-        m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, current.w, current.h, SDL_WINDOW_OPENGL);
+        m_window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, current.w, current.h, SDL_WINDOW_OPENGL|SDL_WINDOW_FULLSCREEN);
 	else
         std::cerr<<"Error in getting display information\n";
 	m_glContext = SDL_GL_CreateContext(m_window);

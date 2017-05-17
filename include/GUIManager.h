@@ -7,7 +7,7 @@
 class GUIManager
 {
 public:
-    GUIManager();
+    GUIManager(float aspect);
     void addGUI(std::string filename , glm::vec3 position , glm::vec3 scale);
     void renderGUI();
     ~GUIManager();
@@ -21,6 +21,7 @@ private:
     GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffer;
 	GuiShader* m_guiShader;
+	float m_aspect;
     std::vector< GUITexture> m_textures;
 
 };

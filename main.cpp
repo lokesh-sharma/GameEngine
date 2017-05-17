@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
     GameObject* g6 = new GameObject;
 
-    Mesh* mesh1 = new Mesh("./res/plane2.obj");
+    Mesh* mesh1 = new Mesh("./res/dima.obj");
     Mesh* mesh2 = new Mesh("./res/sphere2.obj");
     Mesh* mesh3 = new Mesh("./res/cube4.obj");
 
@@ -66,8 +66,8 @@ int main(int argc, char** argv)
     m->addTexture("diffuse" , "./res/bricks2.jpg");
     m->addTexture("normal" , "./res/bricks2_normal.png");
     m->addTexture("dispMap" , "./res/default_disp.png");
-    m1->addTexture("diffuse" , "./res/1diffuse.jpg");
-    m1->addTexture("normal" , "./res/1normal.jpg");
+    m1->addTexture("diffuse" , "./res/TextureAtlas.png");
+    m1->addTexture("normal" , "./res/default_normal.jpg");
     m1->addTexture("dispMap" , "./res/default_disp.png");
     GameComponent* player = new Player(pEngine);
 
@@ -80,9 +80,9 @@ int main(int argc, char** argv)
 
     TheInputHandler::getInstance()->setDisplay(&display);
     RenderingEngine* renderer = new RenderingEngine(&display);
-    GUIManager * manager =   new GUIManager();
-    manager->addGUI("./res/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
+    GUIManager * manager =   new GUIManager(display.getWidth()/display.getHeight());
 
+    manager->addGUI("./res/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
 
     CoreEngine core(&display , game , renderer , manager);
     renderer->setCoreEngine(&core);

@@ -10,7 +10,11 @@ uniform mat4 Model;
 void main()
 {
 	
-	gl_Position = vec4(position , 0.0 ,  1.0);
+	gl_Position = Model*vec4(position , 0.0 ,  1.0);
+<<<<<<< HEAD
+	texCoord0 = vec2((position.x+1.0)/2.0,(position.y+1.0)/2.0);
+=======
 	texCoord0 = vec2((position.x+1.0)/2.0, 1 - (position.y+1.0)/2.0);
+>>>>>>> 46781458799281ce3aa2a4a6c2f4acfcd43adc6d
 	
 }

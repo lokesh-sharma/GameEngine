@@ -6,7 +6,7 @@
 #include"../include/ObjLoader.h"
 ObjLoader::ObjLoader(const char* fileName,std::vector < glm::vec3 > & out_vertices,
     std::vector < glm::vec2 > & out_uvs,
-    std::vector < glm::vec3 > & out_normals)
+    std::vector < glm::vec3 > & out_normals , std::vector<glm::vec3> & out_tangents)
 {
     std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
     std::vector< glm::vec3 > temp_vertices;
@@ -77,6 +77,32 @@ ObjLoader::ObjLoader(const char* fileName,std::vector < glm::vec3 > & out_vertic
         glm::vec3 normal = temp_normals[normal_index-1];
         out_normals.push_back(normal);
     }
+    for(int i  = 0; i <out_vertices.size() ; i++)
+    {
+        glm::vec3 & v0 = out_vertices[i+0];
+        glm::vec3 & v1 = out_vertices[i+1];
+        glm::vec3 & v2 = out_vertices[i+2];
+
+        // Shortcuts for UVs
+        glm::vec2 & uv0 = out_uvs[i+0];
+        glm::vec2 & uv1 = out_uvs[i+1];
+        glm::vec2 & uv2 = out_uvs[i+2];
+
+        // Edges of the triangle : postion delta
+        glm::vec3 deltaPos1 = v1-v0;
+        glm::vec3 deltaPos2 = v2-v0;
+
+        // UV delta
+        glm::vec2 deltaUV1 = uv1-uv0;
+        glm::vec2 deltaUV2 = uv2-uv0;
+
+        float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+        glm::vec3 tangent = (deltaPos1 * deltaUV2.y   - deltaPos2 * deltaUV1.y)*r;
+        out_tangents.push_back(tangent);
+        out_tangents.push_back(tangent);
+        out_tangents.push_back(tangent);
+    }
+
 
 }
 

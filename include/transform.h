@@ -16,24 +16,11 @@ public:
 		this->rot = rot;
 		this->scale = scale;
 		m_parent = nullptr;
-		initOldStuff = false;
 		parentMatrix = glm::mat4();
 	}
 	void update()
 	{
-        if(initOldStuff)
-        {
-            this->oldPos = pos;
-            this->oldrot = rot;
-            this->oldScale = scale;
-        }
-        else
-        {
-            this->oldPos = pos + glm::vec3(1,0,0);
-            this->oldrot = rot + glm::quat(1,1,1,1);
-            this->oldScale = scale + glm::vec3(1,1,1);
-            initOldStuff = true;
-        }
+
 	}
 
 	inline glm::mat4 GetModel() const
@@ -73,7 +60,6 @@ protected:
 private:
     Transform* m_parent;
     mutable glm::mat4 parentMatrix;
-    bool initOldStuff;
 	glm::vec3 pos;
 	glm::quat rot;
 	glm::vec3 scale;

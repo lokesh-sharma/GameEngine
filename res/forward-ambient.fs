@@ -30,8 +30,7 @@ float bias)
 void main()
 {
 	vec3 directionToEye = normalize(eyePos - worldPos0);
-	mat3 Matrix = mat3(T , B ,N);
+	mat3 Matrix =  mat3(T,B,N);
 	vec2 texcoords = calcParallaxTexCoords(dispMap , Matrix , directionToEye,texCoord0,dispMapScale,dispMapBias);
 	color = texture2D(diffuse, texcoords)*(MaterialAmbientColor);
-	//color = vec4(0,0,0,1);	
 }

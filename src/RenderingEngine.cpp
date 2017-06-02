@@ -11,6 +11,7 @@
 #include"FreeLook.h"
 #include"ShadowShader.h"
 #include"SkyBoxManager.h"
+#include"WaterRenderer.h"
 
 
 
@@ -20,7 +21,10 @@ RenderingEngine::RenderingEngine(Display* d)
     ambientShader = new ForwardAmbient("./res/forward-ambient");
     dirShadowShader = new DirectionalShadowShader("./res/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/pointShadow");
+    depthShader = new Shader("./res/depthShader");
     skyBoxManager = new SkyBoxManager();
+    waterRenderer = new WaterRenderer();
+    clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
     //pointShader = new ForwardPoint("./res/forward-pointLight");
     //spotShader = new ForwardSpot("./res/forward-spotLight");
     //shader = new PhongShader("./res/phongShader");
@@ -30,34 +34,83 @@ RenderingEngine::RenderingEngine(Display* d)
      GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
     pointshadowMap = new Texture(0 , GL_TEXTURE_CUBE_MAP , 1024 , 1024 , GL_LINEAR ,
      GL_DEPTH_COMPONENT , GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
+     depthMap = new Texture(0 , GL_TEXTURE_2D, 1024 , 1024,GL_LINEAR , GL_DEPTH_COMPONENT16 ,
+     GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
+
+     //reflectionMap = new Texture("./res/bricks2.jpg");
 
     temp_material = new Material();
     temp_material->addTexture("diffuse" , temptarget);
     temp_material->setAmbientColor(glm::vec4(1 , 1 , 1 ,1.0));
-    cameraObject = new GameObject();
+    cameraObject1 = new GameObject();
+    cameraObject2 = new GameObject();
     float aspectRatio  = display->getWidth()/display->getHeight();
     altCamera = new FreeLook(glm::vec3(0.0f, 0.0f, 4.2f), 70.0f,aspectRatio , 0.1f, 100.0f);
-    cameraObject->setEngine(core);
-    altCamera->setParent(cameraObject);
+    tempCamera = new FreeLook(glm::vec3(0.0f, 0.0f, 4.2f), 70.0f,aspectRatio , 0.1f, 100.0f);
+
+    altCamera->setParent(cameraObject1);
+    tempCamera->setParent(cameraObject2);
     mesh = new Mesh("./res/plane.obj");
     temp_transform.SetScale(glm::vec3(aspectRatio , 1 , 1));
 
 }
 RenderingEngine::~RenderingEngine()
 {
-    //dtor
+     //dtor
 }
 void RenderingEngine::render(GameObject* object)
 {
-    //temptarget->bindAsRenderTarget();
+    glEnable(GL_CLIP_DISTANCE0);
+    glm::vec3 cPos = camera->getPos();
+    glm::quat cRot = camera->getRot();
+    tempCamera->setProjection(camera->getProjection());
+    tempCamera->getLocalTransform()->SetPos(cPos);
+    tempCamera->getLocalTransform()->SetRot(cRot);
+
+    glm::vec3 right = glm::normalize(cRot*glm::vec3(1,0,0));
+    glm::vec3 euler = glm::eulerAngles(cRot);
+    glm::quat newRot = glm::angleAxis(-2*euler.x, right);
+    newRot = newRot*cRot;
+    tempCamera->getLocalTransform()->SetRot(newRot);
+    cPos.y = -cPos.y;
+    tempCamera->getLocalTransform()->SetPos(cPos);
+    renderDepthMap(object , camera , depthMap);
+    clipPlane = glm::vec4( 0 , 1 , 0 , 0);
+    renderScene(object , tempCamera, waterRenderer->getReflectionMap());
+    clipPlane = glm::vec4( 0 , -1 , 0 , 0);
+    renderScene(object , camera , waterRenderer->getRefractionMap());
     display->bindAsRenderTarget();
-//    glClearColor(0.1 , 0.1, 0.1, 1);
-//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-       skyBoxManager->renderSkyBox(*camera);
-   object->render(*ambientShader , *camera , this);
+    glClearColor(0.1 , 0.1, 0.1, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    //ambientShader->Bind();
+    //ambientShader->Update(temp_transform , *camera , *temp_material , this);
+    //mesh->Draw();
+    clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
+    renderScene(object , camera,0);
+    waterRenderer->render(*camera , this);
 
-   // object->render(*spotShader , *camera);
+    skyBoxManager->renderSkyBox(*camera);
+    object->update();
+
+}
+void RenderingEngine::renderDepthMap(GameObject* object , Camera* mainCamera , Texture* target)
+{
+    target->bindAsRenderTarget();
+    glClear(GL_DEPTH_BUFFER_BIT);
+     object->render(*depthShader, *mainCamera , this);
+}
+
+void RenderingEngine::renderScene(GameObject* object , Camera* mainCamera , Texture* target )
+{
+    if(!target)
+        display->bindAsRenderTarget();
+    else
+        target->bindAsRenderTarget();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    object->render(*ambientShader , *mainCamera , this);
+
     for(int i = 0 ; i<point_lights.size(); i++)
     {
         active_point_light = point_lights[i];
@@ -71,15 +124,21 @@ void RenderingEngine::render(GameObject* object)
             shadowTexelSize = glm::vec3(1.0f/1024.0f , 1.0f/1024.0f , 1.0f/1024.0f);
             //glEnable(GL_CULL_FACE);
              //glCullFace(GL_BACK);
-            object->render(*pointShadowShader , *camera ,this);
+            object->render(*pointShadowShader , *mainCamera ,this);
 
         }
-        display->bindAsRenderTarget();
+        if(!target)
+            display->bindAsRenderTarget();
+        else
+            target->bindAsRenderTarget();
+
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE , GL_ONE);
         glDepthMask(false);
         glDepthFunc(GL_EQUAL);
-        object->render(*(point_lights[i]->getShader()) , *camera , this);
+        object->render(*(point_lights[i]->getShader()) , *mainCamera , this);
         glDepthFunc(GL_LESS);
         glDepthMask(true);
        glDisable(GL_BLEND);
@@ -95,10 +154,7 @@ void RenderingEngine::render(GameObject* object)
         {
             altCamera->setProjection(shadowInfo->getProjection());
             glm::mat4 matrix = active_dir_light->getTransform()->getParentMatrix();
-            glm::vec3 pos = active_dir_light->getTransform()->GetPos();
 
-            glm::vec4 transformedPos = matrix*glm::vec4(pos.x , pos.y , pos.z , 1);
-            altCamera->getTransform()->SetPos(glm::vec3(transformedPos.x , transformedPos.y , transformedPos.z));
             glm::quat rotation = glm::quat_cast(matrix*glm::toMat4
             (active_dir_light->getTransform()->GetRot()));
             altCamera->getTransform()->SetRot(rotation);
@@ -111,16 +167,19 @@ void RenderingEngine::render(GameObject* object)
             glDisable(GL_CULL_FACE);
 
         }
-        display->bindAsRenderTarget();
+        if(!target)
+            display->bindAsRenderTarget();
+        else
+            target->bindAsRenderTarget();
+
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE , GL_ONE);
         glDepthMask(false);
         glDepthFunc(GL_EQUAL);
 
-
-        object->render(*(dir_lights[i]->getShader()) , *camera , this);
-
-   // altCamera->update();
+        object->render(*(dir_lights[i]->getShader()) , *mainCamera , this);
 
         glDepthFunc(GL_LESS);
         glDepthMask(true);
@@ -155,18 +214,24 @@ void RenderingEngine::render(GameObject* object)
 
         }
 
-        display->bindAsRenderTarget();
+        if(!target)
+            display->bindAsRenderTarget();
+        else
+            target->bindAsRenderTarget();
+
+        //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE , GL_ONE);
         glDepthMask(false);
         glDepthFunc(GL_EQUAL);
-        object->render(*(active_spot_light->getShader()) , *camera , this);
+        object->render(*(active_spot_light->getShader()) , *mainCamera , this);
         glDepthFunc(GL_LESS);
         glDepthMask(true);
        glDisable(GL_BLEND);
     }
+     skyBoxManager->renderSkyBox(*mainCamera);
 
-    object->update();
 
 //    display->bindAsRenderTarget();
 //    glClearColor(0.1 , 0.1, 0.1, 1);
@@ -180,6 +245,11 @@ void RenderingEngine::render(GameObject* object)
     //mesh->Draw();
    // glBindTexture(GL_TEXTURE_2D , 0);
 
+}
+void RenderingEngine::addWaterTile(glm::vec3 pos , glm::vec3 scale)
+{
+    WaterRenderer::WaterQuad q = { pos , scale };
+    waterRenderer->addWaterQuad(q);
 }
 void RenderingEngine::addSkyBox(std::string filename , std::string format)
 {

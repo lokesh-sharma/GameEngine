@@ -2,9 +2,10 @@
 #include <fstream>
 #include <iostream>
 #include <stdlib.h>
-#include<assimp/Importer.hpp>
-#include<assimp/scene.h>
-#include<assimp/postprocess.h>
+#include"assimp/Importer.hpp"
+#include"assimp/scene.h"
+#include"assimp/postprocess.h"
+#include"ObjLoader.h"
 
 
 std::map<std::string, MeshData*> Mesh::meshResource;
@@ -21,15 +22,19 @@ void MeshData::LoadMesh(const std::string & filename)
     std::vector<glm::vec3> normals;
     std::vector<glm::vec3> tangents;
 
-    const aiScene* scene = importer.ReadFile(filename ,
 
-                                            aiProcess_CalcTangentSpace
-                                            );
+    const aiScene* scene = importer.ReadFile(filename , aiProcess_Triangulate |
+                                                        aiProcess_GenNormals|
+                                                        aiProcess_CalcTangentSpace
+    );
+    if(scene == NULL)
+        std::cerr<<"error";
     const aiMesh *model = scene->mMeshes[0];
 
     counter=0;
 
     std::vector<int> indices;
+
     const aiVector3D zero(0.0f , 0.0f , 0.0f);
     for(int i = 0 ; i < model->mNumVertices ; i++)
     {
@@ -101,7 +106,7 @@ void MeshData::Draw()
 {
 	glBindVertexArray(m_vertexArrayObject);
 	glDrawElements(GL_TRIANGLES, m_numIndices, GL_UNSIGNED_INT, 0);
-
+    //glDrawArrays(GL_TRIANGLES , 0 , 2*m_drawCount);
 	glBindVertexArray(0);
 }
 Mesh::Mesh(const std::string& fileName)

@@ -20,6 +20,8 @@ public:
     void update();
 	glm::mat4 getMVP() const ;
 	glm::mat4 getModel() const { return getTransform()->GetModel()*m_transform.GetModel();}
+	virtual glm::quat getRot() const { return m_transform.GetRot()*getTransform()->GetRot() ;}
+	Transform* getLocalTransform() { return &m_transform ; }
 	glm::vec3 getPos() const;
 	void addToEngine(CoreEngine* core);
 private:

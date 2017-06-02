@@ -139,7 +139,7 @@ void main()
 		}
 	
 	float shadow = calcShadowMapEffect(shadowMap , lightDirection , distanceToPoint);
-	color = (texture2D(diffuse, texcoords.xy)*(tdiff*shadow))+ tspec*(shadow);
+	color = (texture2D(diffuse, texcoords.xy)*(tdiff+tspec))*shadow;
 	
 	
 		

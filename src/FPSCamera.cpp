@@ -48,5 +48,7 @@ glm::mat4 FPSCamera::getMVP() const
 }
 glm::vec3 FPSCamera::getPos() const
 {
-    return getTransform()->GetPos();
+    glm::vec3 pos =getTransform()->GetPos();
+    pos.y += 1.5;
+    return pos;
 }

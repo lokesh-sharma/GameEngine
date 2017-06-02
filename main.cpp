@@ -27,6 +27,7 @@
 #include"Player.h"
 #include"FPSCamera.h"
 #include"GUIManager.h"
+#include"ObjLoader.h"
 
 
 
@@ -41,15 +42,20 @@ int main(int argc, char** argv)
     GameObject* g5 = new GameObject;
     GameObject* g6 = new GameObject;
 
-    Mesh* mesh1 = new Mesh("./res/dima.obj");
+    Mesh* mesh1 = new Mesh("./res/plane2.obj");
     Mesh* mesh2 = new Mesh("./res/sphere2.obj");
-    Mesh* mesh3 = new Mesh("./res/cube4.obj");
+    Mesh* mesh3 = new Mesh("./res/cube.obj");
+//    std::vector<glm::vec3> verts;
+//    std::vector<glm::vec2> uvs;
+//    std::vector<glm::vec3> normals;
+//    ObjLoader* o1 = new ObjLoader("./res/cubetest.obj" ,verts , uvs , normals );
+//    std::cout<<verts.size()<<" "<<uvs.size()<<" "<<normals.size()<<std::endl;
 
     PhysicsEngine* pEngine = new PhysicsEngine();
     pEngine->addObject(new PhysicsObject(mesh1 , glm::vec3(0,0,0) , 0 , 1) , "dima");
     pEngine->addObject(new PhysicsObject(glm::vec3(0,10,1) ,glm::vec3(2,2,2) ,
      5 , PhysicsObject::TYPE_BOUNDINGSPHERE) , "sphere");
-    pEngine->addObject(new PhysicsObject(glm::vec3(1,4,0) , glm::vec3(2,2,2) , 2 ,
+    pEngine->addObject(new PhysicsObject(glm::vec3(1.5,15,0) , glm::vec3(2,2,2) , 2 ,
     PhysicsObject::TYPE_BOX) , "cube");
 
     PhysicsObjectComponent* comp = new PhysicsObjectComponent(pEngine->getObject("dima"));
@@ -64,10 +70,10 @@ int main(int argc, char** argv)
     Material* m = new Material();
     Material* m1 = new Material();
     m->addTexture("diffuse" , "./res/bricks2.jpg");
-    m->addTexture("normal" , "./res/bricks2_normal.png");
-    m->addTexture("dispMap" , "./res/default_disp.png");
-    m1->addTexture("diffuse" , "./res/TextureAtlas.png");
-    m1->addTexture("normal" , "./res/default_normal.jpg");
+    m->addTexture("normal" , "./res/bricks2_normal.jpg");
+    m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
+    m1->addTexture("diffuse" , "./res/1diffuse.jpg");
+    m1->addTexture("normal" , "./res/1normal.jpg");
     m1->addTexture("dispMap" , "./res/default_disp.png");
     GameComponent* player = new Player(pEngine);
 
@@ -84,6 +90,7 @@ int main(int argc, char** argv)
 
     manager->addGUI("./res/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
     renderer->addSkyBox("./res/Yokohama" , "jpg");
+    //renderer->addWaterTile(glm::vec3( 0 , 0 , 0) , glm::vec3(12 , 12 , 12));
 
     CoreEngine core(&display , game , renderer , manager);
     renderer->setCoreEngine(&core);
@@ -98,6 +105,7 @@ int main(int argc, char** argv)
     game->addToScene(g3);
     game->addToScene(g4);
     game->addToScene(g5);
+    game->addToScene(g6);
 
     //g2->addComponent(&g);
     game->setEngine(&core);
@@ -107,11 +115,11 @@ int main(int argc, char** argv)
     SpotLight * spot =new SpotLight(glm::vec3(1,1  ,1) , 12.0f);
     g3->addComponent(dir);
 
-      g2->addComponent(new FPSCamera(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
+      g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 100.0f));
     g4->addComponent(&g);
     g4->addComponent(comp2);
-      g2->addComponent(player); //order is important
+      //g2->addComponent(player); //order is important
 
     g5->addComponent(&h);
     g5->addComponent(comp3);
@@ -120,7 +128,7 @@ int main(int argc, char** argv)
     long framestart;
     g3->getTransform()->SetPos(glm::vec3(0,4,0));
     g3->getTransform()->rotate(glm::vec3(1,0,0) , -45);
-
+    g3->getTransform()->rotate(glm::vec3(0,1,0) , -45);
 	while(core.is_running())
 	{
 //        glMatrixMode(GL_PROJECTION);

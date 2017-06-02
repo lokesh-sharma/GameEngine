@@ -11,6 +11,7 @@ public:
     ForwardSpot(const std::string fileName): Shader(fileName)
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+         m_uniforms["clipPlane"] = glGetUniformLocation(m_program , "clipPlane");
         m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
         m_uniforms["shadowBias"] = glGetUniformLocation(m_program , "shadowBias");
         m_uniforms["lightMatrix"] = glGetUniformLocation(m_program , "lightMatrix");
@@ -79,6 +80,9 @@ public:
         setUniformVector3f("shadowTexelSize" , tSize.x , tSize.y , tSize.z);
         glm::vec3 dir = spotLight->getDirection();
         setUniformVector3f(light + ".direction" , dir.x , dir.y , dir.z);
+
+        glm::vec4 plane = renderer->getClipingPlane();
+        setUniformVector4f("clipPlane" ,plane.x , plane.y , plane.z , plane.w );
     }
 };
 

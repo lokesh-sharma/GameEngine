@@ -101,7 +101,8 @@ void SkyBoxManager::renderSkyBox(const Camera& c)
     glBindVertexArray(m_vertexArrayObject);
     glEnableVertexAttribArray(0);
 
-    glDisable(GL_DEPTH_TEST);
+    glDepthMask(false);
+    glDepthFunc(GL_LEQUAL);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP , m_skyBoxes[m_activeSkyBox].texture);
@@ -109,7 +110,8 @@ void SkyBoxManager::renderSkyBox(const Camera& c)
     m_skyBoxShader->UpdateSkyBox(c);
     glDrawArrays(GL_TRIANGLES , 0 , 36);
 
-    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glDepthMask(true);
 
     glDisableVertexAttribArray(0);
     glBindVertexArray(0);
@@ -117,6 +119,7 @@ void SkyBoxManager::renderSkyBox(const Camera& c)
 
 SkyBoxManager::~SkyBoxManager()
 {
+    delete m_skyBoxShader;
     glDeleteVertexArrays(1, &m_vertexArrayObject);
     for(int i = 0 ; i< m_skyBoxes.size() ; i++)
         glDeleteTextures(1, &m_skyBoxes[i].texture);

@@ -82,6 +82,7 @@
 		<Unit filename="include/MeshRenderer.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/ObjLoader.h" />
 		<Unit filename="include/PhysicsEngine.h" />
 		<Unit filename="include/PhysicsEngineComponent.h" />
 		<Unit filename="include/PhysicsObject.h" />
@@ -92,6 +93,10 @@
 		<Unit filename="include/ShadowShader.h" />
 		<Unit filename="include/SkyBoxManager.h" />
 		<Unit filename="include/SkyBoxShader.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="include/WaterRenderer.h" />
+		<Unit filename="include/WaterShader.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="include/camera.h" />
@@ -121,6 +126,7 @@
 		<Unit filename="src/Player.cpp" />
 		<Unit filename="src/RenderingEngine.cpp" />
 		<Unit filename="src/SkyBoxManager.cpp" />
+		<Unit filename="src/WaterRenderer.cpp" />
 		<Unit filename="src/display.cpp" />
 		<Unit filename="src/light.cpp" />
 		<Unit filename="src/mesh.cpp" />

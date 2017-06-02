@@ -11,6 +11,7 @@ public:
     ForwardPoint(const std::string fileName): Shader(fileName)
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+         m_uniforms["clipPlane"] = glGetUniformLocation(m_program , "clipPlane");
         m_uniforms["specularPower"] = glGetUniformLocation(m_program , "specularPower");
         m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
 	m_uniforms["shadowBias"] = glGetUniformLocation(m_program , "shadowBias");
@@ -69,6 +70,9 @@ public:
         setUniform1f(light+".atten.exponent" , atten.getExponent());
         glm::vec3 pos  = pointLight->getPosition();
         setUniformVector3f(light + ".position" , pos.x , pos.y , pos.z);
+
+        glm::vec4 plane = renderer->getClipingPlane();
+        setUniformVector4f("clipPlane" ,plane.x , plane.y , plane.z , plane.w );
     }
 };
 

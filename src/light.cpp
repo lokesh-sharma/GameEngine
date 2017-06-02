@@ -13,7 +13,7 @@ glm::vec3 DirectionalLight::getDirection() const
 
 glm::vec3 SpotLight::getDirection()
 {
-    return m_parent->getTransform()->getForward();
+    return getTransform()->getForward();
 }
 DirectionalLight:: DirectionalLight(const glm::vec3 color , float inten ) :
     BaseLight(color , inten )

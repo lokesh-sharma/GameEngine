@@ -17,6 +17,7 @@ out vec3 N;
 uniform mat4 MVP;
 uniform mat4 Model;
 uniform mat4 lightMatrix;
+uniform vec4 clipPlane;
 
 void main()
 {
@@ -25,6 +26,8 @@ void main()
 	texCoord0 = texCoord;
 	normal0 = normal;
 	worldPos0 =vec3(Model*vec4(position,1.0));
+	gl_ClipDistance[0] = dot( vec4(worldPos0,1) , clipPlane);
+
 	vec3 n = normalize((Model*vec4(normal ,0.0)).xyz);
 	vec3 t = normalize((Model*vec4(tangent , 0.0)).xyz);
 

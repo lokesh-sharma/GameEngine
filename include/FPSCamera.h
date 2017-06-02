@@ -11,7 +11,7 @@ public:
     void update();
 	glm::mat4 getMVP() const ;
 	glm::mat4 getModel() const { return getTransform()->GetModel();}
-	virtual glm::quat getRot() const { return (m_rot) ;}
+	virtual glm::quat getRot() const { return m_rot ;}
 	glm::vec3 getPos() const;
 	void addToEngine(CoreEngine* core);
 private:

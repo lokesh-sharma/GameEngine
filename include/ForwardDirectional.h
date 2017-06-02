@@ -10,6 +10,7 @@ public:
     ForwardDirectional(const std::string fileName): Shader(fileName)
     {
 	m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+	   m_uniforms["clipPlane"] = glGetUniformLocation(m_program , "clipPlane");
 	m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
 	m_uniforms["shadowBias"] = glGetUniformLocation(m_program , "shadowBias");
 	m_uniforms["lightMatrix"] = glGetUniformLocation(m_program , "lightMatrix");
@@ -63,6 +64,9 @@ public:
         setUniform1f("specularIntensity" , material.getSpecularIntensity());
         glm::vec3 p = c.getPos();
         setUniformVector3f("eyePos" , p.x , p.y , p.z);
+
+        glm::vec4 plane = renderingEngine->getClipingPlane();
+        setUniformVector4f("clipPlane" ,plane.x , plane.y , plane.z , plane.w );
     }
 
 };

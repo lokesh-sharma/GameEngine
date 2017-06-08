@@ -5,12 +5,13 @@
 #include"SkyBoxShader.h"
 
 class Camera;
+class RenderingEngine;
 class SkyBoxManager
 {
 public:
     SkyBoxManager();
     void addSkyBox(std::string filename , std::string format);
-    void renderSkyBox(const Camera& c);
+    void renderSkyBox(const Camera& c ,RenderingEngine* renderer );
     void setActiveSkybox(std::string id);
     ~SkyBoxManager();
 private:

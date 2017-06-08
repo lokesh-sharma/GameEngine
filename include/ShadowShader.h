@@ -11,10 +11,14 @@ class DirectionalShadowShader : public Shader
 public:
     DirectionalShadowShader(const std::string fileName) : Shader(fileName , true)
     {
+        int diffuseLocation = glGetUniformLocation(m_program , "diffuse");
+        if(diffuseLocation>=0)
+            m_uniforms["diffuse"] = diffuseLocation;
     }
     void Update(const Transform& transform,const Camera&c,const Material& m , RenderingEngine* renderer)
     {
         Shader::Update(transform , c,m ,renderer );
+        setUniformSampler("diffuse" , 0);
     }
 };
 class PointShadowShader : public Shader
@@ -23,6 +27,9 @@ private:
 public:
     PointShadowShader(const std::string fileName) : Shader(fileName , true)
     {
+        int diffuseLocation = glGetUniformLocation(m_program , "diffuse");
+        if(diffuseLocation>=0)
+            m_uniforms["diffuse"] = diffuseLocation;
         std::string shadowMat = "shadowMatrices";
         for(int i = 0 ; i< 6 ; i++){
             std::string index = "[" + std::to_string(i) + "]";
@@ -35,6 +42,7 @@ public:
     {
 
         Shader::Update(transform , c,m ,renderer );
+        setUniformSampler("diffuse" , 0);
         glm::mat4 shadowProj  = renderer->getActivePointLight()->getShadowInfo()->getProjection();
         glm::mat4 pMatrix = renderer->getActivePointLight()->getTransform()->getParentMatrix();
         glm::vec3 pos = renderer->getActivePointLight()->getTransform()->GetPos();

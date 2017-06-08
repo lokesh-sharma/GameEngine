@@ -16,13 +16,16 @@ private:
     std::vector<GameComponent*> m_components;
     Transform m_transform;
     CoreEngine* coreEngine;
+    bool m_castShadow;
 public:
-    GameObject() : m_transform(Transform()){}
+    GameObject() : m_transform(Transform()) , m_castShadow(true){}
     void update();
 
     void render(Shader& bs, const Camera& camera , RenderingEngine* renderingEngine);
 
     void addChild(GameObject* object);
+    bool doesCastShadow() { return m_castShadow;}
+    void disableShadow() { m_castShadow = false;}
 
     void addComponent(GameComponent* component);
     void setEngine(CoreEngine* core);

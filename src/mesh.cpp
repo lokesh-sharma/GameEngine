@@ -24,11 +24,9 @@ void MeshData::LoadMesh(const std::string & filename)
 
 
     const aiScene* scene = importer.ReadFile(filename , aiProcess_Triangulate |
-                                                        aiProcess_GenNormals|
+
                                                         aiProcess_CalcTangentSpace
     );
-    if(scene == NULL)
-        std::cerr<<"error";
     const aiMesh *model = scene->mMeshes[0];
 
     counter=0;

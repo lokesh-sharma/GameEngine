@@ -46,6 +46,7 @@ uniform float specularPower;
 uniform float specularIntensity;
 uniform float shadowBias;
 uniform PointLight pointLight;
+uniform vec4 fogColor;
 
 
 vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)

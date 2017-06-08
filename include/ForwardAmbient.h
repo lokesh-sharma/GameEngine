@@ -10,6 +10,7 @@ public:
     ForwardAmbient(const std::string fileName) : Shader(fileName)
     {
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
+        m_uniforms["fogColor"] = glGetUniformLocation(m_program , "fogColor");
         m_uniforms["clipPlane"] = glGetUniformLocation(m_program , "clipPlane");
         m_uniforms["MaterialAmbientColor"] = glGetUniformLocation(m_program, "MaterialAmbientColor");
         m_uniforms["dispMapScale"] = glGetUniformLocation(m_program , "dispMapScale");
@@ -44,6 +45,8 @@ public:
         setUniformVector3f("eyePos" , p.x , p.y , p.z);
         glm::vec4 plane = renderer->getClipingPlane();
         setUniformVector4f("clipPlane" ,plane.x , plane.y , plane.z , plane.w );
+        glm::vec4 fc = renderer->getFogColor();
+        setUniformVector4f("fogColor" , fc.x , fc.y , fc.z , fc.w);
 
     }
 };

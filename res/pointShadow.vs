@@ -7,8 +7,13 @@ in vec3 tangent;
 
 uniform mat4 MVP;
 uniform mat4 Model;
+out VS_OUT
+{
+	vec2 TexCoords;
+} vs_out;
 
 void main()
 {
+	vs_out.TexCoords = texCoord;
 	gl_Position = Model*vec4(position, 1.0);
 }

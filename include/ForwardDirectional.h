@@ -9,6 +9,7 @@ class ForwardDirectional: public Shader
 public:
     ForwardDirectional(const std::string fileName): Shader(fileName)
     {
+     m_uniforms["fogColor"] = glGetUniformLocation(m_program , "fogColor");
 	m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
 	   m_uniforms["clipPlane"] = glGetUniformLocation(m_program , "clipPlane");
 	m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
@@ -67,6 +68,8 @@ public:
 
         glm::vec4 plane = renderingEngine->getClipingPlane();
         setUniformVector4f("clipPlane" ,plane.x , plane.y , plane.z , plane.w );
+        glm::vec4 fc = renderingEngine->getFogColor();
+        setUniformVector4f("fogColor" , fc.x , fc.y , fc.z , fc.w);
     }
 
 };

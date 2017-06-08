@@ -6,7 +6,7 @@
     m_health=100;
     btTransform startTransform;
     startTransform.setIdentity ();
-    startTransform.setOrigin (btVector3(0, 1, 4));
+    startTransform.setOrigin (btVector3(0, 10, 4));
 
     btConvexShape* capsule = new btCapsuleShape(0.5, 1);
 

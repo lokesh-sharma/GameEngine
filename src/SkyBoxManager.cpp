@@ -93,7 +93,7 @@ void SkyBoxManager::addSkyBox(std::string fileName , std::string format)
     m_activeSkyBox = m_skyBoxes.size() - 1 ;
     glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 }
-void SkyBoxManager::renderSkyBox(const Camera& c)
+void SkyBoxManager::renderSkyBox(const Camera& c , RenderingEngine* renderer)
 {
     if(m_activeSkyBox == -1)
         return;
@@ -107,7 +107,7 @@ void SkyBoxManager::renderSkyBox(const Camera& c)
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_CUBE_MAP , m_skyBoxes[m_activeSkyBox].texture);
     m_skyBoxShader->Bind();
-    m_skyBoxShader->UpdateSkyBox(c);
+    m_skyBoxShader->UpdateSkyBox(c , renderer);
     glDrawArrays(GL_TRIANGLES , 0 , 36);
 
     glDepthFunc(GL_LESS);

@@ -130,7 +130,7 @@ void main()
 	vec3 directionToEye = normalize(eyePos - worldPos0);
 	vec2 texcoords = calcParallaxTexCoords(dispMap,matrix,directionToEye,texCoord0,dispMapScale,dispMapBias);
 
-	vec3 normal = normalize(matrix*directionToEye(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
+	vec3 normal = normalize(matrix*(255.0/128.0*texture2D(normalMap , texcoords.xy).xyz - 1));
 	vec4 dcolor = calcLightDiffuse(spotLight.base , distanceVector , normal);
 	float attenu = spotLight.atten.constant + spotLight.atten.linear*distanceToPoint
 		       + spotLight.atten.exponent*distanceToPoint*distanceToPoint + 0.01;

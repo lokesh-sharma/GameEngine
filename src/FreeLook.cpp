@@ -30,22 +30,23 @@ void FreeLook::update()
     if(x || y)
         TheInputHandler::getInstance()->setMousePos(screenMiddle.x , screenMiddle.y);
 
+    float sensitivity = 0.06f;
 
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_D))
     {
-            move( m_transform.getRight() , 0.03);
+            move( m_transform.getRight() , sensitivity);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_A))
     {
-             move( m_transform.getRight() , -0.03);
+             move( m_transform.getRight() , -sensitivity);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_W))
     {
-             move( m_transform.getForward() , 0.03);
+             move( m_transform.getForward() , sensitivity);
     }
     if(TheInputHandler::getInstance()->isKeyDown(SDL_SCANCODE_S))
     {
-             move( m_transform.getForward() , -0.03);
+             move( m_transform.getForward() , -sensitivity);
     }
 
 }

@@ -17,6 +17,10 @@ uniform sampler2D shadowMap;
 uniform float dispMapScale;
 uniform float dispMapBias;
 uniform vec3 eyePos;
+uniform vec4 fogColor;
+
+const float density = 0.007f;
+const float gradient = 1.5f;
 
 vec2 calcParallaxTexCoords(sampler2D dMap , mat3 matrix , vec3 directionToEye , vec2 texCoords , float scale,
 float bias)
@@ -27,11 +31,20 @@ float bias)
 	texNew.y -= offset.y;
 	return texNew;
 }
+float calcVisibility(float d)
+{
+	float v =  exp(-pow((d*density) , gradient));
+	return clamp(v , 0.0f , 1.0f);
+}
 void main()
 {
 	vec3 directionToEye = normalize(eyePos - worldPos0);
 	mat3 Matrix =  mat3(T,B,N);
 	vec2 texcoords = calcParallaxTexCoords(dispMap , Matrix , directionToEye,texCoord0,dispMapScale,dispMapBias);
-	color = texture2D(diffuse, texcoords)*(MaterialAmbientColor);
-	color = vec4( length(eyePos-worldPos0) - gl_FragCoord.z);
+	color = texture2D(diffuse, texcoords);
+	if(color.a <0.5)
+		discard;
+	color = color*(MaterialAmbientColor);
+	color = mix(fogColor , color , calcVisibility(length(worldPos0-eyePos)));
+	//color = fogColor;
 }

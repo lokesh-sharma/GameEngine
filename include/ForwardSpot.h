@@ -10,6 +10,7 @@ class ForwardSpot : public Shader
 public:
     ForwardSpot(const std::string fileName): Shader(fileName)
     {
+         m_uniforms["fogColor"] = glGetUniformLocation(m_program , "fogColor");
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
          m_uniforms["clipPlane"] = glGetUniformLocation(m_program , "clipPlane");
         m_uniforms["shadowTexelSize"] = glGetUniformLocation(m_program , "shadowTexelSize");
@@ -83,6 +84,8 @@ public:
 
         glm::vec4 plane = renderer->getClipingPlane();
         setUniformVector4f("clipPlane" ,plane.x , plane.y , plane.z , plane.w );
+        glm::vec4 fc = renderer->getFogColor();
+        setUniformVector4f("fogColor" , fc.x , fc.y , fc.z , fc.w);
     }
 };
 

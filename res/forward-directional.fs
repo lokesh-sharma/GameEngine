@@ -33,6 +33,10 @@ uniform vec3 shadowTexelSize;
 uniform float specularPower;
 uniform float specularIntensity;
 uniform DirectionalLight directionalLight;
+uniform vec4 fogColor;
+
+const float density = 0.007f;
+const float gradient = 1.5f;
 
 
 vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)
@@ -79,6 +83,9 @@ float bias)
 }
 float sampleShadowMap(sampler2D map , vec2 coords , float compare)
 {
+	if(coords.x < 0 || coords.y>1 || coords.x>1 || coords.y<0)
+	return 1.0f;
+ 
 	return step(compare , texture2D(map , coords.xy).r);
 }
 float sampleShadowMapLinear(sampler2D map , vec2 coords , float compare , vec2 texelSize)
@@ -115,6 +122,11 @@ float calcShadowMapEffect(sampler2D map , vec4 coords )
 	vec3 finalCoords = (coords.xyz/coords.w)*vec3(0.5) + vec3(0.5);
 	return sampleShadowMapPCF(map , finalCoords.xy , finalCoords.z - shadowBias , shadowTexelSize.xy);	
 }
+float calcVisibility(float d)
+{
+	float v =  exp(-pow((d*density) , gradient));
+	return clamp(v , 0.0f , 1.0f);
+}
 void main()
 {
 
@@ -130,7 +142,10 @@ void main()
 		tspec += calcLightSpec(directionalLight.base , directionalLight.direction , normal);
 	}
 	//tspec = tspec*calcShadowMapEffect(shadowMap ,shadowMapCoords0);
-	color = (texture2D(diffuse, texcoords.xy)*(tdiff+ tspec))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) ;
 	
-		
+	color = texture2D(diffuse, texcoords.xy);
+	if(color.a<0.5)
+		discard;
+	color = (color*(tdiff+ tspec))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) ;
+	color = mix(vec4(0,0,0,1) , color , calcVisibility(length(worldPos0-eyePos)));
 }

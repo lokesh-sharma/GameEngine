@@ -14,8 +14,8 @@ uniform vec3 eyePos;
 uniform vec3 lightPos;
 uniform float moveFactor;
 
-const float waveStrength = 0.005f;
-const float specularPower = 20.0f;
+const float waveStrength = 0.03f;
+const float specularPower = 100.0f;
 const float specularIntensity = 0.6f;
 
 vec4 calcLightSpec(vec3 color , vec3 directionToCamera , vec3 lightDir , vec3 normal)
@@ -39,7 +39,7 @@ void main()
 	vec2 refractCoords = vec2(ndc.x , ndc.y);
 
 	float near = 0.1f ;
-	float far = 100.0f;
+	float far = 1000.0f;
 	float d = texture2D(depthMap , refractCoords).r;
 	float floorDistance = 2.0*near*far/(far+near -(2.0 * d-1.0)*(far-near));
 
@@ -49,7 +49,7 @@ void main()
 	float waterDepth =  floorDistance - waterDistance;
 	vec2 distortedTexCoords = (texture2D(dudvMap , vec2(texCoords.x + moveFactor , texCoords.y)).rg*2.0 - 1.0)* 														waveStrength; 
 	distortedTexCoords = texCoords + vec2(distortedTexCoords.x , distortedTexCoords.y + moveFactor);
-	vec2 totalDistortion = (texture2D(dudvMap , distortedTexCoords).rg*2 -1 )* waveStrength;
+	vec2 totalDistortion = (texture2D(dudvMap , distortedTexCoords).rg*2 -1 )* waveStrength*clamp(waterDepth/5.0,0.0f ,1.0f);
 	refractCoords += totalDistortion;
 	refractCoords = clamp(refractCoords , 0.001 , 0.999);
 
@@ -57,7 +57,7 @@ void main()
 	reflectCoords = clamp(reflectCoords , 0.001 , 0.999);
 
 	vec4 normalColor = texture2D(normalMap , distortedTexCoords + totalDistortion);
-	vec3 normal = vec3(normalColor.r*2.0 -1.0 , normalColor.b*10 , normalColor.g*2.0 - 1.0);
+	vec3 normal = vec3(normalColor.r*2.0 -1.0 , normalColor.b*7 , normalColor.g*2.0 - 1.0);
 	normal = normalize(normal);
 	vec4 tspec = calcLightSpec( lightColor , (eyePos-worldPos0) , worldPos0 - lightPos , normal);
 	
@@ -65,7 +65,7 @@ void main()
 	vec4 refractionColor = texture2D(refractionMap , refractCoords);
 	float fresnelFactor = dot( normal , normalize(eyePos-worldPos0));
 	fresnelFactor = pow(fresnelFactor , 3.0);
-	color = mix(reflectionColor , refractionColor , fresnelFactor);
+	color = mix(reflectionColor , refractionColor , fresnelFactor) + tspec;
 
 	color.a = clamp(waterDepth/1.0 , 0.0f ,1.0f);
 }

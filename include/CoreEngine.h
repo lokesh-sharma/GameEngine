@@ -20,10 +20,12 @@ public:
     Display* getDisplay() { return m_display;}
     void run();
     bool is_running() { return m_running;}
+    float getDeltaTime() { return m_deltaTime;}
     RenderingEngine* getRenderingEngine() { return renderingEngine;}
     virtual ~CoreEngine();
 private:
     bool m_running;
+    float m_deltaTime;
     RenderingEngine* renderingEngine;
     GUIManager* m_guiManager;
     Display* m_display;

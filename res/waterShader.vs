@@ -8,7 +8,7 @@ out vec3 worldPos0;
 uniform mat4 MVP;
 uniform mat4 Model;
 
-const float tiling = 4.0f;
+const float tiling = 20.0f;
 
 void main()
 {

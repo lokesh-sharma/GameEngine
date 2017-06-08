@@ -5,6 +5,7 @@
 CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingEngine , GUIManager* m)
 {
     m_running = false;
+    m_deltaTime = 0.01f;
     this->m_game = game;
     this->renderingEngine = renderingEngine;
     this->m_display = display;
@@ -14,6 +15,7 @@ CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingE
 }
 void CoreEngine::run()
 {
+    float t1 = SDL_GetTicks();
     if(!m_running )
         return;
     if(!m_display->isRunning())
@@ -27,6 +29,8 @@ void CoreEngine::run()
 
 
     m_display->SwapBuffers();
+    float t2 = SDL_GetTicks();
+    m_deltaTime = (t2 - t1)/60.0f;
 }
 CoreEngine::~CoreEngine()
 {

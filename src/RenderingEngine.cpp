@@ -18,6 +18,7 @@
 RenderingEngine::RenderingEngine(Display* d)
 {
     //directionalShader = new ForwardDirectional("./res/forward-directional");
+    fogColor = glm::vec4(0.4,0.4,0.4,1.0);
     ambientShader = new ForwardAmbient("./res/forward-ambient");
     dirShadowShader = new DirectionalShadowShader("./res/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/pointShadow");
@@ -90,7 +91,7 @@ void RenderingEngine::render(GameObject* object)
     renderScene(object , camera,0);
     waterRenderer->render(*camera , this);
 
-    skyBoxManager->renderSkyBox(*camera);
+    skyBoxManager->renderSkyBox(*camera , this);
     object->update();
 
 }
@@ -150,7 +151,7 @@ void RenderingEngine::renderScene(GameObject* object , Camera* mainCamera , Text
         temptarget->bindAsRenderTarget();
         glClear(GL_DEPTH_BUFFER_BIT);
 
-        if(shadowInfo)
+        if(shadowInfo )
         {
             altCamera->setProjection(shadowInfo->getProjection());
             glm::mat4 matrix = active_dir_light->getTransform()->getParentMatrix();
@@ -173,7 +174,6 @@ void RenderingEngine::renderScene(GameObject* object , Camera* mainCamera , Text
             target->bindAsRenderTarget();
 
         //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE , GL_ONE);
         glDepthMask(false);
@@ -230,7 +230,7 @@ void RenderingEngine::renderScene(GameObject* object , Camera* mainCamera , Text
         glDepthMask(true);
        glDisable(GL_BLEND);
     }
-     skyBoxManager->renderSkyBox(*mainCamera);
+     skyBoxManager->renderSkyBox(*mainCamera , this);
 
 
 //    display->bindAsRenderTarget();

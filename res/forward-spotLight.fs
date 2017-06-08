@@ -42,6 +42,7 @@ uniform vec3 shadowTexelSize;
 uniform float specularPower;
 uniform float specularIntensity;
 uniform SpotLight spotLight;
+uniform vec4 fogColor;
 
 
 vec4 calcLightDiffuse(BaseLight base , vec3 direction , vec3 normal)

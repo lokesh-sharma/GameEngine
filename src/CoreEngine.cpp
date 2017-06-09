@@ -1,6 +1,7 @@
 #include "CoreEngine.h"
 #include "display.h"
 #include"GUIManager.h"
+#include"PostProcess.h"
 
 CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingEngine , GUIManager* m)
 {
@@ -10,7 +11,10 @@ CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingE
     this->renderingEngine = renderingEngine;
     this->m_display = display;
     this->m_guiManager = m;
+    this->m_postProcessManager = new PostProcess(display);
+
     //game->getRootObject()->setEngine(this);
+    renderingEngine->setScene(m_postProcessManager->getBaseTexture());
     renderingEngine->setCoreEngine(this);
 }
 void CoreEngine::run()
@@ -24,6 +28,7 @@ void CoreEngine::run()
 
     m_display->update();
     renderingEngine->render(m_game->getRootObject());
+    m_postProcessManager->applyPostProcess();
     m_guiManager->renderGUI();
     m_game->update();
 

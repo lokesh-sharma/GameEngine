@@ -64,6 +64,7 @@ void WaterRenderer::render(const Camera& c , RenderingEngine* renderer)
 }
 WaterRenderer::~WaterRenderer()
 {
+     glDeleteBuffers(1, &m_vertexArrayBuffer);
      glDeleteVertexArrays(1, &m_vertexArrayObject);
      delete m_waterShader;
      delete m_normalMap;

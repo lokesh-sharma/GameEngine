@@ -9,6 +9,7 @@
 #include<GL/gl.h>
 
 class GUIManager;
+class PostProcess;
 
 
 class CoreEngine
@@ -28,6 +29,7 @@ private:
     float m_deltaTime;
     RenderingEngine* renderingEngine;
     GUIManager* m_guiManager;
+    PostProcess* m_postProcessManager;
     Display* m_display;
     Game* m_game;
     CoreEngine(const CoreEngine& other) {}

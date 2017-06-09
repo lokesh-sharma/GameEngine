@@ -38,11 +38,12 @@ int main(int argc, char** argv)
 	GameObject* baseTerrain = new GameObject;
     GameObject* g2 = new GameObject;
     GameObject* g3 = new GameObject;
+    GameObject* g4 = new GameObject;
 
 
     Mesh* terrainMesh = new Mesh("./res/terrain2.obj");
     //Mesh* mesh2 = new Mesh("./res/sphere2.obj");
-    //Mesh* mesh3 = new Mesh("./res/cube.obj");
+    Mesh* mesh3 = new Mesh("./res/cube.obj");
 //    std::vector<glm::vec3> verts;
 //    std::vector<glm::vec2> uvs;
 //    std::vector<glm::vec3> normals;
@@ -53,24 +54,24 @@ int main(int argc, char** argv)
     pEngine->addObject(new PhysicsObject(terrainMesh , glm::vec3(0,0,0) , 0 , 1) , "terrain");
    // pEngine->addObject(new PhysicsObject(glm::vec3(0,10,1) ,glm::vec3(2,2,2) ,
     // 5 , PhysicsObject::TYPE_BOUNDINGSPHERE) , "sphere");
-  //  pEngine->addObject(new PhysicsObject(glm::vec3(1.5,15,0) , glm::vec3(2,2,2) , 2 ,
-   // PhysicsObject::TYPE_BOX) , "cube");
+    pEngine->addObject(new PhysicsObject(glm::vec3(20,25,0) , glm::vec3(2,2,2) , 2 ,
+    PhysicsObject::TYPE_BOX) , "cube");
 
     PhysicsObjectComponent* terrainCollider = new PhysicsObjectComponent(pEngine->getObject("terrain"));
    // PhysicsObjectComponent* comp2 = new PhysicsObjectComponent(pEngine->getObject("sphere"));
-   // PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
+    PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
     //PhysicsObjectComponent* comp3 = new PhysicsObjectComponent(pEngine->getObject("cube"));
 //    btTransform qt;
 //    qt = pEngine->getObject("cube")->getRigidBody()->getWorldTransform();
 //    qt.setRotation(btQuaternion(1,0,0,0));
 //    pEngine->getObject("cube")->getRigidBody()->setWorldTransform(qt);
 
-   // Material* m = new Material();
+   Material* m = new Material();
     Material* terrainTexture = new Material();
     //Material* m2 = new Material();
-    //m->addTexture("diffuse" , "./res/bricks2.jpg");
-    //m->addTexture("normal" , "./res/bricks2_normal.jpg");
-    //m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
+    m->addTexture("diffuse" , "./res/bricks2.jpg");
+    m->addTexture("normal" , "./res/bricks2_normal.jpg");
+    m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
     terrainTexture->addTexture("diffuse" , "./res/grass.jpg");
     terrainTexture->addTexture("normal" , "./res/default_normal.jpg");
     terrainTexture->addTexture("dispMap" , "./res/default_disp.png");
@@ -80,6 +81,7 @@ int main(int argc, char** argv)
     GameComponent* player = new Player(pEngine);
 
     MeshRenderer f( terrainMesh,terrainTexture);
+    MeshRenderer g( mesh3,m);
 
     Game* game = new Game();
     TheInputHandler::getInstance()->disableCursor();
@@ -104,6 +106,7 @@ int main(int argc, char** argv)
     game->addToScene(baseTerrain);
     game->addToScene(g2);
     game->addToScene(g3);
+    game->addToScene(g4);
 
     //g2->addComponent(&g);
     game->setEngine(&core);
@@ -112,6 +115,10 @@ int main(int argc, char** argv)
     DirectionalLight * dir =new DirectionalLight(glm::vec3(1,1  ,1) , 1.3f);
     SpotLight * spot =new SpotLight(glm::vec3(1,1  ,1) , 12.0f);
     g3->addComponent(dir);
+   // g4->addComponent(comp3);
+    g4->addComponent(&g);
+    g4->getTransform()->SetPos(glm::vec3(10 , 2 , 0));
+    g4->getTransform()->SetScale(glm::vec3(2 , 2, 2));
 
       g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 1000.0f));

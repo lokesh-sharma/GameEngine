@@ -44,6 +44,7 @@ public:
     Camera* getCamera() { return camera;}
     void setFogColor(float r , float g , float b) { fogColor = glm::vec4(r,g,b,1);}
     glm::vec4 getFogColor() { return fogColor;}
+    void setScene(Texture* sce) {scene = sce; }
     virtual ~RenderingEngine();
 private:
     std::vector<DirectionalLight*>dir_lights;
@@ -62,6 +63,7 @@ private:
     Texture* temptarget;
     Texture* pointshadowMap;
     Texture* depthMap;
+    Texture* scene;
     glm::vec4 clipPlane;
     float shadowMapBias ;
     glm::vec3 shadowTexelSize;

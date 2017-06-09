@@ -120,6 +120,7 @@ void SkyBoxManager::renderSkyBox(const Camera& c , RenderingEngine* renderer)
 SkyBoxManager::~SkyBoxManager()
 {
     delete m_skyBoxShader;
+    glDeleteBuffers(1, &m_vertexArrayBuffer);
     glDeleteVertexArrays(1, &m_vertexArrayObject);
     for(int i = 0 ; i< m_skyBoxes.size() ; i++)
         glDeleteTextures(1, &m_skyBoxes[i].texture);

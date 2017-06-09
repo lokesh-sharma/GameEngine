@@ -73,6 +73,7 @@ void GUIManager::renderGUI()
 GUIManager::~GUIManager()
 {
     delete m_guiShader;
+    glDeleteBuffers(1, &m_vertexArrayBuffer);
     glDeleteVertexArrays(1, &m_vertexArrayObject);
     for(int i = 0 ; i< m_textures.size() ; i++)
         glDeleteTextures(1, &m_textures[i].texture);

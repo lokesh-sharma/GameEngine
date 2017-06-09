@@ -18,7 +18,7 @@
 RenderingEngine::RenderingEngine(Display* d)
 {
     //directionalShader = new ForwardDirectional("./res/forward-directional");
-    fogColor = glm::vec4(0.4,0.4,0.4,1.0);
+    fogColor = glm::vec4(0.7,0.7,0.75,1.0);
     ambientShader = new ForwardAmbient("./res/forward-ambient");
     dirShadowShader = new DirectionalShadowShader("./res/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/pointShadow");
@@ -88,9 +88,8 @@ void RenderingEngine::render(GameObject* object)
     //ambientShader->Update(temp_transform , *camera , *temp_material , this);
     //mesh->Draw();
     clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
-    renderScene(object , camera,0);
+    renderScene(object , camera,scene);
     waterRenderer->render(*camera , this);
-
     skyBoxManager->renderSkyBox(*camera , this);
     object->update();
 

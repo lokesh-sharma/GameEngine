@@ -89,6 +89,7 @@
 		<Unit filename="include/PhysicsObjectComponent.h" />
 		<Unit filename="include/Plane.h" />
 		<Unit filename="include/Player.h" />
+		<Unit filename="include/PostProcess.h" />
 		<Unit filename="include/RenderingEngine.h" />
 		<Unit filename="include/ShadowShader.h" />
 		<Unit filename="include/SkyBoxManager.h" />
@@ -124,6 +125,7 @@
 		<Unit filename="src/PhysicsObjectComponent.cpp" />
 		<Unit filename="src/Plane.cpp" />
 		<Unit filename="src/Player.cpp" />
+		<Unit filename="src/PostProcess.cpp" />
 		<Unit filename="src/RenderingEngine.cpp" />
 		<Unit filename="src/SkyBoxManager.cpp" />
 		<Unit filename="src/WaterRenderer.cpp" />

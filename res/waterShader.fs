@@ -66,6 +66,7 @@ void main()
 	float fresnelFactor = dot( normal , normalize(eyePos-worldPos0));
 	fresnelFactor = pow(fresnelFactor , 3.0);
 	color = mix(reflectionColor , refractionColor , fresnelFactor) + tspec;
+	color += vec4(-0.1 , -0.1 , -0.1 , 0.0);
 
 	color.a = clamp(waterDepth/1.0 , 0.0f ,1.0f);
 }

@@ -148,5 +148,5 @@ void main()
 		discard;
 	color = (color*(tdiff+ tspec))*calcShadowMapEffect(shadowMap ,shadowMapCoords0) ;
 	color = mix(vec4(0,0,0,1) , color , calcVisibility(length(worldPos0-eyePos)));
-	//color = vec4(0,0,0,1);
+	color = texture(shadowMap , texCoord0);
 }

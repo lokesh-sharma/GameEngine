@@ -19,7 +19,7 @@ DirectionalLight:: DirectionalLight(const glm::vec3 color , float inten ) :
     BaseLight(color , inten )
 {
     m_shader = new ForwardDirectional("./res/forward-directional");
-    m_shadowInfo = new ShadowInfo(glm::ortho(-10.0f,10.0f,-10.0f,10.0f,-10.0f,20.0f), 3.0/1024.0);
+    m_shadowInfo = new ShadowInfo(glm::ortho(-100.0f,100.0f,-100.0f,100.0f,-100.0f,100.0f), 3.0/1024.0);
 }
 PointLight::PointLight(const glm::vec3 color , float inten , float c
     , float l,float e, float r):

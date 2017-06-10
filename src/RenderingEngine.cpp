@@ -61,6 +61,7 @@ RenderingEngine::~RenderingEngine()
 }
 void RenderingEngine::render(GameObject* object)
 {
+
     glEnable(GL_CLIP_DISTANCE0);
     glm::vec3 cPos = camera->getPos();
     glm::quat cRot = camera->getRot();
@@ -90,7 +91,7 @@ void RenderingEngine::render(GameObject* object)
     clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
     renderScene(object , camera,scene);
     waterRenderer->render(*camera , this);
-    skyBoxManager->renderSkyBox(*camera , this);
+    //skyBoxManager->renderSkyBox(*camera , this);
     object->update();
 
 }

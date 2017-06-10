@@ -6,7 +6,8 @@ PostProcess::PostProcess(Display*display)
     m_display = display;
     m_width = display->getWidth();
     m_height  = display->getHeight();
-    m_default = new DefaultShader("./res/default");
+    m_default = new Fxaa("./res/fxaa");
+    m_default->setDisplay(m_display);
     m_scene = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
 
@@ -37,7 +38,7 @@ void PostProcess::applyPostProcess()
     glDisable(GL_DEPTH_TEST);
     m_scene->Bind(0);
     m_default->Bind();
-    m_default->Update();
+    m_default->UpdateFilter();
     glDrawArrays(GL_TRIANGLE_STRIP , 0 , 4);
 
     glEnable(GL_DEPTH_TEST);

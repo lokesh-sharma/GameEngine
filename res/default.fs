@@ -8,6 +8,6 @@ uniform sampler2D scene;
 
 void main(void){
 
-	color = texture(scene,texCoord0);
-	color = vec4(1)-color;
+	color = texture(scene,texCoord0.xy -vec2(0.0,0.0));
+	//color = vec4(1)-color;
 }

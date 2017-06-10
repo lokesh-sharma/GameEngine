@@ -49,7 +49,7 @@ void main()
 	float waterDepth =  floorDistance - waterDistance;
 	vec2 distortedTexCoords = (texture2D(dudvMap , vec2(texCoords.x + moveFactor , texCoords.y)).rg*2.0 - 1.0)* 														waveStrength; 
 	distortedTexCoords = texCoords + vec2(distortedTexCoords.x , distortedTexCoords.y + moveFactor);
-	vec2 totalDistortion = (texture2D(dudvMap , distortedTexCoords).rg*2 -1 )* waveStrength*clamp(waterDepth/5.0,0.0f ,1.0f);
+	vec2 totalDistortion = (texture2D(dudvMap , distortedTexCoords).rg*2 -1 )* waveStrength*clamp(waterDepth/25.0,0.0f ,1.0f);
 	refractCoords += totalDistortion;
 	refractCoords = clamp(refractCoords , 0.001 , 0.999);
 
@@ -63,10 +63,10 @@ void main()
 	
 	vec4 reflectionColor = texture2D(reflectionMap , reflectCoords) ;
 	vec4 refractionColor = texture2D(refractionMap , refractCoords);
+
 	float fresnelFactor = dot( normal , normalize(eyePos-worldPos0));
 	fresnelFactor = pow(fresnelFactor , 3.0);
 	color = mix(reflectionColor , refractionColor , fresnelFactor) + tspec;
-	color += vec4(-0.1 , -0.1 , -0.1 , 0.0);
 
 	color.a = clamp(waterDepth/1.0 , 0.0f ,1.0f);
 }

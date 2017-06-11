@@ -15,7 +15,7 @@ public:
         specIntensity=0.00f;
         ambient = glm::vec4(0.2f , 0.2f , 0.2f , 1.0f);
         dispMapScale = 0.03f;
-        dispMapOffset = -0.5;
+        dispMapOffset = -0.3;
         //texture_map["normal"] = new Texture("./res/default_normal.jpg");
 
     }

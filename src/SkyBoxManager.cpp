@@ -6,7 +6,7 @@
 SkyBoxManager::SkyBoxManager()
 {
     m_activeSkyBox = -1;
-    m_skyBoxShader = new SkyBoxShader("./res/skyBoxShader");
+    m_skyBoxShader = new SkyBoxShader("./res/Shaders/skyBoxShader");
     GLfloat vertices[] = {
     // Positions
     -1.0f,  1.0f, -1.0f,

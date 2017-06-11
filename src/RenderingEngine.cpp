@@ -19,10 +19,10 @@ RenderingEngine::RenderingEngine(Display* d)
 {
     //directionalShader = new ForwardDirectional("./res/forward-directional");
     fogColor = glm::vec4(0.7,0.7,0.75,1.0);
-    ambientShader = new ForwardAmbient("./res/forward-ambient");
-    dirShadowShader = new DirectionalShadowShader("./res/directionalShadow");
-    pointShadowShader = new PointShadowShader("./res/pointShadow");
-    depthShader = new Shader("./res/depthShader");
+    ambientShader = new ForwardAmbient("./res/Shaders/forward-ambient");
+    dirShadowShader = new DirectionalShadowShader("./res/Shaders/directionalShadow");
+    pointShadowShader = new PointShadowShader("./res/Shaders/pointShadow");
+    depthShader = new Shader("./res/Shaders/depthShader");
     skyBoxManager = new SkyBoxManager();
     waterRenderer = new WaterRenderer();
     clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
@@ -51,7 +51,7 @@ RenderingEngine::RenderingEngine(Display* d)
 
     altCamera->setParent(cameraObject1);
     tempCamera->setParent(cameraObject2);
-    mesh = new Mesh("./res/plane.obj");
+    mesh = new Mesh("./res/Models/plane.obj");
     temp_transform.SetScale(glm::vec3(aspectRatio , 1 , 1));
 
 }

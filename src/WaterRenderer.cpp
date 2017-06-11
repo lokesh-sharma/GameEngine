@@ -6,9 +6,9 @@
 WaterRenderer::WaterRenderer()
 {
     m_waveSpeed = 0.001f;
-    m_waterShader = new WaterShader("./res/waterShader");
-    m_dudvMap = new Texture("./res/waterDUDV.png");
-    m_normalMap = new Texture("./res/waterDUDVnormal.png");
+    m_waterShader = new WaterShader("./res/Shaders/waterShader");
+    m_dudvMap = new Texture("./res/Textures/waterDUDV.png");
+    m_normalMap = new Texture("./res/Textures/waterDUDVnormal.png");
     m_reflectionMap = new Texture(0 , GL_TEXTURE_2D, 1024 , 1024,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
     m_refractionMap = new Texture(0 , GL_TEXTURE_2D, 1024 , 1024,GL_LINEAR , GL_RGBA ,

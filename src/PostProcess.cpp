@@ -6,9 +6,16 @@ PostProcess::PostProcess(Display*display)
     m_display = display;
     m_width = display->getWidth();
     m_height  = display->getHeight();
-    m_default = new Fxaa("./res/fxaa");
-    m_default->setDisplay(m_display);
+    m_default = new Fxaa("./res/PostProcess/fxaa" , m_display);
+    m_horiGaussianBlur = new HoriGaussianBlurFilter("./res/PostProcess/hBlur",m_display->getWidth());
+    m_vertGaussianBlur = new VertGaussianBlurFilter("./res/PostProcess/vBlur" , m_display->getHeight());
     m_scene = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
+     GL_RGBA , true, GL_COLOR_ATTACHMENT0);
+      m_afterFxaa= new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
+     GL_RGBA , true, GL_COLOR_ATTACHMENT0);
+     m_afterHBlur = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
+     GL_RGBA , true, GL_COLOR_ATTACHMENT0);
+     m_afterVBlur = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
 
     float vertices[] = { -1 , 1 , -1 , -1 , 1 , 1 , 1 ,  -1};
@@ -27,22 +34,37 @@ PostProcess::PostProcess(Display*display)
 
 PostProcess::~PostProcess()
 {
-    //dtor
+    delete m_scene;
+    delete m_afterFxaa;
+    delete m_afterHBlur;
+    delete m_afterVBlur;
+    delete m_default;
+    delete m_horiGaussianBlur;
+    delete m_vertGaussianBlur;
 }
-void PostProcess::applyPostProcess()
+void PostProcess::applyFilter(DefaultFilter* filter ,  Texture* scene , Texture* output)
 {
     glBindVertexArray(m_vertexArrayObject);
     glEnableVertexAttribArray(0);
-    m_display->bindAsRenderTarget();
+    if(output == NULL)
+        m_display->bindAsRenderTarget();
+    else
+        output->bindAsRenderTarget();
 
-    glDisable(GL_DEPTH_TEST);
-    m_scene->Bind(0);
-    m_default->Bind();
-    m_default->UpdateFilter();
+    scene->Bind(0);
+    filter->Bind();
+    filter->UpdateFilter();
     glDrawArrays(GL_TRIANGLE_STRIP , 0 , 4);
-
-    glEnable(GL_DEPTH_TEST);
 
     glDisableVertexAttribArray(0);
     glBindVertexArray(0);
+}
+
+void PostProcess::applyPostProcess()
+{
+    glDisable(GL_DEPTH_TEST);
+    applyFilter(m_default , m_scene , m_afterFxaa);
+    applyFilter(m_horiGaussianBlur , m_afterFxaa , m_afterHBlur);
+    applyFilter(m_vertGaussianBlur , m_afterHBlur , 0);
+    glEnable(GL_DEPTH_TEST);
 }

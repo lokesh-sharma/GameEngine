@@ -4,7 +4,7 @@
 
 GUIManager::GUIManager(float aspect)
 {
-    m_guiShader = new GuiShader("./res/guiShader");
+    m_guiShader = new GuiShader("./res/Shaders/guiShader");
     m_aspect = aspect;
     float vertices[] = { -1 , 1 , -1 , -1 , 1 , 1 , 1 ,  -1};
     glGenVertexArrays(1, &m_vertexArrayObject);

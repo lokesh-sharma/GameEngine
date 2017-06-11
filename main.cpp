@@ -41,9 +41,9 @@ int main(int argc, char** argv)
     GameObject* g4 = new GameObject;
 
 
-    Mesh* terrainMesh = new Mesh("./res/terrain2.obj");
+    Mesh* terrainMesh = new Mesh("./res/Models/terrain2.obj");
     //Mesh* mesh2 = new Mesh("./res/sphere2.obj");
-    Mesh* mesh3 = new Mesh("./res/cube.obj");
+    Mesh* mesh3 = new Mesh("./res/Models/cube.obj");
 //    std::vector<glm::vec3> verts;
 //    std::vector<glm::vec2> uvs;
 //    std::vector<glm::vec3> normals;
@@ -69,12 +69,12 @@ int main(int argc, char** argv)
    Material* m = new Material();
     Material* terrainTexture = new Material();
     //Material* m2 = new Material();
-    m->addTexture("diffuse" , "./res/bricks2.jpg");
-    m->addTexture("normal" , "./res/bricks2_normal.jpg");
-    m->addTexture("dispMap" , "./res/bricks2_disp.jpg");
-    terrainTexture->addTexture("diffuse" , "./res/grass.jpg");
-    terrainTexture->addTexture("normal" , "./res/default_normal.jpg");
-    terrainTexture->addTexture("dispMap" , "./res/default_disp.png");
+    m->addTexture("diffuse" , "./res/Textures/bricks2.jpg");
+    m->addTexture("normal" , "./res/Textures/bricks2_normal.jpg");
+    m->addTexture("dispMap" , "./res/Textures/bricks2_disp.jpg");
+    terrainTexture->addTexture("diffuse" , "./res/Textures/grass.jpg");
+    terrainTexture->addTexture("normal" , "./res/Textures/default_normal.jpg");
+    terrainTexture->addTexture("dispMap" , "./res/Textures/default_disp.png");
     //m2->addTexture("diffuse" , "./res/leaf.png");
    // m2->addTexture("normal" , "./res/default_normal.jpg");
     //m2->addTexture("dispMap" , "./res/default_disp.png");
@@ -90,7 +90,7 @@ int main(int argc, char** argv)
     RenderingEngine* renderer = new RenderingEngine(&display);
     GUIManager * manager =   new GUIManager(display.getWidth()/display.getHeight());
 
-    manager->addGUI("./res/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
+    manager->addGUI("./res/GUI/crosshair.png" , glm::vec3(0,0,0) , glm::vec3(0.03,0.03,1));
     renderer->addSkyBox("./res/skybox" , "png");
 
     renderer->addWaterTile(glm::vec3( 50 , 0 , 0) , glm::vec3(100 , 100 , 100));

@@ -5,9 +5,12 @@ in vec2 texCoord0;
 out vec4 color;
 
 uniform sampler2D scene;
+uniform sampler2D highlights;
 
 void main(void){
 
-	color = texture(scene,texCoord0.xy -vec2(0.0,0.0));
-	//color = vec4(1)-color;
+	vec4 color1 = texture(scene,texCoord0.xy );
+	vec4 color2 = texture(highlights,texCoord0.xy );
+	color = color1 + color2/2.0f;
+	
 }

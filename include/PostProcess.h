@@ -16,6 +16,32 @@ public:
     }
 };
 
+class BloomFilter : public DefaultFilter
+{
+public:
+    BloomFilter(const std::string fileName) : DefaultFilter(fileName)
+    {
+        m_uniforms["highlights"] = glGetUniformLocation(m_program , "highlights");
+    }
+    virtual void UpdateFilter()
+    {
+        setUniformSampler("scene" , 0);
+        setUniformSampler("highlights" , 1);
+    }
+};
+class BrightFilter : public DefaultFilter
+{
+public:
+    BrightFilter(const std::string fileName) : DefaultFilter(fileName)
+    {
+        m_uniforms["highlights"] = glGetUniformLocation(m_program , "highlights");
+    }
+    virtual void UpdateFilter()
+    {
+        setUniformSampler("scene" , 0);
+        setUniformSampler("highlights" , 1);
+    }
+};
 class HoriGaussianBlurFilter:public DefaultFilter
 {
 private:
@@ -30,7 +56,7 @@ public:
     }
     void UpdateFilter()
     {
-        //setUniformSampler("scene" , 0);
+        setUniformSampler("scene" , 0);
         setUniform1f("width" , m_width );
     }
 
@@ -48,6 +74,7 @@ public:
     }
     void UpdateFilter()
     {
+         setUniformSampler("scene" , 0);
          setUniform1f("height" , m_height);
     }
 
@@ -73,7 +100,7 @@ public:
     PostProcess(Display*d);
     Texture* getBaseTexture() { return m_scene;}
     void applyPostProcess();
-    void applyFilter(DefaultFilter* filter ,  Texture* scene , Texture* output);
+    void applyFilter(DefaultFilter* filter ,  Texture* scene1 , Texture*scene2=0 ,Texture* output=0);
     virtual ~PostProcess();
 private:
     Display* m_display;
@@ -81,9 +108,12 @@ private:
     Texture* m_afterFxaa;
     Texture* m_afterHBlur;
     Texture* m_afterVBlur;
+    Texture* m_afterBrigtnessCutOff;
     DefaultFilter* m_default;
     DefaultFilter* m_horiGaussianBlur;
     DefaultFilter* m_vertGaussianBlur;
+    DefaultFilter* m_bright;
+    DefaultFilter* m_bloom;
     GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffer;
 	int m_width;

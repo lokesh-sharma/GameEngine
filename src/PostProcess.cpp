@@ -74,7 +74,7 @@ void PostProcess::applyPostProcess()
     applyFilter(m_horiGaussianBlur , m_afterFxaa ,0 ,m_afterHBlur);
     applyFilter(m_vertGaussianBlur , m_afterHBlur ,0, m_afterVBlur);
     applyFilter(m_bright ,m_afterVBlur ,0, m_afterBrigtnessCutOff);
-    applyFilter(m_bloom , m_scene , m_afterBrigtnessCutOff , 0);
+    applyFilter(m_bloom , m_afterFxaa , m_afterBrigtnessCutOff , 0);
 
     glEnable(GL_DEPTH_TEST);
 }

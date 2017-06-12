@@ -149,6 +149,7 @@ int main(int argc, char** argv)
 //        glMatrixMode(GL_PROJECTION);
 //glLoadIdentity();
 //glOrtho(0, display.getWidth(), display.getHeight(), 0, -1, 1);
+        //int t1 = SDL_GetTicks();
 
         core.run();
         pEngine->simulate(1/60.0);
@@ -159,7 +160,7 @@ int main(int argc, char** argv)
         //g3->getTransform()->rotate(glm::vec3(1,0,0) , (glm::sin(counter)+1)*10);
 
 
-		//std::cout<<1000.0/time<<std::endl;
+		//std::cout<<1000.0/(SDL_GetTicks()-t1)<<std::endl;
 		counter += 0.1;
 		//dir->setIntensity((glm::sin(counter) + 1)*3);
 	}

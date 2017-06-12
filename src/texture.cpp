@@ -75,13 +75,13 @@ void Texture::initTextures(unsigned char** data ,int width , int height , GLfloa
         if(m_textureTarget == GL_TEXTURE_CUBE_MAP){
 
             for(int j = 0 ; j< 6 ; j++)
-                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, 0, internalFormats[i], width, height, 0, formats[i], GL_UNSIGNED_BYTE,NULL);
+                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + j, 0, internalFormats[i], width, height, 0, formats[i], GL_FLOAT,NULL);
         }
         else glTexImage2D(m_textureTarget, 0, internalFormats[i], width, height, 0, formats[i], GL_UNSIGNED_BYTE, data[i]);
         if(filters[i] == GL_LINEAR_MIPMAP_LINEAR)
         {
             glGenerateMipmap(m_textureTarget);
-            glTexParameterf(m_textureTarget , GL_TEXTURE_MAX_ANISOTROPY_EXT , 8.0f);
+            glTexParameterf(m_textureTarget , GL_TEXTURE_MAX_ANISOTROPY_EXT , 4.0f);
         }
     }
 }

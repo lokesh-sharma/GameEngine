@@ -1044,7 +1044,7 @@
 	"shader.h"
 	"string"
 
-1497181515 source:/home/loki/game engine/GameEngine/main.cpp
+1497196272 source:/home/loki/game engine/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -1359,7 +1359,7 @@
 1496897007 source:/home/loki/game engine/GameEngine/src/Player.cpp
 	"Player.h"
 
-1497181641 source:/home/loki/game engine/GameEngine/src/RenderingEngine.cpp
+1497196001 source:/home/loki/game engine/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -1385,7 +1385,7 @@
 	<iostream>
 	<fstream>
 
-1495028544 source:/home/loki/game engine/GameEngine/src/texture.cpp
+1497266053 source:/home/loki/game engine/GameEngine/src/texture.cpp
 	"../include/texture.h"
 	"../include/stb_image.h"
 	<iostream>
@@ -1432,7 +1432,7 @@
 	"string"
 	<glm/gtc/type_ptr.hpp>
 
-1497181599 source:/home/loki/game engine/GameEngine/src/WaterRenderer.cpp
+1497195899 source:/home/loki/game engine/GameEngine/src/WaterRenderer.cpp
 	"WaterRenderer.h"
 	"camera.h"
 	"transform.h"
@@ -1449,7 +1449,7 @@
 	"string"
 	<glm/gtc/type_ptr.hpp>
 
-1497190769 source:/home/loki/game engine/GameEngine/src/PostProcess.cpp
+1497266074 source:/home/loki/game engine/GameEngine/src/PostProcess.cpp
 	"PostProcess.h"
 	"display.h"
 

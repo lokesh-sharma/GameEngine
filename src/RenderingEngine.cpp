@@ -18,7 +18,7 @@
 RenderingEngine::RenderingEngine(Display* d)
 {
     //directionalShader = new ForwardDirectional("./res/forward-directional");
-    fogColor = glm::vec4(0.7,0.7,0.75,1.0);
+    fogColor = glm::vec4(0.7,0.75,0.8,1.0);
     ambientShader = new ForwardAmbient("./res/Shaders/forward-ambient");
     dirShadowShader = new DirectionalShadowShader("./res/Shaders/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/Shaders/pointShadow");

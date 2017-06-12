@@ -10,5 +10,5 @@ void main(void){
 
 	color = texture(scene,texCoord0.xy);
 	float brightness = color.r*0.2126 + color.g*0.7152 + color.b*0.0722;
-	color =  color * brightness*brightness;
+	color =  color * brightness;
 }

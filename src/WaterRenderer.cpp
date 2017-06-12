@@ -51,7 +51,7 @@ void WaterRenderer::render(const Camera& c , RenderingEngine* renderer)
         m_waterShader->Bind();
 
         m_waterShader->setUniform1f("moveFactor" , counter*m_waveSpeed);
-        m_waterShader->setUniformVector3f("lightPos" , 100 , 100 , -100);
+        m_waterShader->setUniformVector3f("lightPos" , 200 , 200 , -100);
         m_waterShader->setUniformVector3f("lightColor" , 1 , 1, 1);
         m_waterShader->UpdateWaterShader(t , c);
         glDrawArrays(GL_TRIANGLES , 0 , 6);

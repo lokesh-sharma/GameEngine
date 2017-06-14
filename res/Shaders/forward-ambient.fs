@@ -19,7 +19,7 @@ uniform float dispMapBias;
 uniform vec3 eyePos;
 uniform vec4 fogColor;
 
-const float density = 0.007f;
+const float density = 0.01f;
 const float gradient = 1.5f;
 
 vec2 calcParallaxTexCoords(sampler2D dMap , mat3 matrix , vec3 directionToEye , vec2 texCoords , float scale,

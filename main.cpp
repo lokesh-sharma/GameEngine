@@ -39,11 +39,13 @@ int main(int argc, char** argv)
     GameObject* g2 = new GameObject;
     GameObject* g3 = new GameObject;
     GameObject* g4 = new GameObject;
+    GameObject* g5 = new GameObject;
 
 
     Mesh* terrainMesh = new Mesh("./res/Models/terrain2.obj");
     //Mesh* mesh2 = new Mesh("./res/sphere2.obj");
     Mesh* mesh3 = new Mesh("./res/Models/cube.obj");
+    Mesh* mesh4 = new Mesh("./res/Models/tree.obj");
 //    std::vector<glm::vec3> verts;
 //    std::vector<glm::vec2> uvs;
 //    std::vector<glm::vec3> normals;
@@ -54,7 +56,7 @@ int main(int argc, char** argv)
     pEngine->addObject(new PhysicsObject(terrainMesh , glm::vec3(0,0,0) , 0 , 1) , "terrain");
    // pEngine->addObject(new PhysicsObject(glm::vec3(0,10,1) ,glm::vec3(2,2,2) ,
     // 5 , PhysicsObject::TYPE_BOUNDINGSPHERE) , "sphere");
-    pEngine->addObject(new PhysicsObject(glm::vec3(20,25,0) , glm::vec3(2,2,2) , 2 ,
+    pEngine->addObject(new PhysicsObject(glm::vec3(20,50,0) , glm::vec3(2,2,2) , 2 ,
     PhysicsObject::TYPE_BOX) , "cube");
 
     PhysicsObjectComponent* terrainCollider = new PhysicsObjectComponent(pEngine->getObject("terrain"));
@@ -68,10 +70,14 @@ int main(int argc, char** argv)
 
    Material* m = new Material();
     Material* terrainTexture = new Material();
+    Material* treebark = new Material();
     //Material* m2 = new Material();
     m->addTexture("diffuse" , "./res/Textures/bricks2.jpg");
     m->addTexture("normal" , "./res/Textures/bricks2_normal.jpg");
     m->addTexture("dispMap" , "./res/Textures/bricks2_disp.jpg");
+    treebark->addTexture("diffuse" , "./res/Textures/bark.jpg");
+    treebark->addTexture("normal" , "./res/Textures/default_normal.jpg");
+    treebark->addTexture("dispMap" , "./res/Textures/default_disp.png");
     terrainTexture->addTexture("diffuse" , "./res/Textures/grass.jpg");
     terrainTexture->addTexture("normal" , "./res/Textures/default_normal.jpg");
     terrainTexture->addTexture("dispMap" , "./res/Textures/default_disp.png");
@@ -82,6 +88,7 @@ int main(int argc, char** argv)
 
     MeshRenderer f( terrainMesh,terrainTexture);
     MeshRenderer g( mesh3,m);
+    MeshRenderer h( mesh4,treebark);
 
     Game* game = new Game();
     TheInputHandler::getInstance()->disableCursor();
@@ -107,6 +114,7 @@ int main(int argc, char** argv)
     game->addToScene(g2);
     game->addToScene(g3);
     game->addToScene(g4);
+    game->addToScene(g5);
 
     //g2->addComponent(&g);
     game->setEngine(&core);
@@ -117,8 +125,11 @@ int main(int argc, char** argv)
     g3->addComponent(dir);
    // g4->addComponent(comp3);
     g4->addComponent(&g);
-    g4->getTransform()->SetPos(glm::vec3(10 , 2 , 0));
+    g4->getTransform()->SetPos(glm::vec3(20 , 6 , 0));
     g4->getTransform()->SetScale(glm::vec3(2 , 2, 2));
+
+    g5->addComponent(&h);
+    g5->getTransform()->SetPos(glm::vec3(0 , 6.5 , 0));
 
       g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
     , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 1000.0f));

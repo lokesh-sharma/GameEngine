@@ -35,7 +35,7 @@ uniform float specularIntensity;
 uniform DirectionalLight directionalLight;
 uniform vec4 fogColor;
 
-const float density = 0.007f;
+const float density = 0.01f;
 const float gradient = 1.5f;
 
 

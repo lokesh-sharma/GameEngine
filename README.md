@@ -1,6 +1,6 @@
 # GameEngine
 3D game engine in c++
-[Demo Video](https://www.youtube.com/watch?v=J8xELr8XOuU)
+[Demo Video](https://www.youtube.com/watch?v=OFv6NhNoAOw)
 # Features
 - [x] Blinn-Phong shading <br />
 - [x] Directional lights <br />
@@ -10,15 +10,17 @@
 - [x] Forward rendering<br />
 - [x] Rigid bodies(bullet physics)
 - [x] Shadow mapping <br />
-- [ ] Reflection <br />
-- [ ] Water refraction <br />
-- [ ] Environment mapping <br />
+- [x] Water Rendering <br />
+- [x] Bloom effect <br />
 - [ ] Soft bodies <br />
+- [ ] Animated Mesh <br/>
+- [ ] God rays <br/>
+- [ ] Particle System <br/>
 
 # Build Instructions
 
 You need to first compile bullet-library on your machine see the link
-[Bullet-physics](https://github.bulletphysics/com/bullet3). 
+[Bullet-physics](https://github.com/bulletphysics/bullet3). 
 
 [Assimp](https://github.com/assimp/assimp).
 

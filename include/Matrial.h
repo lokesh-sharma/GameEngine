@@ -5,6 +5,16 @@
 #include<map>
 #include<iostream>
 #include"texture.h"
+enum Materials
+{
+    SIMPLE_COLOR,
+    SIMPLE_TEXTURE,
+    SIMPLE_LIGHTS,
+    LIGHTS_WITH_SHADOWS,
+    LIGHTS_WITH_SHADOWS_WITH_NRM_AND_DISP_MAPS,
+    TERRAIN,
+    TERRAIN_WITH_SHADOWS
+};
 
 class Material
 {

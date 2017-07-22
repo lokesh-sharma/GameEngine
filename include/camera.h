@@ -23,6 +23,8 @@ public:
 	virtual glm::vec3 getPos() const;
 	virtual void setProjection(glm::mat4 proj) { projection = proj; }
 	virtual void addToEngine(CoreEngine* core);
+	virtual glm::mat4 getInverseProj() const { return glm::inverse(getMVP());}
+	virtual glm::mat4 getInverseModel() const { return glm::inverse(getModel());}
 protected:
     glm::mat4 projection;
 };

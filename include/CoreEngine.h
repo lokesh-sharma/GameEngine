@@ -16,13 +16,17 @@ class CoreEngine
 {
 public:
     CoreEngine( Display* display , Game* game , RenderingEngine* renderingEngine , GUIManager* m);
+
     void start(){ m_running = true;}
     void stop() { m_running = false;}
-    Display* getDisplay() { return m_display;}
     void run();
     bool is_running() { return m_running;}
+
+    Display* getDisplay() { return m_display;}
     float getDeltaTime() { return m_deltaTime;}
     RenderingEngine* getRenderingEngine() { return renderingEngine;}
+    PostProcess* getPostProcessManager() { return m_postProcessManager;}
+
     virtual ~CoreEngine();
 private:
     bool m_running;

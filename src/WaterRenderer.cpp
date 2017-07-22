@@ -53,6 +53,8 @@ void WaterRenderer::render(const Camera& c , RenderingEngine* renderer)
         m_waterShader->setUniform1f("moveFactor" , counter*m_waveSpeed);
         m_waterShader->setUniformVector3f("lightPos" , 200 , 200 , -100);
         m_waterShader->setUniformVector3f("lightColor" , 1 , 1, 1);
+        glm::vec4 fog = renderer->getFogColor();
+        m_waterShader->setUniformVector4f("fogColor" , fog.x , fog.y , fog.z , fog.w);
         m_waterShader->UpdateWaterShader(t , c);
         glDrawArrays(GL_TRIANGLES , 0 , 6);
     }

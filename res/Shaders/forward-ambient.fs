@@ -13,7 +13,7 @@ uniform sampler2D diffuse;
 uniform vec4 MaterialAmbientColor;
 uniform sampler2D normalMap;
 uniform sampler2D dispMap;
-uniform sampler2D shadowMap;
+uniform sampler2D AOMap;
 uniform float dispMapScale;
 uniform float dispMapBias;
 uniform vec3 eyePos;
@@ -44,6 +44,8 @@ void main()
 	color = texture2D(diffuse, texcoords);
 	if(color.a <0.5)
 		discard;
+
+	
 	color = color*(MaterialAmbientColor);
 	color = mix(fogColor , color , calcVisibility(length(worldPos0-eyePos)));
 }

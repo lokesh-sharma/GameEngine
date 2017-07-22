@@ -14,6 +14,7 @@ Camera(pos,fov,aspect,zNear,zFar)
 }
 void FreeLook::update()
 {
+
     glm::vec2 mousePos = TheInputHandler::getInstance()->getMousePos();
     glm::vec2 delta = mousePos - screenMiddle;
     float x = -delta.x;

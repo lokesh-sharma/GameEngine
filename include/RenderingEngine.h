@@ -5,6 +5,7 @@
 #include"FreeLook.h"
 #include"InputHandler.h"
 #include<vector>
+class DefaultFilter;
 class Display;
 class DirectionalLight;
 class PointLight;
@@ -14,6 +15,7 @@ class Material;
 class Mesh;
 class SkyBoxManager;
 class WaterRenderer;
+class SunRenderer;
 
 class RenderingEngine
 {
@@ -46,6 +48,7 @@ public:
     glm::vec4 getFogColor() { return fogColor;}
     void setScene(Texture* sce) {scene = sce; }
     virtual ~RenderingEngine();
+
 private:
     std::vector<DirectionalLight*>dir_lights;
     std::vector<PointLight*>point_lights;
@@ -57,6 +60,9 @@ private:
     Shader* dirShadowShader;
     Shader* pointShadowShader;
     Shader* depthShader;
+    Shader* ssaoShader;
+    Shader* doNothing;
+    DefaultFilter * ssaoFilter;
     Camera* camera;
     Camera* altCamera;
     FreeLook* tempCamera;
@@ -64,10 +70,11 @@ private:
     Texture* pointshadowMap;
     Texture* depthMap;
     Texture* scene;
+    Texture* noise;
     glm::vec4 clipPlane;
+    glm::vec4 fogColor;
     float shadowMapBias ;
     glm::vec3 shadowTexelSize;
-    glm::vec4 fogColor;
     Mesh * mesh ;
     Transform temp_transform;
     Material* temp_material;
@@ -78,6 +85,7 @@ private:
     CoreEngine* core;
     SkyBoxManager* skyBoxManager;
     WaterRenderer* waterRenderer;
+    SunRenderer*  sunRenderer;
     RenderingEngine(const RenderingEngine& other) {}
     RenderingEngine& operator=(const RenderingEngine& other) {}
 };

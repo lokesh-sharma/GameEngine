@@ -12,7 +12,9 @@
 #include"ShadowShader.h"
 #include"SkyBoxManager.h"
 #include"WaterRenderer.h"
-
+#include"SSAOShader.h"
+#include"PostProcess.h"
+#include"SunRenderer.h"
 
 
 RenderingEngine::RenderingEngine(Display* d)
@@ -20,12 +22,16 @@ RenderingEngine::RenderingEngine(Display* d)
     //directionalShader = new ForwardDirectional("./res/forward-directional");
     fogColor = glm::vec4(0.7,0.75,0.8,1.0);
     ambientShader = new ForwardAmbient("./res/Shaders/forward-ambient");
+    doNothing = new Shader("./res/Shaders/blank");
     dirShadowShader = new DirectionalShadowShader("./res/Shaders/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/Shaders/pointShadow");
     depthShader = new Shader("./res/Shaders/depthShader");
+
     skyBoxManager = new SkyBoxManager();
     waterRenderer = new WaterRenderer();
+    sunRenderer = new SunRenderer(glm::vec3(18,10,-10) , glm::vec3(2,2,2));
     clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
+    ssaoFilter = new SSAOFilter("./res/PostProcess/SSAO");
     //pointShader = new ForwardPoint("./res/forward-pointLight");
     //spotShader = new ForwardSpot("./res/forward-spotLight");
     //shader = new PhongShader("./res/phongShader");
@@ -35,8 +41,9 @@ RenderingEngine::RenderingEngine(Display* d)
      GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
     pointshadowMap = new Texture(0 , GL_TEXTURE_CUBE_MAP , 1024 , 1024 , GL_LINEAR ,
      GL_DEPTH_COMPONENT , GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
-     depthMap = new Texture(0 , GL_TEXTURE_2D, 1024 , 1024,GL_LINEAR , GL_DEPTH_COMPONENT16 ,
+     depthMap = new Texture(0 , GL_TEXTURE_2D, display->getWidth() , display->getHeight(),GL_LINEAR , GL_DEPTH_COMPONENT32F ,
      GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
+     noise = new Texture("./res/Textures/noise.png");
 
      //reflectionMap = new Texture("./res/bricks2.jpg");
 
@@ -76,7 +83,13 @@ void RenderingEngine::render(GameObject* object)
     tempCamera->getLocalTransform()->SetRot(newRot);
     cPos.y = -cPos.y;
     tempCamera->getLocalTransform()->SetPos(cPos);
+
     renderDepthMap(object , camera , depthMap);
+
+    //core->getPostProcessManager()->applyFilter(ssaoFilter,depthMap ,noise
+   // , scene);
+
+
     clipPlane = glm::vec4( 0 , 1 , 0 , 0);
     renderScene(object , tempCamera, waterRenderer->getReflectionMap());
     clipPlane = glm::vec4( 0 , -1 , 0 , 0);
@@ -85,13 +98,12 @@ void RenderingEngine::render(GameObject* object)
     glClearColor(0.1 , 0.1, 0.1, 1);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //ambientShader->Bind();
-    //ambientShader->Update(temp_transform , *camera , *temp_material , this);
-    //mesh->Draw();
     clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
     renderScene(object , camera,scene);
+
     waterRenderer->render(*camera , this);
-    //skyBoxManager->renderSkyBox(*camera , this);
+    sunRenderer->renderSun(*camera);
+
     object->update();
 
 }

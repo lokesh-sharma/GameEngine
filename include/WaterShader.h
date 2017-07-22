@@ -20,6 +20,7 @@ public:
         m_uniforms["eyePos"] = glGetUniformLocation(m_program , "eyePos");
         m_uniforms["lightPos"] = glGetUniformLocation(m_program , "lightPos");
         m_uniforms["lightColor"] = glGetUniformLocation(m_program , "lightColor");
+        m_uniforms["fogColor"] = glGetUniformLocation(m_program , "fogColor");
     }
     void UpdateWaterShader(const Transform& transform  , const Camera&camera)
     {

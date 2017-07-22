@@ -11,7 +11,7 @@ CoreEngine::CoreEngine(Display* display, Game* game ,RenderingEngine* renderingE
     this->renderingEngine = renderingEngine;
     this->m_display = display;
     this->m_guiManager = m;
-    this->m_postProcessManager = new PostProcess(display);
+    this->m_postProcessManager = new PostProcess(display , renderingEngine);
 
     //game->getRootObject()->setEngine(this);
     renderingEngine->setScene(m_postProcessManager->getBaseTexture());

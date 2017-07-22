@@ -1,8 +1,9 @@
 #include "PostProcess.h"
 #include"display.h"
 
-PostProcess::PostProcess(Display*display)
+PostProcess::PostProcess(Display*display , RenderingEngine* renderer)
 {
+    m_renderingEngine = renderer;
     m_display = display;
     m_width = display->getWidth();
     m_height  = display->getHeight();
@@ -21,6 +22,8 @@ PostProcess::PostProcess(Display*display)
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
      m_afterVBlur = new Texture(0 , GL_TEXTURE_2D, m_width/8 , m_height/8,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
+     m_afterSSAO = new Texture(0 , GL_TEXTURE_2D, m_width/2 , m_height/2,GL_LINEAR , GL_DEPTH_COMPONENT32F,
+     GL_DEPTH_COMPONENT , true, GL_DEPTH_ATTACHMENT);
 
     float vertices[] = { -1 , 1 , -1 , -1 , 1 , 1 , 1 ,  -1};
     glGenVertexArrays(1, &m_vertexArrayObject);
@@ -55,11 +58,13 @@ void PostProcess::applyFilter(DefaultFilter* filter ,  Texture* scene1 ,Texture*
     else
         output->bindAsRenderTarget();
 
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     scene1->Bind(0);
     if(scene2!= NULL)
         scene2->Bind(1);
     filter->Bind();
-    filter->UpdateFilter();
+    filter->UpdateFilter(*m_renderingEngine->getCamera());
     glDrawArrays(GL_TRIANGLE_STRIP , 0 , 4);
 
     glDisableVertexAttribArray(0);

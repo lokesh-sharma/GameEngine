@@ -1044,7 +1044,7 @@
 	"shader.h"
 	"string"
 
-1497362776 source:/home/loki/game engine/GameEngine/main.cpp
+1498396394 source:/home/loki/game engine/GameEngine/main.cpp
 	<iostream>
 	<SDL2/SDL.h>
 	<math.h>
@@ -1082,7 +1082,7 @@
 	"camera.h"
 	"transform.h"
 
-1495031541 /home/loki/game engine/GameEngine/include/camera.h
+1498388439 /home/loki/game engine/GameEngine/include/camera.h
 	<glm/glm.hpp>
 	<glm/gtx/transform.hpp>
 	<glm/detail/func_geometric.hpp>
@@ -1132,7 +1132,7 @@
 	"transform.h"
 	"CoreEngine.h"
 
-1496998107 /home/loki/game engine/GameEngine/include/CoreEngine.h
+1500713246 /home/loki/game engine/GameEngine/include/CoreEngine.h
 	"Game.h"
 	"RenderingEngine.h"
 	"display.h"
@@ -1142,7 +1142,7 @@
 1486822307 /home/loki/game engine/GameEngine/include/Game.h
 	"GameObject.h"
 
-1496998364 /home/loki/game engine/GameEngine/include/RenderingEngine.h
+1500722687 /home/loki/game engine/GameEngine/include/RenderingEngine.h
 	"GameObject.h"
 	"FreeLook.h"
 	"InputHandler.h"
@@ -1219,7 +1219,7 @@
 	"PhysicsObject.h"
 	"GameComponent.h"
 
-1496942553 /home/loki/game engine/GameEngine/include/ForwardAmbient.h
+1498401796 /home/loki/game engine/GameEngine/include/ForwardAmbient.h
 	"Light.h"
 	"shader.h"
 
@@ -1261,7 +1261,7 @@
 	"Collider.h"
 	"BoundingSphere.h"
 
-1497025726 source:/home/loki/game engine/GameEngine/src/CoreEngine.cpp
+1498385918 source:/home/loki/game engine/GameEngine/src/CoreEngine.cpp
 	"CoreEngine.h"
 	"display.h"
 	"GUIManager.h"
@@ -1279,7 +1279,7 @@
 	"display.h"
 	"CoreEngine.h"
 
-1496910244 source:/home/loki/game engine/GameEngine/src/FreeLook.cpp
+1498387447 source:/home/loki/game engine/GameEngine/src/FreeLook.cpp
 	"FreeLook.h"
 	"display.h"
 	"CoreEngine.h"
@@ -1359,7 +1359,7 @@
 1496897007 source:/home/loki/game engine/GameEngine/src/Player.cpp
 	"Player.h"
 
-1497196001 source:/home/loki/game engine/GameEngine/src/RenderingEngine.cpp
+1500742753 source:/home/loki/game engine/GameEngine/src/RenderingEngine.cpp
 	"RenderingEngine.h"
 	"ForwardAmbient.h"
 	"ForwardDirectional.h"
@@ -1373,6 +1373,9 @@
 	"ShadowShader.h"
 	"SkyBoxManager.h"
 	"WaterRenderer.h"
+	"SSAOShader.h"
+	"PostProcess.h"
+	"SunRenderer.h"
 
 1496424108 /home/loki/game engine/GameEngine/include/ShadowShader.h
 	"Light.h"
@@ -1432,7 +1435,7 @@
 	"string"
 	<glm/gtc/type_ptr.hpp>
 
-1497195899 source:/home/loki/game engine/GameEngine/src/WaterRenderer.cpp
+1500722737 source:/home/loki/game engine/GameEngine/src/WaterRenderer.cpp
 	"WaterRenderer.h"
 	"camera.h"
 	"transform.h"
@@ -1443,18 +1446,40 @@
 	"WaterShader.h"
 	"texture.h"
 
-1496276932 /home/loki/game engine/GameEngine/include/WaterShader.h
+1500665172 /home/loki/game engine/GameEngine/include/WaterShader.h
 	"Light.h"
 	"shader.h"
 	"string"
 	<glm/gtc/type_ptr.hpp>
 
-1497266074 source:/home/loki/game engine/GameEngine/src/PostProcess.cpp
+1498400666 source:/home/loki/game engine/GameEngine/src/PostProcess.cpp
 	"PostProcess.h"
 	"display.h"
 
-1497191003 /home/loki/game engine/GameEngine/include/PostProcess.h
+1500641527 /home/loki/game engine/GameEngine/include/PostProcess.h
 	"texture.h"
 	"shader.h"
 	"display.h"
+
+1497693572 /home/loki/game engine/GameEngine/include/SSAOShader.h
+	<ctime>
+	<cstdlib>
+	<vector>
+	"Light.h"
+	"shader.h"
+
+1500742665 source:/home/loki/game engine/GameEngine/src/SunRenderer.cpp
+	"SunRenderer.h"
+
+1500742341 /home/loki/game engine/GameEngine/include/SunRenderer.h
+	"camera.h"
+	"transform.h"
+	"SunShader.h"
+	"texture.h"
+
+1500741497 /home/loki/game engine/GameEngine/include/SunShader.h
+	"Light.h"
+	"shader.h"
+	"string"
+	<glm/gtc/type_ptr.hpp>
 

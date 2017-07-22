@@ -125,14 +125,14 @@ int main(int argc, char** argv)
     g3->addComponent(dir);
    // g4->addComponent(comp3);
     g4->addComponent(&g);
-    g4->getTransform()->SetPos(glm::vec3(20 , 6 , 0));
+    g4->getTransform()->SetPos(glm::vec3(3 , 2 , 0));
     g4->getTransform()->SetScale(glm::vec3(2 , 2, 2));
 
     g5->addComponent(&h);
     g5->getTransform()->SetPos(glm::vec3(0 , 6.5 , 0));
 
       g2->addComponent(new FreeLook(glm::vec3(0.0f, 6.0f, 10.0f), 70.0f
-    , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 1000.0f));
+    , (float)display.getWidth()/(float)display.getHeight(), 0.1f, 200.0f));
     //g4->addComponent(&g);
     //g4->addComponent(comp2);
     //g2->addComponent(player); //order is important

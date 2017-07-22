@@ -91,11 +91,15 @@
 		<Unit filename="include/Player.h" />
 		<Unit filename="include/PostProcess.h" />
 		<Unit filename="include/RenderingEngine.h" />
+		<Unit filename="include/SSAOShader.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="include/ShadowShader.h" />
 		<Unit filename="include/SkyBoxManager.h" />
 		<Unit filename="include/SkyBoxShader.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="include/SunRenderer.h" />
 		<Unit filename="include/WaterRenderer.h" />
 		<Unit filename="include/WaterShader.h">
 			<Option target="&lt;{~None~}&gt;" />
@@ -128,6 +132,7 @@
 		<Unit filename="src/PostProcess.cpp" />
 		<Unit filename="src/RenderingEngine.cpp" />
 		<Unit filename="src/SkyBoxManager.cpp" />
+		<Unit filename="src/SunRenderer.cpp" />
 		<Unit filename="src/WaterRenderer.cpp" />
 		<Unit filename="src/display.cpp" />
 		<Unit filename="src/light.cpp" />

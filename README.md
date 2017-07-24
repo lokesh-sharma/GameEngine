@@ -12,9 +12,10 @@
 - [x] Shadow mapping <br />
 - [x] Water Rendering <br />
 - [x] Bloom effect <br />
+- [x] God rays <br/>
+- [ ] SSAO <br/>
 - [ ] Soft bodies <br />
 - [ ] Animated Mesh <br/>
-- [ ] God rays <br/>
 - [ ] Particle System <br/>
 
 # Build Instructions

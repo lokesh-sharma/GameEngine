@@ -11,6 +11,8 @@ class SunRenderer
 public:
     SunRenderer(glm::vec3 pos , glm::vec3 scale);
     void renderSun(const Camera& c);
+    void setSunPos(glm::vec3 pos) { m_position = pos;}
+    glm::vec3 getSunPos() { return m_position;}
     virtual ~SunRenderer();
 private:
     Texture* m_sunImage;

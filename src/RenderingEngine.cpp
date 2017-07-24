@@ -12,7 +12,6 @@
 #include"ShadowShader.h"
 #include"SkyBoxManager.h"
 #include"WaterRenderer.h"
-#include"SSAOShader.h"
 #include"PostProcess.h"
 #include"SunRenderer.h"
 
@@ -26,10 +25,11 @@ RenderingEngine::RenderingEngine(Display* d)
     dirShadowShader = new DirectionalShadowShader("./res/Shaders/directionalShadow");
     pointShadowShader = new PointShadowShader("./res/Shaders/pointShadow");
     depthShader = new Shader("./res/Shaders/depthShader");
+    godRaysFirstPass = new Shader("./res/Shaders/godRaysSampler");
 
     skyBoxManager = new SkyBoxManager();
     waterRenderer = new WaterRenderer();
-    sunRenderer = new SunRenderer(glm::vec3(18,10,-10) , glm::vec3(2,2,2));
+    sunRenderer = new SunRenderer(glm::vec3(18,13,-10) , glm::vec3(2,2,2));
     clipPlane = glm::vec4( 0 , -1 , 0 , 1000);
     ssaoFilter = new SSAOFilter("./res/PostProcess/SSAO");
     //pointShader = new ForwardPoint("./res/forward-pointLight");
@@ -85,6 +85,8 @@ void RenderingEngine::render(GameObject* object)
     tempCamera->getLocalTransform()->SetPos(cPos);
 
     renderDepthMap(object , camera , depthMap);
+    glClearColor(0, 0, 0, 1);
+    renderGodRaysSampler(object , camera , core->getPostProcessManager()->getGodRaysSampler());
 
     //core->getPostProcessManager()->applyFilter(ssaoFilter,depthMap ,noise
    // , scene);
@@ -113,7 +115,13 @@ void RenderingEngine::renderDepthMap(GameObject* object , Camera* mainCamera , T
     glClear(GL_DEPTH_BUFFER_BIT);
      object->render(*depthShader, *mainCamera , this);
 }
-
+void RenderingEngine::renderGodRaysSampler(GameObject* object , Camera* mainCamera , Texture* target)
+{
+    target->bindAsRenderTarget();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    object->render(*godRaysFirstPass , *mainCamera , this);
+    sunRenderer->renderSun(*mainCamera);
+}
 void RenderingEngine::renderScene(GameObject* object , Camera* mainCamera , Texture* target )
 {
     if(!target)

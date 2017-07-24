@@ -30,6 +30,7 @@ public:
     void addSkyBox(std::string filename , std::string format);
     void addWaterTile(glm::vec3 pos , glm::vec3 scale);
     void renderDepthMap(GameObject* object , Camera* mainCamera , Texture* target);
+    void renderGodRaysSampler(GameObject* object , Camera* mainCamera , Texture* target);
     glm::vec4 getClipingPlane() const { return clipPlane ; }
     PointLight* getActivePointLight() { return active_point_light;}
     DirectionalLight* getActiveDirectionalLight() { return active_dir_light;}
@@ -46,6 +47,7 @@ public:
     Camera* getCamera() { return camera;}
     void setFogColor(float r , float g , float b) { fogColor = glm::vec4(r,g,b,1);}
     glm::vec4 getFogColor() { return fogColor;}
+    SunRenderer* getSunrenderer() { return sunRenderer ; }
     void setScene(Texture* sce) {scene = sce; }
     virtual ~RenderingEngine();
 
@@ -61,6 +63,7 @@ private:
     Shader* pointShadowShader;
     Shader* depthShader;
     Shader* ssaoShader;
+    Shader* godRaysFirstPass;
     Shader* doNothing;
     DefaultFilter * ssaoFilter;
     Camera* camera;

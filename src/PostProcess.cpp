@@ -1,5 +1,6 @@
 #include "PostProcess.h"
 #include"display.h"
+#include"SunRenderer.h"
 
 PostProcess::PostProcess(Display*display , RenderingEngine* renderer)
 {
@@ -9,6 +10,7 @@ PostProcess::PostProcess(Display*display , RenderingEngine* renderer)
     m_height  = display->getHeight();
     m_bright = new BrightFilter("./res/PostProcess/bright");
     m_bloom = new BloomFilter("./res/PostProcess/bloom");
+    m_godRays = new GodRaysFilter("./res/PostProcess/godRays" , renderer->getSunrenderer()->getSunPos());
     m_default = new Fxaa("./res/PostProcess/fxaa" , m_display);
     m_horiGaussianBlur = new HoriGaussianBlurFilter("./res/PostProcess/hBlur",m_display->getWidth()/8);
     m_vertGaussianBlur = new VertGaussianBlurFilter("./res/PostProcess/vBlur" , m_display->getHeight()/8);
@@ -16,7 +18,11 @@ PostProcess::PostProcess(Display*display , RenderingEngine* renderer)
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
      m_afterBrigtnessCutOff = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
+     m_godRaysSampler = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
+     GL_RGBA , true, GL_COLOR_ATTACHMENT0);
       m_afterFxaa= new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
+     GL_RGBA , true, GL_COLOR_ATTACHMENT0);
+     m_afterBloom = new Texture(0 , GL_TEXTURE_2D, m_width , m_height,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
      m_afterHBlur = new Texture(0 , GL_TEXTURE_2D, m_width/8 , m_height/8,GL_LINEAR , GL_RGBA ,
      GL_RGBA , true, GL_COLOR_ATTACHMENT0);
@@ -48,6 +54,7 @@ PostProcess::~PostProcess()
     delete m_default;
     delete m_horiGaussianBlur;
     delete m_vertGaussianBlur;
+    delete m_godRaysSampler;
 }
 void PostProcess::applyFilter(DefaultFilter* filter ,  Texture* scene1 ,Texture* scene2, Texture* output)
 {
@@ -79,7 +86,8 @@ void PostProcess::applyPostProcess()
     applyFilter(m_horiGaussianBlur , m_afterFxaa ,0 ,m_afterHBlur);
     applyFilter(m_vertGaussianBlur , m_afterHBlur ,0, m_afterVBlur);
     applyFilter(m_bright ,m_afterVBlur ,0, m_afterBrigtnessCutOff);
-    applyFilter(m_bloom , m_afterFxaa , m_afterBrigtnessCutOff , 0);
+    applyFilter(m_bloom , m_afterFxaa , m_afterBrigtnessCutOff , m_afterBloom);
+    applyFilter(m_godRays , m_afterBloom , m_godRaysSampler , 0);
 
     glEnable(GL_DEPTH_TEST);
 }

@@ -15,6 +15,32 @@ public:
         setUniformSampler("scene" , 0);
     }
 };
+class GodRaysFilter : public DefaultFilter
+{
+private:
+    glm::vec3 sunPos;
+public:
+    GodRaysFilter(const std::string fileName , glm::vec3 pos) : DefaultFilter(fileName)
+     , sunPos(pos)
+    {
+        m_uniforms["godRaysSampler"] = glGetUniformLocation(m_program , "godRaysSampler");
+        m_uniforms["sunPos"] = glGetUniformLocation(m_program , "sunPos");
+    }
+    virtual void UpdateFilter(const Camera& c)
+    {
+        glm::mat4 proj = c.getProjection();
+        glm::mat4 view = glm::mat4_cast(glm::conjugate(c.getRot()));
+
+        setUniformSampler("scene" , 0);
+        setUniformSampler("godRaysSampler" , 1);
+        glm::vec4 pos = glm::vec4(sunPos.x,sunPos.y,sunPos.z ,1 );
+        glm::vec4 sunPosScrennSpace = proj*view*pos;
+        sunPosScrennSpace.x /= sunPosScrennSpace.w;
+        sunPosScrennSpace.y /= sunPosScrennSpace.w;
+        sunPosScrennSpace.z /= sunPosScrennSpace.w;
+        setUniformVector3f("sunPos" , sunPosScrennSpace.x , sunPosScrennSpace.y , sunPosScrennSpace.z);
+    }
+};
 class SSAOFilter : public DefaultFilter
 {
 private:
@@ -166,6 +192,7 @@ public:
     void applyFilter(DefaultFilter* filter ,  Texture* scene1 , Texture*scene2=0 ,Texture* output=0);
 
     Texture* getSSAOTexture() { return m_afterSSAO;}
+    Texture* getGodRaysSampler() { return m_godRaysSampler;}
     virtual ~PostProcess();
 private:
     RenderingEngine* m_renderingEngine;
@@ -176,11 +203,14 @@ private:
     Texture* m_afterVBlur;
     Texture* m_afterBrigtnessCutOff;
     Texture* m_afterSSAO;
+    Texture* m_afterBloom;
+    Texture* m_godRaysSampler;
     DefaultFilter* m_default;
     DefaultFilter* m_horiGaussianBlur;
     DefaultFilter* m_vertGaussianBlur;
     DefaultFilter* m_bright;
     DefaultFilter* m_bloom;
+    DefaultFilter* m_godRays;
     GLuint m_vertexArrayObject;
 	GLuint m_vertexArrayBuffer;
 	int m_width;
